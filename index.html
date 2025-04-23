@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Syed Muhammad Abis - Game Developer Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Three.js for 3D rendering -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/controls/OrbitControls.js"></script>
+    <!-- Main JavaScript file -->
+    <script src="js/script.js" defer></script>
+</head>
+<body class="font-body bg-transparent relative" data-theme="light">
+    <!-- Background Canvas for Procedural Animation -->
+    <canvas id="bgCanvas" class="fixed top-0 left-0 w-full h-full z-0"></canvas>
+
+    <!-- Audio Elements -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="assets/audio/bg_music.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="navHoverSound" preload="auto">
+        <source src="assets/audio/nav_hover.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="buttonClickSound" preload="auto">
+        <source src="assets/audio/button_click.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="sectionSound" preload="auto">
+        <source src="assets/audio/section_hum.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="glitchSound" preload="auto">
+        <source src="assets/audio/glitch.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="crtSound" preload="auto">
+        <source src="assets/audio/crt_on.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Navigation -->
+    <nav class="bg-nav shadow-lg fixed w-full top-0 z-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <span class="text-2xl font-heading font-bold text-primary animate-pulse animate-on-scroll" data-animate="slide-down">Syed Muhammad Abis</span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="#about" class="text-primary hover:text-accent hover:scale-105 transition transform px-3 py-2 rounded-md text-sm font-medium nav-link animate-on-scroll" data-animate="slide-down">About</a>
+                    <a href="#projects" class="text-primary hover:text-accent hover:scale-105 transition transform px-3 py-2 rounded-md text-sm font-medium nav-link animate-on-scroll" data-animate="slide-down">Projects</a>
+                    <a href="#skills" class="text-primary hover:text-accent hover:scale-105 transition transform px-3 py-2 rounded-md text-sm font-medium nav-link animate-on-scroll" data-animate="slide-down">Skills</a>
+                    <a href="#experience" class="text-primary hover:text-accent hover:scale-105 transition transform px-3 py-2 rounded-md text-sm font-medium nav-link animate-on-scroll" data-animate="slide-down">Experience</a>
+                    <a href="#blog" class="text-primary hover:text-accent hover:scale-105 transition transform px-3 py-2 rounded-md text-sm font-medium nav-link animate-on-scroll" data-animate="slide-down">Blog</a>
+                    <a href="#contact" class="text-primary hover:text-accent hover:scale-105 transition transform px-3 py-2 rounded-md text-sm font-medium nav-link animate-on-scroll" data-animate="slide-down">Contact</a>
+                    <button id="theme-toggle" class="p-2 rounded-full bg-transparent hover:bg-accent transition-colors focus:outline-none animate-on-scroll" data-animate="slide-down" aria-label="Toggle theme">
+                        <svg id="theme-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </button>
+                    <button id="music-toggle" class="p-2 rounded-full bg-transparent hover:bg-accent transition-colors focus:outline-none animate-on-scroll" data-animate="slide-down" aria-label="Toggle music" data-playing="false">
+                        <svg id="music-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Animated Name Section with 3D Model and Glitch Canvas -->
+    <section id="name-section" class="min-h-screen flex items-center justify-center parallax" data-speed="0.1">
+        <div class="glass-card text-center">
+            <h1 id="animated-name" class="text-4xl sm:text-5xl font-heading font-bold text-primary glitch-text"></h1>
+            <p class="mt-4 text-lg text-secondary">Game Developer & Unity Expert</p>
+        </div>
+    </section>
+
+    <!-- Hero/About Section -->
+    <section id="about" class="min-h-screen flex items-center justify-center bg-transparent text-primary relative z-10 section-animate mt-96">
+        <div class="text-center max-w-3xl mx-auto px-4 bg-about rounded-xl py-8 backdrop-blur-md">
+            <p class="text-lg sm:text-xl mb-6 text-secondary animate-on-scroll" data-animate="fade-up">A passionate Game Developer with over 4 years of experience, based in Rawalpindi, Pakistan. I specialize in creating engaging and innovative games using Unity, C#, and C++. My work blends creativity and technical expertise to deliver memorable gaming experiences.</p>
+            <a href="#contact" class="inline-block bg-transparent border-2 border-accent text-accent font-semibold py-2 px-4 rounded-lg hover:bg-accent hover:text-white transition-colors button-glow animate-on-scroll" data-animate="scale-in">Get in Touch</a>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 bg-section relative z-10 section-animate">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-heading font-bold text-primary text-center mb-12 animate-pulse animate-on-scroll" data-animate="fade-up">My Projects</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="project-card glass-card">
+                    <div class="project-model parallax" data-speed="0.05"></div>
+                    <div class="crt-overlay"></div>
+                    <div class="project-content">
+                        <h3 class="text-xl font-bold text-primary"></h3>
+                        <p class="text-secondary"></p>
+                        <button class="modern-btn mt-4">View Project</button>
+                    </div>
+                </div>
+                <div class="project-card glass-card">
+                    <div class="project-model parallax" data-speed="0.05"></div>
+                    <div class="crt-overlay"></div>
+                    <div class="project-content">
+                        <h3 class="text-xl font-bold text-primary"></h3>
+                        <p class="text-secondary"></p>
+                        <button class="modern-btn mt-4">View Project</button>
+                    </div>
+                </div>
+                <div class="project-card glass-card">
+                    <div class="project-model parallax" data-speed="0.05"></div>
+                    <div class="crt-overlay"></div>
+                    <div class="project-content">
+                        <h3 class="text-xl font-bold text-primary"></h3>
+                        <p class="text-secondary"></p>
+                        <button class="modern-btn mt-4">View Project</button>
+                    </div>
+                </div>
+                <div class="project-card glass-card">
+                    <div class="project-model parallax" data-speed="0.05"></div>
+                    <div class="crt-overlay"></div>
+                    <div class="project-content">
+                        <h3 class="text-xl font-bold text-primary"></h3>
+                        <p class="text-secondary"></p>
+                        <button class="modern-btn mt-4">View Project</button>
+                    </div>
+                </div>
+                <div class="project-card glass-card">
+                    <div class="project-model parallax" data-speed="0.05"></div>
+                    <div class="crt-overlay"></div>
+                    <div class="project-content">
+                        <h3 class="text-xl font-bold text-primary"></h3>
+                        <p class="text-secondary"></p>
+                        <button class="modern-btn mt-4">View Project</button>
+                    </div>
+                </div>
+                <div class="project-card glass-card">
+                    <div class="project-model parallax" data-speed="0.05"></div>
+                    <div class="crt-overlay"></div>
+                    <div class="project-content">
+                        <h3 class="text-xl font-bold text-primary"></h3>
+                        <p class="text-secondary"></p>
+                        <button class="modern-btn mt-4">View Project</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 bg-section relative z-10 section-animate">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-heading font-bold text-primary text-center mb-12 animate-pulse animate-on-scroll" data-animate="fade-up">My Skills</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+                <div class="skill-item glass-card">
+                    <div class="skill-model parallax" data-speed="0.03"></div>
+                    <h4 class="text-lg font-bold text-primary"></h4>
+                    <p class="text-secondary"></p>
+                </div>
+                <div class="skill-item glass-card">
+                    <div class="skill-model parallax" data-speed="0.03"></div>
+                    <h4 class="text-lg font-bold text-primary"></h4>
+                    <p class="text-secondary"></p>
+                </div>
+                <div class="skill-item glass-card">
+                    <div class="skill-model parallax" data-speed="0.03"></div>
+                    <h4 class="text-lg font-bold text-primary"></h4>
+                    <p class="text-secondary"></p>
+                </div>
+                <div class="skill-item glass-card">
+                    <div class="skill-model parallax" data-speed="0.03"></div>
+                    <h4 class="text-lg font-bold text-primary"></h4>
+                    <p class="text-secondary"></p>
+                </div>
+                <div class="skill-item glass-card">
+                    <div class="skill-model parallax" data-speed="0.03"></div>
+                    <h4 class="text-lg font-bold text-primary"></h4>
+                    <p class="text-secondary"></p>
+                </div>
+                <div class="skill-item glass-card">
+                    <div class="skill-model parallax" data-speed="0.03"></div>
+                    <h4 class="text-lg font-bold text-primary"></h4>
+                    <p class="text-secondary"></p>
+                </div>
+                <div class="skill-item glass-card">
+                    <div class="skill-model parallax" data-speed="0.03"></div>
+                    <h4 class="text-lg font-bold text-primary"></h4>
+                    <p class="text-secondary"></p>
+                </div>
+                <div class="skill-item glass-card">
+                    <div class="skill-model parallax" data-speed="0.03"></div>
+                    <h4 class="text-lg font-bold text-primary"></h4>
+                    <p class="text-secondary"></p>
+                </div>
+                <div class="skill-item glass-card">
+                    <div class="skill-model parallax" data-speed="0.03"></div>
+                    <h4 class="text-lg font-bold text-primary"></h4>
+                    <p class="text-secondary"></p>
+                </div>
+                <div class="skill-item glass-card">
+                    <div class="skill-model parallax" data-speed="0.03"></div>
+                    <h4 class="text-lg font-bold text-primary"></h4>
+                    <p class="text-secondary"></p>
+                </div>
+                <div class="skill-item glass-card">
+                    <div class="skill-model parallax" data-speed="0.03"></div>
+                    <h4 class="text-lg font-bold text-primary"></h4>
+                    <p class="text-secondary"></p>
+                </div>
+                <div class="skill-item glass-card">
+                    <div class="skill-model parallax" data-speed="0.03"></div>
+                    <h4 class="text-lg font-bold text-primary"></h4>
+                    <p class="text-secondary"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-20 bg-section relative z-10 section-animate">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-heading font-bold text-primary text-center mb-12 animate-pulse animate-on-scroll" data-animate="fade-up">Experience & Education</h2>
+            <div class="space-y-8">
+                <div>
+                    <h3 class="text-2xl font-heading font-semibold text-primary mb-4 animate-on-scroll" data-animate="slide-in-right">Work Experience</h3>
+                    <div class="bg-card p-6 rounded-lg backdrop-blur-md shadow-glow card-animate animate-on-scroll" data-animate="slide-in-right">
+                        <h4 class="text-xl font-heading font-medium text-primary animate-on-scroll" data-animate="fade-up">Freelance Game Developer, Fiverr</h4>
+                        <p class="text-secondary animate-on-scroll" data-animate="fade-up">2022 - Present (3 years)</p>
+                        <p class="text-secondary mt-2 animate-on-scroll" data-animate="fade-up">Delivering high-quality game development services to clients worldwide, specializing in Unity and C# projects.</p>
+                    </div>
+                    <div class="bg-card p-6 rounded-lg backdrop-blur-md shadow-glow mt-4 card-animate animate-on-scroll" data-animate="slide-in-right">
+                        <h4 class="text-xl font-heading font-medium text-primary animate-on-scroll" data-animate="fade-up">Indie Game Developer</h4>
+                        <p class="text-secondary animate-on-scroll" data-animate="fade-up">2020 - Present (5 years)</p>
+                        <p class="text-secondary mt-2 animate-on-scroll" data-animate="fade-up">Creating innovative and engaging indie games, participating in game jams, and publishing on platforms like Itch.io.</p>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-heading font-semibold text-primary mb-4 animate-on-scroll" data-animate="slide-in-right">Certifications</h3>
+                    <div class="bg-card p-6 rounded-lg backdrop-blur-md shadow-glow card-animate animate-on-scroll" data-animate="slide-in-right">
+                        <p class="text-lg font-heading font-medium text-primary animate-on-scroll" data-animate="fade-up">Udemy: 30 Games in 30 Days Challenge by Charger Game Creator</p>
+                        <p class="text-secondary animate-on-scroll" data-animate="fade-up">Completed 3 Udemy certificates in game development, focusing on rapid prototyping and Unity development.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog" class="py-20 bg-section relative z-10 section-animate">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-heading font-bold text-primary text-center mb-12 animate-pulse animate-on-scroll" data-animate="fade-up">Blog</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-card rounded-lg backdrop-blur-md shadow-glow hover:shadow-glow-lg transition-transform transform hover:scale-105 card-animate animate-on-scroll" data-animate="scale-in">
+                    <div class="p-6">
+                        <h3 class="text-xl font-heading font-semibold text-primary mb-2 animate-on-scroll" data-animate="fade-up">Game Jam Tips for Beginners</h3>
+                        <p class="text-secondary mb-4 animate-on-scroll" data-animate="fade-up">Sharing my experience from creating "One Minute Drift" in a game jam, with tips on time management and prototyping.</p>
+                        <a href="#" class="text-accent font-medium hover:underline animate-on-scroll" data-animate="scale-in">Read More</a>
+                    </div>
+                </div>
+                <div class="bg-card rounded-lg backdrop-blur-md shadow-glow hover:shadow-glow-lg transition-transform transform hover:scale-105 card-animate animate-on-scroll" data-animate="scale-in">
+                    <div class="p-6">
+                        <h3 class="text-xl font-heading font-semibold text-primary mb-2 animate-on-scroll" data-animate="fade-up">Designing Cozy Game Environments</h3>
+                        <p class="text-secondary mb-4 animate-on-scroll" data-animate="fade-up">How I created the satisfying and cozy environment for "Aesthetic Cube" using Unity.</p>
+                        <a href="#" class="text-accent font-medium hover:underline animate-on-scroll" data-animate="scale-in">Read More</a>
+                    </div>
+                </div>
+                <div class="bg-card rounded-lg backdrop-blur-md shadow-glow hover:shadow-glow-lg transition-transform transform hover:scale-105 card-animate animate-on-scroll" data-animate="scale-in">
+                    <div class="p-6">
+                        <h3 class="text-xl font-heading font-semibold text-primary mb-2 animate-on-scroll" data-animate="fade-up">Balancing Gameplay in Platformers</h3>
+                        <p class="text-secondary mb-4 animate-on-scroll" data-animate="fade-up">Lessons learned from developing "Rainbow Rollie" and designing engaging puzzles.</p>
+                        <a href="#" class="text-accent font-medium hover:underline animate-on-scroll" data-animate="scale-in">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-section relative z-10 section-animate">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-heading font-bold text-primary text-center mb-12 animate-pulse animate-on-scroll" data-animate="fade-up">Get in Touch</h2>
+            <div class="max-w-lg mx-auto">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-center">
+                    <p class="text-secondary animate-on-scroll" data-animate="slide-in-left">Email: <a href="mailto:blacknwhite482@gmail.com" class="text-accent hover:underline animate-on-scroll" data-animate="scale-in">blacknwhite482@gmail.com</a></p>
+                    <p class="text-secondary animate-on-scroll" data-animate="slide-in-right">GitHub: <a href="https://github.com/SyedMuhammadAbis" class="text-accent hover:underline animate-on-scroll" data-animate="scale-in">github.com/SyedMuhammadAbis</a></p>
+                    <p class="text-secondary animate-on-scroll" data-animate="slide-in-left">Fiverr: <a href="https://www.fiverr.com/users/blacknwhite918/seller_dashboard" class="text-accent hover:underline animate-on-scroll" data-animate="scale-in">fiverr.com/blacknwhite918</a></p>
+                    <p class="text-secondary animate-on-scroll" data-animate="slide-in-right">LinkedIn: <a href="https://www.linkedin.com/in/syed-muhammad-abis-2a989b31a/" class="text-accent hover:underline animate-on-scroll" data-animate="scale-in">linkedin.com/in/syed-muhammad-abis</a></p>
+                    <p class="text-secondary animate-on-scroll" data-animate="slide-in-left">YouTube: <a href="https://www.youtube.com/@blacknwhitedev" class="text-accent hover:underline animate-on-scroll" data-animate="scale-in">youtube.com/@blacknwhitedev</a></p>
+                    <p class="text-secondary animate-on-scroll" data-animate="slide-in-right">LinkTree: <a href="https://linktr.ee/SyedMuhammadAbisDev" class="text-accent hover:underline animate-on-scroll" data-animate="scale-in">linktr.ee/SyedMuhammadAbisDev</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-transparent text-primary py-6 relative z-10 footer-animate">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="relative inline-block after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-accent after:animate-glow animate-on-scroll" data-animate="fade-up">© 2025 Syed Muhammad Abis. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Gallery Modal -->
+    <div id="galleryModal" class="fixed inset-0 bg-black bg-opacity-75 hidden flex items-center justify-center z-50">
+        <div class="bg-card p-6 rounded-lg max-w-4xl w-full relative">
+            <button id="closeModal" class="absolute top-4 right-4 text-primary hover:text-accent text-2xl">×</button>
+            <img id="galleryImage" src="" alt="Project Image" class="w-full h-auto rounded-lg">
+            <div class="flex justify-between mt-4">
+                <button id="prevImage" class="text-accent hover:underline">Previous</button>
+                <button id="nextImage" class="text-accent hover:underline">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add loading spinner -->
+    <div id="loading" class="fixed inset-0 flex items-center justify-center bg-background z-50">
+        <div class="loading-spinner"></div>
+    </div>
+</body>
+</html>
