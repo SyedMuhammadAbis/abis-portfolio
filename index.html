@@ -43,15 +43,15 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
-                    <span class="text-2xl font-heading font-bold text-primary animate-pulse animate-on-scroll" data-animate="slide-down">Syed Muhammad Abis</span>
+                    <span class="text-2xl font-heading font-bold text-primary text-glow animate-pulse animate-on-scroll" data-animate="slide-down">Syed Muhammad Abis</span>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <a href="#about" class="text-primary hover:text-accent hover:scale-105 transition transform px-3 py-2 rounded-md text-sm font-medium nav-link animate-on-scroll" data-animate="slide-down">About</a>
-                    <a href="#projects" class="text-primary hover:text-accent hover:scale-105 transition transform px-3 py-2 rounded-md text-sm font-medium nav-link animate-on-scroll" data-animate="slide-down">Projects</a>
-                    <a href="#skills" class="text-primary hover:text-accent hover:scale-105 transition transform px-3 py-2 rounded-md text-sm font-medium nav-link animate-on-scroll" data-animate="slide-down">Skills</a>
-                    <a href="#experience" class="text-primary hover:text-accent hover:scale-105 transition transform px-3 py-2 rounded-md text-sm font-medium nav-link animate-on-scroll" data-animate="slide-down">Experience</a>
-                    <a href="#blog" class="text-primary hover:text-accent hover:scale-105 transition transform px-3 py-2 rounded-md text-sm font-medium nav-link animate-on-scroll" data-animate="slide-down">Blog</a>
-                    <a href="#contact" class="text-primary hover:text-accent hover:scale-105 transition transform px-3 py-2 rounded-md text-sm font-medium nav-link animate-on-scroll" data-animate="slide-down">Contact</a>
+                    <a href="#about" class="text-primary hover:text-accent hover:scale-105 transition transform px-3 py-2 rounded-md text-sm font-medium nav-link mouse-follow animate-on-scroll" data-animate="slide-down">About</a>
+                    <a href="#projects" class="text-primary hover:text-accent hover:scale-105 transition transform px-3 py-2 rounded-md text-sm font-medium nav-link mouse-follow animate-on-scroll" data-animate="slide-down">Projects</a>
+                    <a href="#skills" class="text-primary hover:text-accent hover:scale-105 transition transform px-3 py-2 rounded-md text-sm font-medium nav-link mouse-follow animate-on-scroll" data-animate="slide-down">Skills</a>
+                    <a href="#experience" class="text-primary hover:text-accent hover:scale-105 transition transform px-3 py-2 rounded-md text-sm font-medium nav-link mouse-follow animate-on-scroll" data-animate="slide-down">Experience</a>
+                    <a href="#blog" class="text-primary hover:text-accent hover:scale-105 transition transform px-3 py-2 rounded-md text-sm font-medium nav-link mouse-follow animate-on-scroll" data-animate="slide-down">Blog</a>
+                    <a href="#contact" class="text-primary hover:text-accent hover:scale-105 transition transform px-3 py-2 rounded-md text-sm font-medium nav-link mouse-follow animate-on-scroll" data-animate="slide-down">Contact</a>
                     <button id="theme-toggle" class="p-2 rounded-full bg-transparent hover:bg-accent transition-colors focus:outline-none animate-on-scroll" data-animate="slide-down" aria-label="Toggle theme">
                         <svg id="theme-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
@@ -67,26 +67,46 @@
         </div>
     </nav>
 
-    <!-- Animated Name Section with 3D Model and Glitch Canvas -->
+    <!-- Animated Name Section -->
     <section id="name-section" class="min-h-screen flex items-center justify-center parallax" data-speed="0.1">
-        <div class="glass-card text-center">
-            <h1 id="animated-name" class="text-4xl sm:text-5xl font-heading font-bold text-primary glitch-text"></h1>
-            <p class="mt-4 text-lg text-secondary">Game Developer & Unity Expert</p>
+        <div class="glass-card text-center p-8 relative overflow-hidden">
+            <div class="title-container relative z-10">
+                <div class="name-wrapper mb-4">
+                    <h1 id="animated-name" class="text-5xl sm:text-6xl md:text-7xl font-heading font-bold text-primary"></h1>
+                </div>
+                <div class="role-wrapper mb-6">
+                    <p class="text-xl sm:text-2xl text-secondary font-body tracking-wider role-text"></p>
+                </div>
+                <div class="experience-wrapper mb-8">
+                    <p class="text-lg sm:text-xl text-accent font-body tracking-wider experience-text"></p>
+                </div>
+                <div class="title-tags mt-8 flex flex-wrap justify-center gap-3">
+                    <span class="tag">Unity</span>
+                    <span class="tag">C#</span>
+                    <span class="tag">Game Design</span>
+                    <span class="tag">VR/AR</span>
+                </div>
+            </div>
+            <div class="background-effects">
+                <div class="gradient-sphere"></div>
+                <div class="particle-field"></div>
+            </div>
         </div>
     </section>
 
     <!-- Hero/About Section -->
     <section id="about" class="min-h-screen flex items-center justify-center bg-transparent text-primary relative z-10 section-animate mt-96">
         <div class="text-center max-w-3xl mx-auto px-4 bg-about rounded-xl py-8 backdrop-blur-md">
-            <p class="text-lg sm:text-xl mb-6 text-secondary animate-on-scroll" data-animate="fade-up">A passionate Game Developer with over 4 years of experience, based in Rawalpindi, Pakistan. I specialize in creating engaging and innovative games using Unity, C#, and C++. My work blends creativity and technical expertise to deliver memorable gaming experiences.</p>
-            <a href="#contact" class="inline-block bg-transparent border-2 border-accent text-accent font-semibold py-2 px-4 rounded-lg hover:bg-accent hover:text-white transition-colors button-glow animate-on-scroll" data-animate="scale-in">Get in Touch</a>
+            <h2 class="section-header text-3xl font-heading font-bold mb-6">About Me</h2>
+            <p class="text-lg sm:text-xl mb-6 text-secondary animate-on-scroll mouse-follow" data-animate="fade-up">A passionate Game Developer with over 4 years of experience, based in Rawalpindi, Pakistan. I specialize in creating engaging and innovative games using Unity, C#, and C++. My work blends creativity and technical expertise to deliver memorable gaming experiences.</p>
+            <a href="#contact" class="inline-block bg-transparent border-2 border-accent text-accent font-semibold py-2 px-4 rounded-lg hover:bg-accent hover:text-white transition-colors button-glow animate-on-scroll mouse-follow" data-animate="scale-in">Get in Touch</a>
         </div>
     </section>
 
     <!-- Projects Section -->
     <section id="projects" class="py-20 bg-section relative z-10 section-animate">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-heading font-bold text-primary text-center mb-12 animate-pulse animate-on-scroll" data-animate="fade-up">My Projects</h2>
+            <h2 class="section-header text-3xl font-heading font-bold text-primary text-center mb-12 animate-pulse animate-on-scroll" data-animate="fade-up">My Projects</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 <div class="project-card glass-card">
                     <div class="project-model parallax" data-speed="0.05"></div>
@@ -146,10 +166,42 @@
         </div>
     </section>
 
+    <!-- Game Showcase Section -->
+    <section id="showcase" class="py-20 bg-section relative z-10 section-animate">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="section-header text-3xl font-heading font-bold text-primary text-center mb-12 animate-pulse animate-on-scroll" data-animate="fade-up">Game Showcase</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Interactive 3D Model Viewer -->
+                <div class="glass-card p-6">
+                    <h3 class="text-2xl font-heading font-bold text-primary mb-4">Interactive 3D Models</h3>
+                    <div class="model-viewer-container relative h-96 rounded-lg overflow-hidden">
+                        <canvas id="modelViewer" class="w-full h-full"></canvas>
+                        <div class="model-controls absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-4">
+                            <button class="model-control-btn" data-model="controller">Controller</button>
+                            <button class="model-control-btn" data-model="gamepad">Gamepad</button>
+                            <button class="model-control-btn" data-model="unity_logo">Unity</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Playable Demo -->
+                <div class="glass-card p-6">
+                    <h3 class="text-2xl font-heading font-bold text-primary mb-4">Playable Demo</h3>
+                    <div class="demo-container relative h-96 rounded-lg overflow-hidden">
+                        <iframe id="gameDemo" class="w-full h-full" frameborder="0" allowfullscreen></iframe>
+                        <div class="demo-overlay absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                            <button class="play-demo-btn modern-btn">Play Demo</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Skills Section -->
     <section id="skills" class="py-20 bg-section relative z-10 section-animate">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-heading font-bold text-primary text-center mb-12 animate-pulse animate-on-scroll" data-animate="fade-up">My Skills</h2>
+            <h2 class="section-header text-3xl font-heading font-bold text-primary text-center mb-12 animate-pulse animate-on-scroll" data-animate="fade-up">My Skills</h2>
             <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
                 <div class="skill-item glass-card">
                     <div class="skill-model parallax" data-speed="0.03"></div>
@@ -277,15 +329,15 @@
     <!-- Contact Section -->
     <section id="contact" class="py-20 bg-section relative z-10 section-animate">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-heading font-bold text-primary text-center mb-12 animate-pulse animate-on-scroll" data-animate="fade-up">Get in Touch</h2>
+            <h2 class="section-header text-3xl font-heading font-bold text-primary text-center mb-12 animate-pulse animate-on-scroll" data-animate="fade-up">Get in Touch</h2>
             <div class="max-w-lg mx-auto">
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-center">
-                    <p class="text-secondary animate-on-scroll" data-animate="slide-in-left">Email: <a href="mailto:blacknwhite482@gmail.com" class="text-accent hover:underline animate-on-scroll" data-animate="scale-in">blacknwhite482@gmail.com</a></p>
-                    <p class="text-secondary animate-on-scroll" data-animate="slide-in-right">GitHub: <a href="https://github.com/SyedMuhammadAbis" class="text-accent hover:underline animate-on-scroll" data-animate="scale-in">github.com/SyedMuhammadAbis</a></p>
-                    <p class="text-secondary animate-on-scroll" data-animate="slide-in-left">Fiverr: <a href="https://www.fiverr.com/users/blacknwhite918/seller_dashboard" class="text-accent hover:underline animate-on-scroll" data-animate="scale-in">fiverr.com/blacknwhite918</a></p>
-                    <p class="text-secondary animate-on-scroll" data-animate="slide-in-right">LinkedIn: <a href="https://www.linkedin.com/in/syed-muhammad-abis-2a989b31a/" class="text-accent hover:underline animate-on-scroll" data-animate="scale-in">linkedin.com/in/syed-muhammad-abis</a></p>
-                    <p class="text-secondary animate-on-scroll" data-animate="slide-in-left">YouTube: <a href="https://www.youtube.com/@blacknwhitedev" class="text-accent hover:underline animate-on-scroll" data-animate="scale-in">youtube.com/@blacknwhitedev</a></p>
-                    <p class="text-secondary animate-on-scroll" data-animate="slide-in-right">LinkTree: <a href="https://linktr.ee/SyedMuhammadAbisDev" class="text-accent hover:underline animate-on-scroll" data-animate="scale-in">linktr.ee/SyedMuhammadAbisDev</a></p>
+                    <p class="text-secondary animate-on-scroll mouse-follow" data-animate="slide-in-left">Email: <a href="mailto:blacknwhite482@gmail.com" class="text-accent hover:underline contact-link animate-on-scroll" data-animate="scale-in">blacknwhite482@gmail.com</a></p>
+                    <p class="text-secondary animate-on-scroll mouse-follow" data-animate="slide-in-right">GitHub: <a href="https://github.com/SyedMuhammadAbis" class="text-accent hover:underline contact-link animate-on-scroll" data-animate="scale-in">github.com/SyedMuhammadAbis</a></p>
+                    <p class="text-secondary animate-on-scroll mouse-follow" data-animate="slide-in-left">Fiverr: <a href="https://www.fiverr.com/users/blacknwhite918/seller_dashboard" class="text-accent hover:underline contact-link animate-on-scroll" data-animate="scale-in">fiverr.com/blacknwhite918</a></p>
+                    <p class="text-secondary animate-on-scroll mouse-follow" data-animate="slide-in-right">LinkedIn: <a href="https://www.linkedin.com/in/syed-muhammad-abis-2a989b31a/" class="text-accent hover:underline contact-link animate-on-scroll" data-animate="scale-in">linkedin.com/in/syed-muhammad-abis</a></p>
+                    <p class="text-secondary animate-on-scroll mouse-follow" data-animate="slide-in-left">YouTube: <a href="https://www.youtube.com/@blacknwhitedev" class="text-accent hover:underline contact-link animate-on-scroll" data-animate="scale-in">youtube.com/@blacknwhitedev</a></p>
+                    <p class="text-secondary animate-on-scroll mouse-follow" data-animate="slide-in-right">LinkTree: <a href="https://linktr.ee/SyedMuhammadAbisDev" class="text-accent hover:underline contact-link animate-on-scroll" data-animate="scale-in">linktr.ee/SyedMuhammadAbisDev</a></p>
                 </div>
             </div>
         </div>
@@ -294,7 +346,7 @@
     <!-- Footer -->
     <footer class="bg-transparent text-primary py-6 relative z-10 footer-animate">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p class="relative inline-block after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-accent after:animate-glow animate-on-scroll" data-animate="fade-up">© 2025 Syed Muhammad Abis. All rights reserved.</p>
+            <p class="relative inline-block after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-accent after:animate-glow animate-on-scroll text-glow" data-animate="fade-up">© 2025 Syed Muhammad Abis. All rights reserved.</p>
         </div>
     </footer>
 

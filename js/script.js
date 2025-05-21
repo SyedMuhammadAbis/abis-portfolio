@@ -126,20 +126,20 @@ document.addEventListener('DOMContentLoaded', () => {
                     theme = 'light'; // Default to light theme
                 }
 
-                body.setAttribute('data-theme', theme);
-                themeToggle.setAttribute('data-theme', theme);
-                localStorage.setItem('theme', theme);
-                state.theme = theme;
+            body.setAttribute('data-theme', theme);
+            themeToggle.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            state.theme = theme;
 
-                const themeIcon = themeToggle.querySelector('#theme-icon');
+            const themeIcon = themeToggle.querySelector('#theme-icon');
                 if (!themeIcon) {
                     console.error('Theme icon element not found');
                     return;
                 }
 
-                themeIcon.innerHTML = theme === 'light'
-                    ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>'
-                    : '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>';
+            themeIcon.innerHTML = theme === 'light'
+                ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>'
+                : '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>';
                 
                 console.log('Theme set successfully to:', theme);
             } catch (error) {
@@ -175,7 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         const toggleMusic = async () => {
             try {
-                const bgMusic = state.audioElements['bgMusic'];
+            const bgMusic = state.audioElements['bgMusic'];
                 if (!bgMusic) {
                     console.error('Background music element not found');
                     return;
@@ -189,7 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     try {
                         await bgMusic.play();
-                        musicToggle.setAttribute('data-playing', 'true');
+                    musicToggle.setAttribute('data-playing', 'true');
                         musicToggle.querySelector('svg').style.opacity = '1';
                         console.log('Background music started playing');
                     } catch (playError) {
@@ -275,23 +275,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Create observer with error handling
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
                 try {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
                         
                         // Play sound only for sections and if audio is initialized
                         if (entry.target.classList.contains('section-animate') && state.isInitialized) {
                             playAudio('sectionSound', 0.2);
-                        }
+                }
                         
-                        observer.unobserve(entry.target);
-                    }
+                observer.unobserve(entry.target);
+            }
                 } catch (error) {
                     console.error('Error handling intersection entry:', error);
                 }
-            });
+        });
         }, { 
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
@@ -371,6 +371,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     this.glowPhase = Math.random() * Math.PI * 2;
                     this.trail = [];
                     this.trailLength = 5;
+                    this.connections = []; // Store connected particles
                 }
 
                 update() {
@@ -388,8 +389,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     this.x += this.speedX;
                     this.y += this.speedY;
 
-                    if (this.x < 0 || this.x > width) this.speedX *= -1;
-                    if (this.y < 0 || this.y > height) this.speedY *= -1;
+                    // Bounce off edges with damping
+                    if (this.x < 0 || this.x > width) {
+                        this.speedX *= -0.8;
+                        this.x = this.x < 0 ? 0 : width;
+                    }
+                    if (this.y < 0 || this.y > height) {
+                        this.speedY *= -0.8;
+                        this.y = this.y < 0 ? 0 : height;
+                    }
 
                     this.glowPhase += 0.05;
                     this.size = this.baseSize + Math.sin(this.glowPhase) * 0.5;
@@ -397,9 +405,25 @@ document.addEventListener('DOMContentLoaded', () => {
                     this.trail.push({ x: this.x, y: this.y, size: this.size });
                     if (this.trail.length > this.trailLength) this.trail.shift();
 
+                    // Find nearby particles to connect
+                    this.connections = [];
+                    particles.forEach(particle => {
+                        if (particle !== this) {
+                            const dx = particle.x - this.x;
+                            const dy = particle.y - this.y;
+                            const distance = Math.sqrt(dx * dx + dy * dy);
+                            if (distance < 100) { // Connection distance threshold
+                                this.connections.push({
+                                    particle,
+                                    distance
+                                });
+                            }
+                        }
+                    });
+
                     if (Math.random() < 0.01) {
                         for (let i = 0; i < 3; i++) {
-                            if (sparks.length < 100) { // Limit number of sparks
+                            if (sparks.length < 100) {
                                 sparks.push(new Spark(this.x, this.y));
                             }
                         }
@@ -408,6 +432,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 draw() {
                     const particleColor = getComputedStyle(document.documentElement).getPropertyValue('--particle-color').trim();
+                    
+                    // Draw connections
+                    this.connections.forEach(connection => {
+                        const opacity = (100 - connection.distance) / 100;
+                        ctx.strokeStyle = `rgba(148, 163, 184, ${opacity * 0.2})`;
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(this.x, this.y);
+                        ctx.lineTo(connection.particle.x, connection.particle.y);
+                        ctx.stroke();
+                    });
+
+                    // Draw particle trail
                     this.trail.forEach((point, index) => {
                         ctx.fillStyle = particleColor;
                         ctx.globalAlpha = (index / this.trailLength) * 0.5;
@@ -417,6 +454,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
                     ctx.globalAlpha = 1;
 
+                    // Draw particle
                     ctx.fillStyle = particleColor;
                     ctx.shadowColor = particleColor;
                     ctx.shadowBlur = 10;
@@ -494,87 +532,179 @@ document.addEventListener('DOMContentLoaded', () => {
     // Mark initialization as complete
     state.isInitialized = true;
 
-    // Glitch Canvas
-    const glitchCanvas = document.getElementById('glitchCanvas');
-    if (glitchCanvas) {
+    // Glitch Effect
+    function initGlitchEffect() {
+        const glitchCanvas = document.createElement('canvas');
+        glitchCanvas.id = 'glitchCanvas';
+        glitchCanvas.style.position = 'fixed';
+        glitchCanvas.style.top = '0';
+        glitchCanvas.style.left = '0';
+        glitchCanvas.style.width = '100%';
+        glitchCanvas.style.height = '100%';
+        glitchCanvas.style.zIndex = '-1';
+        glitchCanvas.style.pointerEvents = 'none';
+        glitchCanvas.style.opacity = '0.1'; // Reduced opacity
+        document.body.insertBefore(glitchCanvas, document.body.firstChild);
+        
         const ctx = glitchCanvas.getContext('2d');
-        if (!ctx) {
-            console.error('Failed to get 2D context for #glitchCanvas');
-        } else {
-            let width, height;
 
             function resizeGlitchCanvas() {
-                width = glitchCanvas.width = window.innerWidth;
-                height = glitchCanvas.height = window.innerHeight;
+            glitchCanvas.width = window.innerWidth;
+            glitchCanvas.height = window.innerHeight;
+            }
+
+            function drawScanlines() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.02)'; // Reduced opacity of scanlines
+            for (let i = 0; i < glitchCanvas.height; i += 2) {
+                ctx.fillRect(0, i, glitchCanvas.width, 1);
+            }
+        }
+
+                function animateGlitch() {
+            ctx.clearRect(0, 0, glitchCanvas.width, glitchCanvas.height);
+                        drawScanlines();
+                        requestAnimationFrame(animateGlitch);
             }
 
             window.addEventListener('resize', resizeGlitchCanvas);
             resizeGlitchCanvas();
+                animateGlitch();
+    }
 
-            function drawScanlines() {
-                ctx.clearRect(0, 0, width, height);
-                ctx.strokeStyle = state.theme === 'light' ? 'rgba(255, 255, 255, 0.15)' : 'rgba(200, 200, 200, 0.15)';
-                ctx.lineWidth = 1;
+    // Initialize glitch effect
+    initGlitchEffect();
 
-                for (let y = 0; y < height; y += 5 + Math.random() * 5) {
-                    ctx.beginPath();
-                    ctx.moveTo(0, y);
-                    ctx.lineTo(width, y + Math.random() * 2 - 1);
-                    ctx.stroke();
-                }
+    // Enhanced Animated Name
+    function updatePhrase() {
+        const phrases = {
+            name: "Syed Muhammad Abis",
+            roles: [
+                "🎮 Game Developer & Unity Expert",
+                "⚔️ Strategy Games Specialist",
+                "🎯 FPS Game Developer",
+                "💻 C# & C++ Developer",
+                "🎨 3D Game Artist",
+                "🎭 Game UI/UX Designer"
+            ],
+            experience: "4+ Years of Game Development Experience"
+        };
 
-                if (Math.random() < 0.1) {
-                    ctx.fillStyle = state.theme === 'light' ? 'rgba(255, 0, 0, 0.07)' : 'rgba(0, 255, 255, 0.07)';
-                    ctx.fillRect(0, Math.random() * height, width, 10 + Math.random() * 20);
-                }
-            }
+        const animatedName = document.getElementById('animated-name');
+        const roleText = document.querySelector('.role-text');
+        const experienceText = document.querySelector('.experience-text');
+        const titleTags = document.querySelector('.title-tags');
+        
+        if (!animatedName || !roleText || !experienceText || !titleTags) {
+            console.error('Required elements not found');
+            return;
+        }
 
-            const nameSection = document.getElementById('name-section');
-            if (nameSection) {
-                window.addEventListener('scroll', () => {
-                    const rect = nameSection.getBoundingClientRect();
-                    const opacity = Math.max(0, 1 - window.scrollY / rect.height);
-                    glitchCanvas.style.opacity = opacity * 0.3;
-                    glitchCanvas.classList.toggle('fade-out', opacity === 0);
+        function wrapLettersInSpans(text) {
+            return text.split('').map((letter, index) => 
+                `<span style="--letter-index: ${index}" class="text-transition">${letter}</span>`
+            ).join('');
+        }
+
+        function createTag(text) {
+            const tag = document.createElement('div');
+            tag.className = 'tag';
+            tag.textContent = text;
+            tag.style.opacity = '0';
+            tag.style.transform = 'translateY(20px)';
+            return tag;
+        }
+
+        function fadeIn(element, delay = 0) {
+            setTimeout(() => {
+                element.style.opacity = '1';
+                element.style.transform = 'translateY(0)';
+            }, delay);
+        }
+
+        function updateText() {
+            // Clear previous tags with fade out
+            const existingTags = titleTags.querySelectorAll('.tag');
+            existingTags.forEach(tag => {
+                tag.style.opacity = '0';
+                tag.style.transform = 'translateY(20px)';
+            });
+            
+            setTimeout(() => {
+                titleTags.innerHTML = '';
+            }, 500);
+
+            // Reset all elements
+            animatedName.style.opacity = '0';
+            roleText.style.opacity = '0';
+            roleText.style.transform = 'translateY(20px)';
+            experienceText.style.opacity = '0';
+            experienceText.style.transform = 'translateY(20px)';
+            
+            // Animate name with letter-by-letter effect
+            setTimeout(() => {
+                animatedName.innerHTML = wrapLettersInSpans(phrases.name);
+                animatedName.style.opacity = '1';
+                
+                const letters = animatedName.querySelectorAll('span');
+                letters.forEach((letter, index) => {
+                    letter.style.opacity = '0';
+                    setTimeout(() => {
+                        letter.style.opacity = '1';
+                        letter.style.transform = 'translateY(0)';
+                    }, index * 60); // Slightly faster for better flow
                 });
 
-                function animateGlitch() {
-                    try {
-                        drawScanlines();
-                        requestAnimationFrame(animateGlitch);
-                    } catch (e) {
-                        console.error('Glitch animation error:', e);
-                    }
-                }
-                animateGlitch();
-            } else {
-                console.error('Element #name-section not found');
-            }
+                // Show experience after name animation
+                setTimeout(() => {
+                    experienceText.textContent = phrases.experience;
+                    fadeIn(experienceText);
+
+                    // Cycle through roles
+                    phrases.roles.forEach((role, index) => {
+                        setTimeout(() => {
+                            // Fade out current role
+                            roleText.style.opacity = '0';
+                            roleText.style.transform = 'translateY(20px)';
+                            
+                            setTimeout(() => {
+                                // Update and fade in new role
+                                roleText.textContent = role;
+                                fadeIn(roleText);
+                                
+                                // Add and animate tag
+                                const tag = createTag(role);
+                                titleTags.appendChild(tag);
+                                fadeIn(tag, 100);
+                            }, 300);
+                        }, index * 2500); // Show each role for 2.5 seconds
+                    });
+                }, 1500); // Wait 1.5 seconds after name animation
+            }, 300);
         }
-    } else {
-        console.error('Canvas #glitchCanvas not found');
+
+        // Initial update
+        updateText();
+        
+        // Update every 20 seconds (increased for better readability)
+        setInterval(updateText, 20000);
     }
 
-    // Animated Name
-    const phrases = [
-        "Syed Muhammad Abis",
-        "Game Developer",
-        "4+ Years Experience",
-        "Based in Pakistan"
-    ];
-    let currentPhraseIndex = 0;
-    const animatedName = document.getElementById('animated-name');
-    if (animatedName) {
-        function updatePhrase() {
-            animatedName.innerHTML = `<h1 class="text-4xl sm:text-5xl font-heading font-bold text-primary glitch-text">${phrases[currentPhraseIndex]}</h1>`;
-            currentPhraseIndex = (currentPhraseIndex + 1) % phrases.length;
-            playAudio('glitchSound');
-        }
-        updatePhrase();
-        setInterval(updatePhrase, 3000);
-    } else {
-        console.error('Element #animated-name not found');
+    // Add animation indices to tags and skills
+    function addAnimationIndices() {
+        // Add indices to tags
+        document.querySelectorAll('.tag').forEach((tag, index) => {
+            tag.style.setProperty('--tag-index', index);
+        });
+
+        // Add indices to skill items
+        document.querySelectorAll('.skill-item h4').forEach((skill, index) => {
+            skill.style.setProperty('--skill-index', index);
+        });
     }
+
+    // Initialize text animations
+        updatePhrase();
+    addAnimationIndices();
 
     // CRT Effect
     const projectCards = document.querySelectorAll('.project-card');
@@ -896,35 +1026,64 @@ document.addEventListener('DOMContentLoaded', () => {
 
     animateCursor();
 
-    // Add cursor effects to interactive elements
-    document.querySelectorAll('a, button, .project-card, .skill-item').forEach(element => {
-        element.addEventListener('mouseenter', () => {
-            cursor.classList.add('cursor-active');
-        });
-        element.addEventListener('mouseleave', () => {
-            cursor.classList.remove('cursor-active');
-        });
-    });
+    // Enhanced Mouse Movement Effects
+    document.addEventListener('mousemove', (e) => {
+        const mouseX = e.clientX;
+        const mouseY = e.clientY;
+        
+        // Update cursor position
+        if (cursor && cursorFollower) {
+            cursorX += (mouseX - cursorX) * 0.1;
+            cursorY += (mouseY - cursorY) * 0.1;
+            followerX += (mouseX - followerX) * 0.2;
+            followerY += (mouseY - followerY) * 0.2;
 
-    // Parallax Effect
-    document.addEventListener('mousemove', e => {
-        const parallaxElements = document.querySelectorAll('.parallax');
-        parallaxElements.forEach(element => {
+            cursor.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
+            cursorFollower.style.transform = `translate(${followerX}px, ${followerY}px)`;
+        }
+
+        // Update mouse-follow elements
+        document.querySelectorAll('.mouse-follow').forEach(element => {
+            const rect = element.getBoundingClientRect();
+            const elementX = rect.left + rect.width / 2;
+            const elementY = rect.top + rect.height / 2;
+            
+            const deltaX = (mouseX - elementX) * 0.01;
+            const deltaY = (mouseY - elementY) * 0.01;
+            
+            element.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+        });
+
+        // Update parallax elements
+        document.querySelectorAll('.parallax').forEach(element => {
             const speed = element.getAttribute('data-speed') || 0.1;
-            const x = (window.innerWidth - e.pageX * speed) / 100;
-            const y = (window.innerHeight - e.pageY * speed) / 100;
+            const x = (window.innerWidth - mouseX * speed) / 100;
+            const y = (window.innerHeight - mouseY * speed) / 100;
             element.style.transform = `translateX(${x}px) translateY(${y}px)`;
         });
     });
 
-    // Smooth Scroll with Progress Indicator
+    // Add hover effects for interactive elements
+    document.querySelectorAll('a, button, .project-card, .skill-item').forEach(element => {
+        element.addEventListener('mouseenter', () => {
+            if (cursor) cursor.classList.add('cursor-active');
+            element.classList.add('hover-effect');
+        });
+        
+        element.addEventListener('mouseleave', () => {
+            if (cursor) cursor.classList.remove('cursor-active');
+            element.classList.remove('hover-effect');
+        });
+    });
+
+    // Add smooth scroll behavior with progress indicator
     const progressBar = document.createElement('div');
     progressBar.style.cssText = `
         position: fixed;
         top: 0;
         left: 0;
         height: 3px;
-        background: var(--primary);
+        background: var(--accent);
         width: 0;
         z-index: 9999;
         transition: width 0.1s ease;
@@ -938,6 +1097,21 @@ document.addEventListener('DOMContentLoaded', () => {
         progressBar.style.width = scrolled + '%';
     });
 
+    // Add text glow effect on hover
+    document.querySelectorAll('.text-glow').forEach(element => {
+        element.addEventListener('mouseenter', () => {
+            element.style.textShadow = `0 0 15px var(--accent),
+                                       0 0 30px var(--accent),
+                                       0 0 45px var(--accent)`;
+        });
+        
+        element.addEventListener('mouseleave', () => {
+            element.style.textShadow = `0 0 10px var(--accent),
+                                       0 0 20px var(--accent),
+                                       0 0 30px var(--accent)`;
+        });
+    });
+
     // Update image loading
     const images = document.querySelectorAll('img');
     let loadedCount = 0;
@@ -947,30 +1121,357 @@ document.addEventListener('DOMContentLoaded', () => {
         loadingState.images = true;
         checkLoadingComplete();
     } else {
-        images.forEach(img => {
-            if (img.complete) {
+    images.forEach(img => {
+        if (img.complete) {
+            loadedCount++;
+            if (loadedCount === totalImages) {
+                loadingState.images = true;
+                checkLoadingComplete();
+            }
+        } else {
+            img.addEventListener('load', () => {
                 loadedCount++;
                 if (loadedCount === totalImages) {
                     loadingState.images = true;
                     checkLoadingComplete();
                 }
-            } else {
-                img.addEventListener('load', () => {
-                    loadedCount++;
-                    if (loadedCount === totalImages) {
-                        loadingState.images = true;
-                        checkLoadingComplete();
-                    }
-                });
+            });
                 // Add error handler for images
                 img.addEventListener('error', () => {
                     loadedCount++;
                     if (loadedCount === totalImages) {
                         loadingState.images = true;
                         checkLoadingComplete();
-                    }
-                });
+        }
+    });
             }
         });
     }
+
+    // Game Showcase Functionality
+    function initGameShowcase() {
+        const modelViewer = document.getElementById('modelViewer');
+        const modelControls = document.querySelectorAll('.model-control-btn');
+        const playDemoBtn = document.querySelector('.play-demo-btn');
+        const demoOverlay = document.querySelector('.demo-overlay');
+        const gameDemo = document.getElementById('gameDemo');
+
+        // Initialize Three.js scene
+        if (modelViewer) {
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, modelViewer.clientWidth / modelViewer.clientHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ canvas: modelViewer, antialias: true });
+            
+            renderer.setSize(modelViewer.clientWidth, modelViewer.clientHeight);
+            renderer.setClearColor(0x000000, 0);
+
+            // Add lights
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+            scene.add(ambientLight);
+            
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+            directionalLight.position.set(0, 1, 1);
+            scene.add(directionalLight);
+
+            camera.position.z = 5;
+
+            // Load models
+            const modelLoader = new THREE.GLTFLoader();
+            let currentModel = null;
+
+            function loadModel(modelName) {
+                if (currentModel) {
+                    scene.remove(currentModel);
+                }
+
+                modelLoader.load(
+                    `assets/models/${modelName}.glb`,
+                    (gltf) => {
+                        currentModel = gltf.scene;
+                        scene.add(currentModel);
+                        
+                        // Center and scale model
+                        const box = new THREE.Box3().setFromObject(currentModel);
+                        const center = box.getCenter(new THREE.Vector3());
+                        const size = box.getSize(new THREE.Vector3());
+                        
+                        const maxDim = Math.max(size.x, size.y, size.z);
+                        const scale = 2 / maxDim;
+                        currentModel.scale.setScalar(scale);
+                        
+                        currentModel.position.sub(center.multiplyScalar(scale));
+                    },
+                    undefined,
+                    (error) => {
+                        console.error('Error loading model:', error);
+                    }
+                );
+            }
+
+            // Model controls
+            modelControls.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const modelName = btn.dataset.model;
+                    loadModel(modelName);
+                    
+                    // Update active state
+                    modelControls.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                });
+            });
+
+            // Animation loop
+            function animate() {
+                requestAnimationFrame(animate);
+                if (currentModel) {
+                    currentModel.rotation.y += 0.01;
+                }
+                renderer.render(scene, camera);
+            }
+            animate();
+
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                camera.aspect = modelViewer.clientWidth / modelViewer.clientHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(modelViewer.clientWidth, modelViewer.clientHeight);
+            });
+        }
+
+        // Demo player functionality
+        if (playDemoBtn && demoOverlay && gameDemo) {
+            playDemoBtn.addEventListener('click', () => {
+                demoOverlay.style.display = 'none';
+                gameDemo.src = 'https://itch.io/embed-upload/your-game-id'; // Replace with your game's embed URL
+            });
+        }
+    }
+
+    // Initialize Game Showcase when DOM is loaded
+    initGameShowcase();
+
+    // Add magnetic button effect
+    function addMagneticEffect() {
+        const buttons = document.querySelectorAll('.button-glow, .nav-link');
+        
+        buttons.forEach(button => {
+            button.addEventListener('mousemove', (e) => {
+                const rect = button.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const deltaX = x - centerX;
+                const deltaY = y - centerY;
+                
+                const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+                const maxDistance = Math.sqrt(centerX * centerX + centerY * centerY);
+                
+                const magnetStrength = 0.4; // Adjust this value to change the magnetic effect strength
+                
+                if (distance < maxDistance) {
+                    const moveX = (deltaX / maxDistance) * magnetStrength * 20;
+                    const moveY = (deltaY / maxDistance) * magnetStrength * 20;
+                    
+                    button.style.transform = `translate(${moveX}px, ${moveY}px)`;
+                    button.style.transition = 'transform 0.1s ease';
+                }
+            });
+            
+            button.addEventListener('mouseleave', () => {
+                button.style.transform = 'translate(0, 0)';
+                button.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+            });
+        });
+    }
+
+    // Initialize magnetic effect
+    addMagneticEffect();
+
+    // Update mouse tracking for project cards
+    document.querySelectorAll('.project-card').forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            card.style.setProperty('--mouse-x', `${x}px`);
+            card.style.setProperty('--mouse-y', `${y}px`);
+        });
+    });
+
+    // Add tilt effect to project cards
+    function addTiltEffect() {
+        const cards = document.querySelectorAll('.project-card');
+        
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const deltaX = (x - centerX) / centerX;
+                const deltaY = (y - centerY) / centerY;
+                
+                const tiltX = deltaY * 10; // Max tilt 10 degrees
+                const tiltY = -deltaX * 10;
+                
+                card.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(1.05, 1.05, 1.05)`;
+                
+                // Add highlight effect
+                const glare = card.querySelector('.card-glare') || document.createElement('div');
+                if (!card.querySelector('.card-glare')) {
+                    glare.className = 'card-glare';
+                    card.appendChild(glare);
+                }
+                
+                const glareX = (x / rect.width) * 100;
+                const glareY = (y / rect.height) * 100;
+                glare.style.background = `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 50%)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+                const glare = card.querySelector('.card-glare');
+                if (glare) glare.style.background = 'none';
+            });
+        });
+    }
+
+    // Add floating effect to skill items
+    function addFloatingEffect() {
+        const skills = document.querySelectorAll('.skill-item');
+        
+        skills.forEach((skill, index) => {
+            skill.style.animation = `floating ${3 + index * 0.2}s ease-in-out infinite`;
+            
+            skill.addEventListener('mousemove', (e) => {
+                const rect = skill.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const shine = skill.querySelector('.skill-shine') || document.createElement('div');
+                if (!skill.querySelector('.skill-shine')) {
+                    shine.className = 'skill-shine';
+                    skill.appendChild(shine);
+                }
+                
+                const shineX = (x / rect.width) * 100;
+                const shineY = (y / rect.height) * 100;
+                shine.style.background = `radial-gradient(circle at ${shineX}% ${shineY}%, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 30%)`;
+            });
+            
+            skill.addEventListener('mouseleave', () => {
+                const shine = skill.querySelector('.skill-shine');
+                if (shine) shine.style.background = 'none';
+            });
+        });
+    }
+
+    // Add ripple effect to buttons
+    function addRippleEffect() {
+        const buttons = document.querySelectorAll('.modern-btn, .button-glow');
+        
+        buttons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                const rect = button.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const ripple = document.createElement('div');
+                ripple.className = 'ripple';
+                ripple.style.left = `${x}px`;
+                ripple.style.top = `${y}px`;
+                
+                button.appendChild(ripple);
+                
+                setTimeout(() => ripple.remove(), 1000);
+            });
+        });
+    }
+
+    // Add text scramble effect
+    class TextScramble {
+        constructor(el) {
+            this.el = el;
+            this.chars = '!<>-_\\/[]{}—=+*^?#________';
+            this.update = this.update.bind(this);
+        }
+        
+        setText(newText) {
+            const oldText = this.el.innerText;
+            const length = Math.max(oldText.length, newText.length);
+            const promise = new Promise((resolve) => this.resolve = resolve);
+            this.queue = [];
+            
+            for (let i = 0; i < length; i++) {
+                const from = oldText[i] || '';
+                const to = newText[i] || '';
+                const start = Math.floor(Math.random() * 40);
+                const end = start + Math.floor(Math.random() * 40);
+                this.queue.push({ from, to, start, end });
+            }
+            
+            cancelAnimationFrame(this.frameRequest);
+            this.frame = 0;
+            this.update();
+            return promise;
+        }
+        
+        update() {
+            let output = '';
+            let complete = 0;
+            
+            for (let i = 0; i < this.queue.length; i++) {
+                let { from, to, start, end, char } = this.queue[i];
+                
+                if (this.frame >= end) {
+                    complete++;
+                    output += to;
+                } else if (this.frame >= start) {
+                    if (!char || Math.random() < 0.28) {
+                        char = this.randomChar();
+                        this.queue[i].char = char;
+                    }
+                    output += char;
+                } else {
+                    output += from;
+                }
+            }
+            
+            this.el.innerText = output;
+            
+            if (complete === this.queue.length) {
+                this.resolve();
+            } else {
+                this.frameRequest = requestAnimationFrame(this.update);
+                this.frame++;
+            }
+        }
+        
+        randomChar() {
+            return this.chars[Math.floor(Math.random() * this.chars.length)];
+        }
+    }
+
+    // Initialize all effects
+    addTiltEffect();
+    addFloatingEffect();
+    addRippleEffect();
+    
+    // Add text scramble effect to section titles
+    const titles = document.querySelectorAll('.section-title');
+    titles.forEach(title => {
+        const scramble = new TextScramble(title);
+        let originalText = title.innerText;
+        
+        title.addEventListener('mouseenter', () => {
+            scramble.setText(originalText);
+        });
+    });
 });
