@@ -15,11 +15,8 @@ let loadingState = {
 };
 
 function checkLoadingComplete() {
-    if (loadingState.timeout) {
-        clearTimeout(loadingState.timeout);
-    }
-    
-    if (loadingState.models && loadingState.audio && loadingState.images) {
+    // Remove the timeout check since we want to show the site even if assets are still loading
+    if (loadingState.models || loadingState.audio || loadingState.images) {
         const loadingElement = document.getElementById('loading');
         if (loadingElement) {
             loadingElement.style.opacity = '0';
@@ -30,6 +27,14 @@ function checkLoadingComplete() {
         }
     }
 }
+
+// Set a timeout to show the site even if assets fail to load
+setTimeout(() => {
+    loadingState.models = true;
+    loadingState.audio = true;
+    loadingState.images = true;
+    checkLoadingComplete();
+}, 3000); // Reduced timeout to 3 seconds
 
 // Utility to play audio with error handling
 function playAudio(audioId, volume = 0.5) {
@@ -93,13 +98,6 @@ function initAudio() {
             // Set default volume
             audio.volume = 0.5;
         });
-
-        // Set a timeout in case audio fails to load
-        loadingState.timeout = setTimeout(() => {
-            console.warn('Audio loading timeout reached, some audio files may not be ready');
-            loadingState.audio = true;
-            checkLoadingComplete();
-        }, 5000);
 
         // Set initialization flag
         state.isInitialized = true;
@@ -948,30 +946,31 @@ document.addEventListener('DOMContentLoaded', () => {
     if (totalImages === 0) {
         loadingState.images = true;
         checkLoadingComplete();
-        return;
-    }
-
-    images.forEach(img => {
-        if (img.complete) {
-            loadedCount++;
-            if (loadedCount === totalImages) {
-                loadingState.images = true;
-                checkLoadingComplete();
-            }
-        } else {
-            img.addEventListener('load', () => {
+    } else {
+        images.forEach(img => {
+            if (img.complete) {
                 loadedCount++;
                 if (loadedCount === totalImages) {
                     loadingState.images = true;
                     checkLoadingComplete();
                 }
-            });
-        }
-    });
-
-    // Set a timeout in case images fail to load
-    setTimeout(() => {
-        loadingState.images = true;
-        checkLoadingComplete();
-    }, 5000);
+            } else {
+                img.addEventListener('load', () => {
+                    loadedCount++;
+                    if (loadedCount === totalImages) {
+                        loadingState.images = true;
+                        checkLoadingComplete();
+                    }
+                });
+                // Add error handler for images
+                img.addEventListener('error', () => {
+                    loadedCount++;
+                    if (loadedCount === totalImages) {
+                        loadingState.images = true;
+                        checkLoadingComplete();
+                    }
+                });
+            }
+        });
+    }
 });
