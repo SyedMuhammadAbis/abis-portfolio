@@ -33,13 +33,20 @@ function checkLoadingComplete() {
 
 // Utility to play audio with error handling
 function playAudio(audioId, volume = 0.5) {
-    if (!state.isInitialized) return;
+    if (!state.isInitialized) {
+        console.warn('Audio system not initialized yet');
+        return;
+    }
     
     const audio = state.audioElements[audioId];
     if (audio) {
         audio.volume = volume;
         audio.currentTime = 0;
-        audio.play().catch(e => console.error(`Error playing ${audioId}:`, e));
+        audio.play().catch(e => {
+            console.error(`Error playing ${audioId}:`, e);
+            // Try to recover by reinitializing the audio element
+            audio.load();
+        });
     } else {
         console.warn(`Audio element ${audioId} not found`);
     }
@@ -53,15 +60,28 @@ function initAudio() {
         const totalAudio = audioElements.length;
 
         if (totalAudio === 0) {
+            console.warn('No audio elements found in the document');
             loadingState.audio = true;
             checkLoadingComplete();
             return;
         }
 
         audioElements.forEach(audio => {
-            audio.addEventListener('canplaythrough', () => {
+            // Add error handling for each audio element
+            audio.addEventListener('error', (e) => {
+                console.error(`Error loading audio ${audio.id}:`, e.target.error);
                 loadedCount++;
                 if (loadedCount === totalAudio) {
+                    loadingState.audio = true;
+                    checkLoadingComplete();
+                }
+            });
+
+            audio.addEventListener('canplaythrough', () => {
+                console.log(`Audio loaded: ${audio.id}`);
+                loadedCount++;
+                if (loadedCount === totalAudio) {
+                    console.log('All audio elements loaded successfully');
                     loadingState.audio = true;
                     checkLoadingComplete();
                 }
@@ -69,16 +89,22 @@ function initAudio() {
             
             // Store audio element in state
             state.audioElements[audio.id] = audio;
+            
+            // Set default volume
+            audio.volume = 0.5;
         });
 
         // Set a timeout in case audio fails to load
         loadingState.timeout = setTimeout(() => {
-            console.warn('Audio loading timeout reached');
+            console.warn('Audio loading timeout reached, some audio files may not be ready');
             loadingState.audio = true;
             checkLoadingComplete();
         }, 5000);
+
+        // Set initialization flag
+        state.isInitialized = true;
     } catch (error) {
-        console.error('Error initializing audio:', error);
+        console.error('Error initializing audio system:', error);
         loadingState.audio = true;
         checkLoadingComplete();
     }
@@ -96,41 +122,104 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('Theme toggle button #theme-toggle not found');
     } else {
         function setTheme(theme) {
-            body.setAttribute('data-theme', theme);
-            themeToggle.setAttribute('data-theme', theme);
-            localStorage.setItem('theme', theme);
-            state.theme = theme;
-            const themeIcon = themeToggle.querySelector('#theme-icon');
-            themeIcon.innerHTML = theme === 'light'
-                ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>'
-                : '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>';
-            console.log('Theme set to:', theme);
+            try {
+                if (theme !== 'light' && theme !== 'dark') {
+                    console.error('Invalid theme value:', theme);
+                    theme = 'light'; // Default to light theme
+                }
+
+                body.setAttribute('data-theme', theme);
+                themeToggle.setAttribute('data-theme', theme);
+                localStorage.setItem('theme', theme);
+                state.theme = theme;
+
+                const themeIcon = themeToggle.querySelector('#theme-icon');
+                if (!themeIcon) {
+                    console.error('Theme icon element not found');
+                    return;
+                }
+
+                themeIcon.innerHTML = theme === 'light'
+                    ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>'
+                    : '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>';
+                
+                console.log('Theme set successfully to:', theme);
+            } catch (error) {
+                console.error('Error setting theme:', error);
+            }
         }
 
+        // Add click event listener with error handling
         themeToggle.addEventListener('click', () => {
-            setTheme(state.theme === 'light' ? 'dark' : 'light');
-            playAudio('buttonClickSound');
+            try {
+                const newTheme = state.theme === 'light' ? 'dark' : 'light';
+                setTheme(newTheme);
+                playAudio('buttonClickSound', 0.3);
+            } catch (error) {
+                console.error('Error in theme toggle click handler:', error);
+            }
         });
 
-        setTheme(state.theme);
+        // Initialize theme with error handling
+        try {
+            const savedTheme = localStorage.getItem('theme');
+            setTheme(savedTheme || 'light');
+        } catch (error) {
+            console.error('Error initializing theme:', error);
+            setTheme('light'); // Fallback to light theme
+        }
     }
 
     // Music Toggle
     const musicToggle = document.getElementById('music-toggle');
-    if (musicToggle) {
-        musicToggle.addEventListener('click', () => {
-            const bgMusic = state.audioElements['bgMusic'];
-            if (bgMusic) {
+    if (!musicToggle) {
+        console.error('Music toggle button #music-toggle not found');
+    } else {
+        const toggleMusic = async () => {
+            try {
+                const bgMusic = state.audioElements['bgMusic'];
+                if (!bgMusic) {
+                    console.error('Background music element not found');
+                    return;
+                }
+
                 if (state.isMusicPlaying) {
                     bgMusic.pause();
                     musicToggle.setAttribute('data-playing', 'false');
+                    musicToggle.querySelector('svg').style.opacity = '0.5';
+                    console.log('Background music paused');
                 } else {
-                    bgMusic.play().catch(e => console.error('Error playing background music:', e));
-                    musicToggle.setAttribute('data-playing', 'true');
+                    try {
+                        await bgMusic.play();
+                        musicToggle.setAttribute('data-playing', 'true');
+                        musicToggle.querySelector('svg').style.opacity = '1';
+                        console.log('Background music started playing');
+                    } catch (playError) {
+                        console.error('Error playing background music:', playError);
+                        // Show user feedback that autoplay might be blocked
+                        alert('Please interact with the page first to enable audio playback.');
+                        return;
+                    }
                 }
+                
                 state.isMusicPlaying = !state.isMusicPlaying;
+                localStorage.setItem('musicEnabled', state.isMusicPlaying.toString());
+            } catch (error) {
+                console.error('Error toggling music:', error);
             }
-        });
+        };
+
+        musicToggle.addEventListener('click', toggleMusic);
+
+        // Initialize music state from localStorage
+        try {
+            const savedMusicState = localStorage.getItem('musicEnabled');
+            if (savedMusicState === 'true') {
+                toggleMusic(); // Try to autoplay if it was enabled before
+            }
+        } catch (error) {
+            console.error('Error initializing music state:', error);
+        }
     }
 
     // Smooth Scroll
@@ -156,23 +245,103 @@ document.addEventListener('DOMContentLoaded', () => {
     // Scroll Animations
     const animateElements = document.querySelectorAll('.animate-on-scroll');
     const sections = document.querySelectorAll('.section-animate');
-    if (animateElements.length === 0) console.warn('No .animate-on-scroll elements found');
-    if (sections.length === 0) console.warn('No .section-animate elements found');
+    
+    if (animateElements.length === 0) {
+        console.warn('No .animate-on-scroll elements found');
+    }
+    if (sections.length === 0) {
+        console.warn('No .section-animate elements found');
+    }
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('is-visible');
-                if (entry.target.classList.contains('section-animate')) {
-                    playAudio('sectionSound');
+    try {
+        // Check if IntersectionObserver is supported
+        if (!('IntersectionObserver' in window)) {
+            console.warn('IntersectionObserver not supported, animations will not work');
+            // Show all elements as fallback
+            animateElements.forEach(el => el.classList.add('is-visible'));
+            sections.forEach(el => el.classList.add('is-visible'));
+            return;
+        }
+
+        // Debounce function for performance
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        // Create observer with error handling
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                try {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        
+                        // Play sound only for sections and if audio is initialized
+                        if (entry.target.classList.contains('section-animate') && state.isInitialized) {
+                            playAudio('sectionSound', 0.2);
+                        }
+                        
+                        observer.unobserve(entry.target);
+                    }
+                } catch (error) {
+                    console.error('Error handling intersection entry:', error);
                 }
-                observer.unobserve(entry.target);
-            }
+            });
+        }, { 
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
         });
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
-    animateElements.forEach(element => observer.observe(element));
-    sections.forEach(section => observer.observe(section));
+        // Observe elements with error handling
+        const observeElement = (element) => {
+            try {
+                observer.observe(element);
+            } catch (error) {
+                console.error('Error observing element:', error);
+                // Add fallback visibility
+                element.classList.add('is-visible');
+            }
+        };
+
+        // Batch observe elements for better performance
+        const batchSize = 10;
+        const observeInBatches = (elements) => {
+            for (let i = 0; i < elements.length; i += batchSize) {
+                setTimeout(() => {
+                    const batch = Array.from(elements).slice(i, i + batchSize);
+                    batch.forEach(observeElement);
+                }, 0);
+            }
+        };
+
+        observeInBatches(animateElements);
+        observeInBatches(sections);
+
+        // Cleanup function
+        const cleanup = () => {
+            try {
+                observer.disconnect();
+            } catch (error) {
+                console.error('Error cleaning up observer:', error);
+            }
+        };
+
+        // Add cleanup on page unload
+        window.addEventListener('unload', cleanup);
+
+    } catch (error) {
+        console.error('Error setting up scroll animations:', error);
+        // Show all elements as fallback
+        animateElements.forEach(el => el.classList.add('is-visible'));
+        sections.forEach(el => el.classList.add('is-visible'));
+    }
 
     // Procedural Animation
     const bgCanvas = document.getElementById('bgCanvas');
