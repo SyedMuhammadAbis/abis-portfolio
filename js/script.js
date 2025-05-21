@@ -651,7 +651,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const loader = new THREE.GLTFLoader();
     const models = { controller: null, gamepad: null, unity_logo: null };
 
-    loader.load('assets/models/controller.gltf', gltf => {
+    loader.load('./assets/models/controller.gltf', gltf => {
         models.controller = gltf.scene;
         loadingState.models = true;
         checkLoadingComplete();
@@ -661,11 +661,11 @@ document.addEventListener('DOMContentLoaded', () => {
         checkLoadingComplete();
     });
 
-    loader.load('assets/models/gamepad.gltf', gltf => {
+    loader.load('./assets/models/gamepad.gltf', gltf => {
         models.gamepad = gltf.scene;
     }, undefined, error => console.error('Error loading gamepad model:', error));
 
-    loader.load('assets/models/unity_logo.gltf', gltf => {
+    loader.load('./assets/models/unity_logo.gltf', gltf => {
         models.unity_logo = gltf.scene;
     }, undefined, error => console.error('Error loading Unity logo model:', error));
 
@@ -775,34 +775,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const galleryImages = {
         pickle_former: [
-            'assets/images/projects/pickle_former_screenshot1.jpg',
-            'assets/images/projects/pickle_former_screenshot2.jpg',
-            'assets/images/projects/pickle_former_gallery1.jpg'
+            './assets/images/projects/pickle_former_screenshot1.jpg',
+            './assets/images/projects/pickle_former_screenshot2.jpg',
+            './assets/images/projects/pickle_former_gallery1.jpg'
         ],
         rainbow_rollie: [
-            'assets/images/projects/rainbow_rollie_screenshot1.jpg',
-            'assets/images/projects/rainbow_rollie_screenshot2.jpg',
-            'assets/images/projects/rainbow_rollie_gallery1.jpg'
+            './assets/images/projects/rainbow_rollie_screenshot1.jpg',
+            './assets/images/projects/rainbow_rollie_screenshot2.jpg',
+            './assets/images/projects/rainbow_rollie_gallery1.jpg'
         ],
         aesthetic_cube: [
-            'assets/images/projects/aesthetic_cube_screenshot1.jpg',
-            'assets/images/projects/aesthetic_cube_screenshot2.jpg',
-            'assets/images/projects/aesthetic_cube_gallery1.jpg'
+            './assets/images/projects/aesthetic_cube_screenshot1.jpg',
+            './assets/images/projects/aesthetic_cube_screenshot2.jpg',
+            './assets/images/projects/aesthetic_cube_gallery1.jpg'
         ],
         baqra_surfer: [
-            'assets/images/projects/baqra_surfer_screenshot1.jpg',
-            'assets/images/projects/baqra_surfer_screenshot2.jpg',
-            'assets/images/projects/baqra_surfer_gallery1.jpg'
+            './assets/images/projects/baqra_surfer_screenshot1.jpg',
+            './assets/images/projects/baqra_surfer_screenshot2.jpg',
+            './assets/images/projects/baqra_surfer_gallery1.jpg'
         ],
         cartoon_defence: [
-            'assets/images/projects/cartoon_defence_screenshot1.jpg',
-            'assets/images/projects/cartoon_defence_screenshot2.jpg',
-            'assets/images/projects/cartoon_defence_gallery1.jpg'
+            './assets/images/projects/cartoon_defence_screenshot1.jpg',
+            './assets/images/projects/cartoon_defence_screenshot2.jpg',
+            './assets/images/projects/cartoon_defence_gallery1.jpg'
         ],
         one_minute_drift: [
-            'assets/images/projects/one_minute_drift_screenshot1.jpg',
-            'assets/images/projects/one_minute_drift_screenshot2.jpg',
-            'assets/images/projects/one_minute_drift_gallery1.jpg'
+            './assets/images/projects/one_minute_drift_screenshot1.jpg',
+            './assets/images/projects/one_minute_drift_screenshot2.jpg',
+            './assets/images/projects/one_minute_drift_gallery1.jpg'
         ]
     };
 
