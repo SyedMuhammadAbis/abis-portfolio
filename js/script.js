@@ -8,15 +8,24 @@ const state = {
 
 // Add loading state management at the beginning of the file
 let loadingState = {
-    models: false,
-    audio: false,
-    images: false,
+    models: true, // Set to true by default since we're not using models yet
+    audio: true,  // Set to true by default to prevent loading screen from getting stuck
+    images: true, // Set to true by default since we're not using images yet
     timeout: null
 };
 
 function checkLoadingComplete() {
+<<<<<<< Updated upstream
     // Remove the timeout check since we want to show the site even if assets are still loading
     if (loadingState.models || loadingState.audio || loadingState.images) {
+=======
+    if (loadingState.timeout) {
+        clearTimeout(loadingState.timeout);
+    }
+    
+    // Force complete after a short delay to ensure page loads
+    setTimeout(() => {
+>>>>>>> Stashed changes
         const loadingElement = document.getElementById('loading');
         if (loadingElement) {
             loadingElement.style.opacity = '0';
@@ -25,7 +34,7 @@ function checkLoadingComplete() {
                 document.body.classList.add('loaded');
             }, 500);
         }
-    }
+    }, 1000);
 }
 
 // Set a timeout to show the site even if assets fail to load
@@ -61,6 +70,7 @@ function playAudio(audioId, volume = 0.5) {
 function initAudio() {
     try {
         const audioElements = document.querySelectorAll('audio');
+<<<<<<< Updated upstream
         let loadedCount = 0;
         const totalAudio = audioElements.length;
 
@@ -68,10 +78,15 @@ function initAudio() {
             console.warn('No audio elements found in the document');
             loadingState.audio = true;
             checkLoadingComplete();
+=======
+        if (audioElements.length === 0) {
+            console.warn('No audio elements found');
+>>>>>>> Stashed changes
             return;
         }
 
         audioElements.forEach(audio => {
+<<<<<<< Updated upstream
             // Add error handling for each audio element
             audio.addEventListener('error', (e) => {
                 console.error(`Error loading audio ${audio.id}:`, e.target.error);
@@ -92,12 +107,15 @@ function initAudio() {
                 }
             });
             
+=======
+>>>>>>> Stashed changes
             // Store audio element in state
             state.audioElements[audio.id] = audio;
             
             // Set default volume
             audio.volume = 0.5;
         });
+<<<<<<< Updated upstream
 
         // Set initialization flag
         state.isInitialized = true;
@@ -105,14 +123,58 @@ function initAudio() {
         console.error('Error initializing audio system:', error);
         loadingState.audio = true;
         checkLoadingComplete();
+=======
+    } catch (error) {
+        console.error('Error initializing audio:', error);
+>>>>>>> Stashed changes
     }
 }
 
 // Main initialization
 document.addEventListener('DOMContentLoaded', () => {
     console.log('script.js loaded');
+    
+    // Set initial theme
+    document.body.setAttribute('data-theme', state.theme);
+    
+    // Initialize audio
     initAudio();
-
+    
+    // Initialize background canvas
+    const initCanvas = document.getElementById('bgCanvas');
+    if (initCanvas) {
+        const ctx = initCanvas.getContext('2d');
+        if (ctx) {
+            // Set canvas size to window size
+            function resizeCanvas() {
+                initCanvas.width = window.innerWidth;
+                initCanvas.height = window.innerHeight;
+            }
+            
+            // Initial resize
+            resizeCanvas();
+            
+            // Handle window resize
+            window.addEventListener('resize', resizeCanvas);
+            
+            // Set initial background
+            ctx.fillStyle = '#000000';
+            ctx.fillRect(0, 0, initCanvas.width, initCanvas.height);
+        }
+    }
+    
+    // Force loading complete after a short delay
+    setTimeout(() => {
+        const loadingElement = document.getElementById('loading');
+        if (loadingElement) {
+            loadingElement.style.opacity = '0';
+            setTimeout(() => {
+                loadingElement.style.display = 'none';
+                document.body.classList.add('loaded');
+            }, 500);
+        }
+    }, 1000);
+    
     // Theme Toggle
     const themeToggle = document.getElementById('theme-toggle');
     const body = document.body;
