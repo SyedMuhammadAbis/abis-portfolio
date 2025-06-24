@@ -16,6 +16,9 @@
     <script src="./js/script.js" defer></script>
 </head>
 <body data-theme="light">
+    <!-- Background Particle Canvas -->
+    <canvas id="particle-canvas"></canvas>
+
     <!-- Loading Screen -->
     <div id="loading">
         <div class="loading-spinner"></div>
@@ -71,7 +74,7 @@
 
     <!-- Animated Name Section -->
     <section id="name-section">
-        <div class="glass-card animate-on-scroll" data-animate="scale">
+        <div class="container animate-on-scroll" data-animate="scale">
             <div class="title-container">
                 <div class="name-wrapper">
                     <h1 id="animated-name">Syed Muhammad Abis</h1>
@@ -89,9 +92,9 @@
                     <span class="tag">VR/AR</span>
                 </div>
             </div>
-            <div class="background-effects">
-                <div class="gradient-sphere"></div>
-            </div>
+        </div>
+        <div class="background-effects">
+            <div class="gradient-sphere"></div>
         </div>
     </section>
 
@@ -248,21 +251,14 @@
     <section id="contact">
         <div class="container">
             <h2 class="section-header animate-on-scroll" data-animate="fade-up">Get In Touch</h2>
-            <form class="contact-form animate-on-scroll" data-animate="fade-up">
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="message">Message</label>
-                    <textarea id="message" name="message" rows="5" required></textarea>
-                </div>
-                <button type="submit" class="modern-btn">Send Message</button>
-            </form>
+            <div class="social-links animate-on-scroll" data-animate="fade-up">
+                <a href="mailto:blacknwhite482@gmail.com" class="social-link">Email</a>
+                <a href="https://github.com/SyedMuhammadAbis" target="_blank" class="social-link">GitHub</a>
+                <a href="https://www.fiverr.com/users/blacknwhite918/seller_dashboard" target="_blank" class="social-link">Fiverr</a>
+                <a href="https://www.linkedin.com/in/syed-muhammad-abis-2a989b31a/" target="_blank" class="social-link">LinkedIn</a>
+                <a href="https://www.youtube.com/@blacknwhitedev" target="_blank" class="social-link">YouTube</a>
+                <a href="https://linktr.ee/SyedMuhammadAbisDev" target="_blank" class="social-link">LinkTree</a>
+            </div>
         </div>
     </section>
 

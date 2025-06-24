@@ -254,8 +254,71 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
+    // 9. Background Particle Animation
+    function initParticleAnimation() {
+        const canvas = document.getElementById('particle-canvas');
+        if (!canvas) return;
+        
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        
+        const resizeCanvas = () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        };
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = Math.random() * 1 - 0.5;
+                this.speedY = Math.random() * 1 - 0.5;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+            draw() {
+                ctx.fillStyle = 'rgba(139, 92, 246, 0.5)';
+                ctx.strokeStyle = 'rgba(139, 92, 246, 0.8)';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.closePath();
+                ctx.fill();
+            }
+        }
+
+        const createParticles = () => {
+            particles = [];
+            const particleCount = (canvas.width * canvas.height) / 10000;
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        };
+        createParticles();
+        window.addEventListener('resize', createParticles);
+
+        const animate = () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animate);
+        };
+        animate();
+    }
+
     initCustomCursor();
     initCardTiltEffect();
+    initParticleAnimation();
 
     // --- Final Setup ---
     console.log("Refactored script loaded successfully.");
