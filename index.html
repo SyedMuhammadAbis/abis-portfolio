@@ -6,7 +6,8 @@
     <title>Syed Muhammad Abis - Game Developer Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./styles.css">
+    <!-- <link rel="stylesheet" href="./styles.css"> -->
+    <link rel="stylesheet" href="./styles.refactored.css">
     <!-- Three.js for 3D rendering -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/loaders/GLTFLoader.js"></script>
@@ -14,9 +15,9 @@
     <!-- Main JavaScript file -->
     <script src="./js/script.js" defer></script>
 </head>
-<body class="font-body bg-transparent relative" data-theme="light">
+<body data-theme="light">
     <!-- Loading Screen -->
-    <div id="loading" class="fixed inset-0 bg-background z-50 flex items-center justify-center">
+    <div id="loading">
         <div class="loading-spinner"></div>
     </div>
 
@@ -44,48 +45,44 @@
     </audio>
 
     <!-- Navigation -->
-    <nav class="bg-nav shadow-lg fixed w-full top-0 z-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <span class="text-2xl font-heading font-bold text-primary text-glow animate-pulse animate-on-scroll" data-animate="slide-down">Syed Muhammad Abis</span>
-                </div>
-                <div class="flex items-center space-x-4">
-                    <a href="#about" class="text-primary hover:text-accent hover:scale-105 transition transform px-3 py-2 rounded-md text-sm font-medium nav-link mouse-follow animate-on-scroll" data-animate="slide-down">About</a>
-                    <a href="#projects" class="text-primary hover:text-accent hover:scale-105 transition transform px-3 py-2 rounded-md text-sm font-medium nav-link mouse-follow animate-on-scroll" data-animate="slide-down">Projects</a>
-                    <a href="#skills" class="text-primary hover:text-accent hover:scale-105 transition transform px-3 py-2 rounded-md text-sm font-medium nav-link mouse-follow animate-on-scroll" data-animate="slide-down">Skills</a>
-                    <a href="#experience" class="text-primary hover:text-accent hover:scale-105 transition transform px-3 py-2 rounded-md text-sm font-medium nav-link mouse-follow animate-on-scroll" data-animate="slide-down">Experience</a>
-                    <a href="#blog" class="text-primary hover:text-accent hover:scale-105 transition transform px-3 py-2 rounded-md text-sm font-medium nav-link mouse-follow animate-on-scroll" data-animate="slide-down">Blog</a>
-                    <a href="#contact" class="text-primary hover:text-accent hover:scale-105 transition transform px-3 py-2 rounded-md text-sm font-medium nav-link mouse-follow animate-on-scroll" data-animate="slide-down">Contact</a>
-                    <button id="theme-toggle" class="p-2 rounded-full bg-transparent hover:bg-accent transition-colors focus:outline-none animate-on-scroll" data-animate="slide-down" aria-label="Toggle theme">
-                        <svg id="theme-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                        </svg>
-                    </button>
-                    <button id="music-toggle" class="p-2 rounded-full bg-transparent hover:bg-accent transition-colors focus:outline-none animate-on-scroll" data-animate="slide-down" aria-label="Toggle music" data-playing="false">
-                        <svg id="music-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path>
-                        </svg>
-                    </button>
-                </div>
+    <nav class="animate-on-scroll" data-animate="fade-down">
+        <div class="container">
+            <a href="#" class="nav-brand">Syed Muhammad Abis</a>
+            <div class="nav-links">
+                <a href="#about" class="nav-link">About</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#skills" class="nav-link">Skills</a>
+                <a href="#experience" class="nav-link">Experience</a>
+                <a href="#blog" class="nav-link">Blog</a>
+                <a href="#contact" class="nav-link">Contact</a>
+                <button id="theme-toggle" class="nav-toggle" aria-label="Toggle theme">
+                    <svg id="theme-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                </button>
+                <button id="music-toggle" class="nav-toggle" aria-label="Toggle music" data-playing="false">
+                    <svg id="music-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path>
+                    </svg>
+                </button>
             </div>
         </div>
     </nav>
 
     <!-- Animated Name Section -->
-    <section id="name-section" class="min-h-screen flex items-center justify-center parallax" data-speed="0.1">
-        <div class="glass-card text-center p-8 relative overflow-hidden">
-            <div class="title-container relative z-10">
-                <div class="name-wrapper mb-4">
-                    <h1 id="animated-name" class="text-5xl sm:text-6xl md:text-7xl font-heading font-bold text-primary"></h1>
+    <section id="name-section">
+        <div class="glass-card animate-on-scroll" data-animate="scale">
+            <div class="title-container">
+                <div class="name-wrapper">
+                    <h1 id="animated-name">Syed Muhammad Abis</h1>
                 </div>
-                <div class="role-wrapper mb-6">
-                    <p class="text-xl sm:text-2xl text-secondary font-body tracking-wider role-text"></p>
+                <div class="role-wrapper">
+                    <p class="role-text">Game Developer & Creative Technologist</p>
                 </div>
-                <div class="experience-wrapper mb-8">
-                    <p class="text-lg sm:text-xl text-accent font-body tracking-wider experience-text"></p>
+                <div class="experience-wrapper">
+                    <p class="experience-text">4+ Years of Experience in Unity & C#</p>
                 </div>
-                <div class="title-tags mt-8 flex flex-wrap justify-center gap-3">
+                <div class="title-tags">
                     <span class="tag">Unity</span>
                     <span class="tag">C#</span>
                     <span class="tag">Game Design</span>
@@ -94,108 +91,75 @@
             </div>
             <div class="background-effects">
                 <div class="gradient-sphere"></div>
-                <div class="particle-field"></div>
             </div>
         </div>
     </section>
 
     <!-- Hero/About Section -->
-    <section id="about" class="min-h-screen flex items-center justify-center bg-transparent text-primary relative z-10 section-animate mt-96">
-        <div class="text-center max-w-3xl mx-auto px-4 bg-about rounded-xl py-8 backdrop-blur-md">
-            <h2 class="section-header text-3xl font-heading font-bold mb-6">About Me</h2>
-            <p class="text-lg sm:text-xl mb-6 text-secondary animate-on-scroll mouse-follow" data-animate="fade-up">A passionate Game Developer with over 4 years of experience, based in Rawalpindi, Pakistan. I specialize in creating engaging and innovative games using Unity, C#, and C++. My work blends creativity and technical expertise to deliver memorable gaming experiences.</p>
-            <a href="#contact" class="inline-block bg-transparent border-2 border-accent text-accent font-semibold py-2 px-4 rounded-lg hover:bg-accent hover:text-white transition-colors button-glow animate-on-scroll mouse-follow" data-animate="scale-in">Get in Touch</a>
+    <section id="about" class="animate-on-scroll" data-animate="fade-up">
+        <div class="container text-center">
+            <h2 class="section-header">About Me</h2>
+            <p class="max-w-3xl mx-auto mb-6">A passionate Game Developer with over 4 years of experience, based in Rawalpindi, Pakistan. I specialize in creating engaging and innovative games using Unity, C#, and C++. My work blends creativity and technical expertise to deliver memorable gaming experiences.</p>
+            <a href="#contact" class="modern-btn">Get in Touch</a>
         </div>
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="py-20 bg-section relative z-10 section-animate">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="section-header text-3xl font-heading font-bold text-primary text-center mb-12 animate-pulse animate-on-scroll" data-animate="fade-up">My Projects</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="project-card glass-card">
-                    <div class="project-model parallax" data-speed="0.05"></div>
-                    <div class="crt-overlay"></div>
-                    <div class="project-content">
-                        <h3 class="text-xl font-bold text-primary">One Minute Drift</h3>
-                        <p class="text-secondary">A fast-paced racing game where players must drift through challenging tracks within one minute.</p>
-                        <button class="modern-btn mt-4">View Project</button>
-                    </div>
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-header animate-on-scroll" data-animate="fade-up">My Projects</h2>
+            <div class="grid grid-cols-1 grid-cols-md-2 grid-cols-lg-3">
+                <!-- Project 1 -->
+                <div class="info-card project-card animate-on-scroll" data-animate="fade-up" style="--i:0;">
+                    <div class="project-model"></div>
+                    <h3>One Minute Drift</h3>
+                    <p>A fast-paced racing game where players must drift through challenging tracks.</p>
+                    <button class="modern-btn">View Project</button>
                 </div>
-                <div class="project-card glass-card">
-                    <div class="project-model parallax" data-speed="0.05"></div>
-                    <div class="crt-overlay"></div>
-                    <div class="project-content">
-                        <h3 class="text-xl font-bold text-primary">Aesthetic Cube</h3>
-                        <p class="text-secondary">A minimalist puzzle game featuring beautiful geometric patterns and relaxing gameplay.</p>
-                        <button class="modern-btn mt-4">View Project</button>
-                    </div>
+                <!-- Project 2 -->
+                <div class="info-card project-card animate-on-scroll" data-animate="fade-up" style="--i:1;">
+                    <div class="project-model"></div>
+                    <h3>Aesthetic Cube</h3>
+                    <p>A minimalist puzzle game with beautiful geometric patterns.</p>
+                    <button class="modern-btn">View Project</button>
                 </div>
-                <div class="project-card glass-card">
-                    <div class="project-model parallax" data-speed="0.05"></div>
-                    <div class="crt-overlay"></div>
-                    <div class="project-content">
-                        <h3 class="text-xl font-bold text-primary">Rainbow Rollie</h3>
-                        <p class="text-secondary">A colorful platformer where players control a rolling ball through vibrant, challenging levels.</p>
-                        <button class="modern-btn mt-4">View Project</button>
-                    </div>
+                <!-- Project 3 -->
+                <div class="info-card project-card animate-on-scroll" data-animate="fade-up" style="--i:2;">
+                    <div class="project-model"></div>
+                    <h3>Rainbow Rollie</h3>
+                    <p>A colorful platformer where players control a rolling ball through vibrant levels.</p>
+                    <button class="modern-btn">View Project</button>
                 </div>
-                <div class="project-card glass-card">
-                    <div class="project-model parallax" data-speed="0.05"></div>
-                    <div class="crt-overlay"></div>
-                    <div class="project-content">
-                        <h3 class="text-xl font-bold text-primary">Pixel Quest</h3>
-                        <p class="text-secondary">A retro-style RPG adventure with unique pixel art and engaging storyline.</p>
-                        <button class="modern-btn mt-4">View Project</button>
-                    </div>
-                </div>
-                <div class="project-card glass-card">
-                    <div class="project-model parallax" data-speed="0.05"></div>
-                    <div class="crt-overlay"></div>
-                    <div class="project-content">
-                        <h3 class="text-xl font-bold text-primary">Space Defender VR</h3>
-                        <p class="text-secondary">An immersive VR space shooter with stunning visuals and intense gameplay.</p>
-                        <button class="modern-btn mt-4">View Project</button>
-                    </div>
-                </div>
-                <div class="project-card glass-card">
-                    <div class="project-model parallax" data-speed="0.05"></div>
-                    <div class="crt-overlay"></div>
-                    <div class="project-content">
-                        <h3 class="text-xl font-bold text-primary">Eco Warriors</h3>
-                        <p class="text-secondary">An educational game teaching environmental awareness through fun challenges.</p>
-                        <button class="modern-btn mt-4">View Project</button>
-                    </div>
-                </div>
+                <!-- Add more projects similarly -->
             </div>
         </div>
     </section>
 
     <!-- Game Showcase Section -->
-    <section id="showcase" class="py-20 bg-section relative z-10 section-animate">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="section-header text-3xl font-heading font-bold text-primary text-center mb-12 animate-pulse animate-on-scroll" data-animate="fade-up">Game Showcase</h2>
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <section id="showcase">
+        <div class="container">
+            <h2 class="section-header animate-on-scroll" data-animate="fade-up">Game Showcase</h2>
+            <div class="grid grid-cols-1 grid-cols-lg-2">
                 <!-- Interactive 3D Model Viewer -->
-                <div class="glass-card p-6">
-                    <h3 class="text-2xl font-heading font-bold text-primary mb-4">Interactive 3D Models</h3>
-                    <div class="model-viewer-container relative h-96 rounded-lg overflow-hidden">
-                        <canvas id="modelViewer" class="w-full h-full"></canvas>
-                        <div class="model-controls absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-4">
-                            <button class="model-control-btn" data-model="controller">Controller</button>
-                            <button class="model-control-btn" data-model="gamepad">Gamepad</button>
-                            <button class="model-control-btn" data-model="unity_logo">Unity</button>
+                <div class="glass-card animate-on-scroll" data-animate="fade-right">
+                    <h3 class="text-2xl font-bold mb-4">Interactive 3D Models</h3>
+                    <div class="model-viewer-container">
+                        <canvas id="modelViewer"></canvas>
+                        <div class="model-controls">
+                            <button class="modern-btn model-control-btn active" data-model="controller">Controller</button>
+                            <button class="modern-btn model-control-btn" data-model="gamepad">Gamepad</button>
+                            <button class="modern-btn model-control-btn" data-model="unity_logo">Unity</button>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Playable Demo -->
-                <div class="glass-card p-6">
-                    <h3 class="text-2xl font-heading font-bold text-primary mb-4">Playable Demo</h3>
-                    <div class="demo-container relative h-96 rounded-lg overflow-hidden">
+                <div class="glass-card animate-on-scroll" data-animate="fade-left">
+                    <h3 class="text-2xl font-bold mb-4">Playable Demo</h3>
+                    <div class="demo-container">
                         <iframe id="gameDemo" class="w-full h-full" frameborder="0" allowfullscreen></iframe>
-                        <div class="demo-overlay absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-                            <button class="play-demo-btn modern-btn">Play Demo</button>
+                        <div class="demo-overlay">
+                            <button class="modern-btn play-demo-btn">Play Demo</button>
                         </div>
                     </div>
                 </div>
@@ -204,70 +168,19 @@
     </section>
 
     <!-- Skills Section -->
-    <section id="skills" class="py-20 bg-section relative z-10 section-animate">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="section-header text-3xl font-heading font-bold text-primary text-center mb-12 animate-pulse animate-on-scroll" data-animate="fade-up">My Skills</h2>
-            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-                <div class="skill-item glass-card">
-                    <div class="skill-model parallax" data-speed="0.03"></div>
-                    <h4 class="text-lg font-bold text-primary">Unity 3D</h4>
-                    <p class="text-secondary">Expert in Unity game development with 4+ years experience</p>
+    <section id="skills">
+        <div class="container">
+            <h2 class="section-header animate-on-scroll" data-animate="fade-up">My Skills</h2>
+            <div class="grid grid-cols-2 grid-cols-md-3 grid-cols-lg-4">
+                <div class="info-card skill-item animate-on-scroll" data-animate="fade-up" style="--i:0;">
+                    <div class="skill-model"></div>
+                    <h4>Unity 3D</h4>
                 </div>
-                <div class="skill-item glass-card">
-                    <div class="skill-model parallax" data-speed="0.03"></div>
-                    <h4 class="text-lg font-bold text-primary">C#</h4>
-                    <p class="text-secondary">Advanced programming in C# for game development</p>
+                <div class="info-card skill-item animate-on-scroll" data-animate="fade-up" style="--i:1;">
+                    <div class="skill-model"></div>
+                    <h4>C#</h4>
                 </div>
-                <div class="skill-item glass-card">
-                    <div class="skill-model parallax" data-speed="0.03"></div>
-                    <h4 class="text-lg font-bold text-primary">C++</h4>
-                    <p class="text-secondary">Game engine development and optimization</p>
-                </div>
-                <div class="skill-item glass-card">
-                    <div class="skill-model parallax" data-speed="0.03"></div>
-                    <h4 class="text-lg font-bold text-primary">3D Modeling</h4>
-                    <p class="text-secondary">Blender and Maya for game asset creation</p>
-                </div>
-                <div class="skill-item glass-card">
-                    <div class="skill-model parallax" data-speed="0.03"></div>
-                    <h4 class="text-lg font-bold text-primary">Game Design</h4>
-                    <p class="text-secondary">Level design and gameplay mechanics</p>
-                </div>
-                <div class="skill-item glass-card">
-                    <div class="skill-model parallax" data-speed="0.03"></div>
-                    <h4 class="text-lg font-bold text-primary">VR Development</h4>
-                    <p class="text-secondary">Oculus and SteamVR development</p>
-                </div>
-                <div class="skill-item glass-card">
-                    <div class="skill-model parallax" data-speed="0.03"></div>
-                    <h4 class="text-lg font-bold text-primary">UI/UX Design</h4>
-                    <p class="text-secondary">Game interface and user experience design</p>
-                </div>
-                <div class="skill-item glass-card">
-                    <div class="skill-model parallax" data-speed="0.03"></div>
-                    <h4 class="text-lg font-bold text-primary">Git</h4>
-                    <p class="text-secondary">Version control and team collaboration</p>
-                </div>
-                <div class="skill-item glass-card">
-                    <div class="skill-model parallax" data-speed="0.03"></div>
-                    <h4 class="text-lg font-bold text-primary">Shader Programming</h4>
-                    <p class="text-secondary">HLSL and custom shader development</p>
-                </div>
-                <div class="skill-item glass-card">
-                    <div class="skill-model parallax" data-speed="0.03"></div>
-                    <h4 class="text-lg font-bold text-primary">Game AI</h4>
-                    <p class="text-secondary">AI pathfinding and behavior systems</p>
-                </div>
-                <div class="skill-item glass-card">
-                    <div class="skill-model parallax" data-speed="0.03"></div>
-                    <h4 class="text-lg font-bold text-primary">Optimization</h4>
-                    <p class="text-secondary">Performance optimization and profiling</p>
-                </div>
-                <div class="skill-item glass-card">
-                    <div class="skill-model parallax" data-speed="0.03"></div>
-                    <h4 class="text-lg font-bold text-primary">Agile/Scrum</h4>
-                    <p class="text-secondary">Project management methodologies</p>
-                </div>
+                <!-- Add more skills similarly -->
             </div>
         </div>
     </section>
@@ -332,28 +245,37 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-20 bg-section relative z-10 section-animate">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="section-header text-3xl font-heading font-bold text-primary text-center mb-12 animate-pulse animate-on-scroll" data-animate="fade-up">Get in Touch</h2>
-            <div class="max-w-lg mx-auto">
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-center">
-                    <p class="text-secondary animate-on-scroll mouse-follow" data-animate="slide-in-left">Email: <a href="mailto:blacknwhite482@gmail.com" class="text-accent hover:underline contact-link animate-on-scroll" data-animate="scale-in">blacknwhite482@gmail.com</a></p>
-                    <p class="text-secondary animate-on-scroll mouse-follow" data-animate="slide-in-right">GitHub: <a href="https://github.com/SyedMuhammadAbis" class="text-accent hover:underline contact-link animate-on-scroll" data-animate="scale-in">github.com/SyedMuhammadAbis</a></p>
-                    <p class="text-secondary animate-on-scroll mouse-follow" data-animate="slide-in-left">Fiverr: <a href="https://www.fiverr.com/users/blacknwhite918/seller_dashboard" class="text-accent hover:underline contact-link animate-on-scroll" data-animate="scale-in">fiverr.com/blacknwhite918</a></p>
-                    <p class="text-secondary animate-on-scroll mouse-follow" data-animate="slide-in-right">LinkedIn: <a href="https://www.linkedin.com/in/syed-muhammad-abis-2a989b31a/" class="text-accent hover:underline contact-link animate-on-scroll" data-animate="scale-in">linkedin.com/in/syed-muhammad-abis</a></p>
-                    <p class="text-secondary animate-on-scroll mouse-follow" data-animate="slide-in-left">YouTube: <a href="https://www.youtube.com/@blacknwhitedev" class="text-accent hover:underline contact-link animate-on-scroll" data-animate="scale-in">youtube.com/@blacknwhitedev</a></p>
-                    <p class="text-secondary animate-on-scroll mouse-follow" data-animate="slide-in-right">LinkTree: <a href="https://linktr.ee/SyedMuhammadAbisDev" class="text-accent hover:underline contact-link animate-on-scroll" data-animate="scale-in">linktr.ee/SyedMuhammadAbisDev</a></p>
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-header animate-on-scroll" data-animate="fade-up">Get In Touch</h2>
+            <form class="contact-form animate-on-scroll" data-animate="fade-up">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
                 </div>
-            </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="modern-btn">Send Message</button>
+            </form>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-transparent text-primary py-6 relative z-10 footer-animate">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p class="relative inline-block after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-accent after:animate-glow animate-on-scroll text-glow" data-animate="fade-up">© 2025 Syed Muhammad Abis. All rights reserved.</p>
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Syed Muhammad Abis. All Rights Reserved.</p>
         </div>
     </footer>
+
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
 
     <!-- Gallery Modal -->
     <div id="galleryModal" class="fixed inset-0 bg-black bg-opacity-75 hidden flex items-center justify-center z-50">
