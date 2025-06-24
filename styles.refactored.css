@@ -212,11 +212,11 @@ section {
 
 @media (max-width: 1024px) {
     .grid-cols-lg-2 { grid-template-columns: repeat(2, 1fr); }
+    .grid-cols-lg-3 { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 768px) {
-    .grid-cols-md-2 { grid-template-columns: repeat(2, 1fr); }
-    .grid-cols-md-1 { grid-template-columns: repeat(1, 1fr); }
+    .grid-cols-md-2 { grid-template-columns: repeat(1, 1fr); }
 }
 
 /* Scroll Animation Helper */
@@ -541,13 +541,46 @@ nav .container {
     color: var(--secondary-text);
 }
 
-.project-card .project-model,
-.skill-item .skill-model {
-    height: 150px;
-    margin-bottom: 1.5rem;
-    /* Placeholder for 3D model */
-    background-color: rgba(255, 255, 255, 0.05);
-    border-radius: 0.5rem;
+.project-card {
+    max-width: 380px;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    min-width: 0;
+}
+
+.project-card .project-model {
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.2rem;
+    background: rgba(139, 92, 246, 0.07);
+    border-radius: 0.75rem;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.10);
+    position: relative;
+}
+
+.project-thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    aspect-ratio: 1 / 1;
+    border-radius: 0.75rem;
+    display: block;
+}
+
+.project-card:hover .project-thumb {
+    transform: scale(1.05) rotate(-2deg);
+    box-shadow: 0 6px 24px rgba(139,92,246,0.18);
 }
 
 /* --- Game Showcase --- */
@@ -729,4 +762,199 @@ footer {
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
     }
+}
+
+/* --- Project Modal --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(15, 23, 42, 0.95);
+    z-index: 20000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s;
+}
+.modal-overlay.hidden {
+    display: none;
+}
+.modal-content {
+    background: var(--card-bg);
+    border-radius: 1rem;
+    padding: 2rem 2.5rem;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+    position: relative;
+    text-align: center;
+}
+.close-modal {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: var(--primary-text);
+    cursor: pointer;
+    transition: color 0.2s;
+}
+.close-modal:hover {
+    color: var(--accent);
+}
+.modal-gallery {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+.modal-gallery img {
+    max-width: 300px;
+    max-height: 200px;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    background: #222;
+}
+.modal-nav {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.modal-nav:hover {
+    background: var(--accent-hover);
+}
+
+#three-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -2;
+    pointer-events: none;
+    opacity: 0.35;
+}
+
+.info-card.skill-item {
+    padding: 1.1rem 1rem;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+.skill-model {
+    font-size: 2rem;
+    margin-bottom: 0.2rem;
+}
+
+.skill-modal-content {
+    max-width: 340px;
+    padding: 1.5rem 1.25rem;
+    min-width: 0;
+}
+
+@media (max-width: 400px) {
+    .skill-modal-content {
+        max-width: 95vw;
+        padding: 1rem 0.5rem;
+    }
+}
+
+/* Easter Egg Popup */
+.easter-egg-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(135deg, #ffb6ff 0%, #b5ffff 100%);
+  color: #222;
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  padding: 2rem 3rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 99999;
+  transition: opacity 0.5s;
+}
+.easter-egg-popup.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Vapour Theme */
+.theme-vapour {
+  --background: #2d0036;
+  --primary-text: #fff0fa;
+  --secondary-text: #b5ffff;
+  --accent: #ffb6ff;
+  --accent-hover: #b5ffff;
+  --card-bg: rgba(255, 182, 255, 0.15);
+}
+
+/* Retro Theme */
+.theme-retro {
+  --background: #1a1a2e;
+  --primary-text: #f9d923;
+  --secondary-text: #eaeaea;
+  --accent: #ff2e63;
+  --accent-hover: #08d9d6;
+  --card-bg: rgba(255, 46, 99, 0.15);
+}
+
+/* Hacker Theme */
+.theme-hacker {
+  --background: #0a0f0a;
+  --primary-text: #39ff14;
+  --secondary-text: #00ffea;
+  --accent: #39ff14;
+  --accent-hover: #00ffea;
+  --card-bg: rgba(57, 255, 20, 0.10);
+}
+
+/* Cyberpunk Theme */
+.theme-cyberpunk {
+  --background: #0f0326;
+  --primary-text: #fffcf2;
+  --secondary-text: #08f7fe;
+  --accent: #ff2a6d;
+  --accent-hover: #fcee09;
+  --card-bg: rgba(8, 247, 254, 0.10);
+}
+
+.grid.projects-grid {
+  display: grid;
+  align-items: start;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 600px) {
+  .grid.projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1024px) {
+  .grid.projects-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 500px) {
+  .project-card {
+    max-width: 100%;
+  }
 } 

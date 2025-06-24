@@ -7,9 +7,9 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- Global State & Initial Setup ---
-    const state = {
+const state = {
         theme: localStorage.getItem('theme') || 'dark',
-        isMusicPlaying: false,
+    isMusicPlaying: false,
     };
 
     const audioCache = {};
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function playAudio(soundName, volume = 0.5) {
         if (!audioCache[soundName]) {
             const audio = new Audio(`./assets/audio/${soundName}.mp3`);
-            audio.volume = volume;
+        audio.volume = volume;
             audioCache[soundName] = audio;
         }
         audioCache[soundName].currentTime = 0;
@@ -70,12 +70,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const musicToggle = document.getElementById('music-toggle');
     if (musicToggle) {
         musicToggle.addEventListener('click', () => {
-            if (state.isMusicPlaying) {
-                bgMusic.pause();
-            } else {
+                if (state.isMusicPlaying) {
+                    bgMusic.pause();
+                } else {
                 bgMusic.play().catch(err => console.error("BG music failed:", err));
             }
-            state.isMusicPlaying = !state.isMusicPlaying;
+                state.isMusicPlaying = !state.isMusicPlaying;
             musicToggle.setAttribute('data-playing', state.isMusicPlaying);
             playAudio('button_click');
         });
@@ -190,12 +190,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    const animatedName = document.getElementById('animated-name');
+        const animatedName = document.getElementById('animated-name');
     if(animatedName){
         const fx = new TextScramble(animatedName);
         const originalText = animatedName.innerText;
         
-        setTimeout(() => {
+            setTimeout(() => {
            fx.setText(originalText);
         }, 1000); // Delay start of animation
     }
@@ -274,8 +274,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function initParticleAnimation() {
         const canvas = document.getElementById('particle-canvas');
         if (!canvas) return;
-        
-        const ctx = canvas.getContext('2d');
+
+            const ctx = canvas.getContext('2d');
         let particles = [];
         
         const resizeCanvas = () => {
@@ -304,7 +304,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ctx.fillStyle = 'rgba(139, 92, 246, 0.5)';
                 ctx.strokeStyle = 'rgba(139, 92, 246, 0.8)';
                 ctx.lineWidth = 2;
-                ctx.beginPath();
+                    ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.closePath();
                 ctx.fill();
@@ -332,9 +332,288 @@ document.addEventListener('DOMContentLoaded', () => {
         animate();
     }
 
+    // --- Three.js 3D Models Background ---
+    function initThreeBackground() {
+        const canvas = document.getElementById('three-bg');
+        if (!canvas) return;
+        const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+        renderer.setClearColor(0x000000, 0);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
+        camera.position.set(0, 0, 8);
+
+        // Lighting
+        const ambient = new THREE.AmbientLight(0xffffff, 0.7);
+        scene.add(ambient);
+        const dir = new THREE.DirectionalLight(0xffffff, 0.5);
+        dir.position.set(5, 10, 7);
+        scene.add(dir);
+
+        // Models
+        const loader = new THREE.GLTFLoader();
+        const modelConfigs = [
+            { file: './assets/models/controller.gltf', position: [-2.5, 0.5, 0], scale: 1.2, rotSpeed: 0.003 },
+            { file: './assets/models/gamepad.gltf', position: [2.5, -0.5, 0], scale: 1.2, rotSpeed: -0.002 },
+            { file: './assets/models/unity_logo.gltf', position: [0, 1.8, 0], scale: 1.5, rotSpeed: 0.0015 }
+        ];
+        const loadedModels = [];
+
+        modelConfigs.forEach(cfg => {
+            loader.load(cfg.file, gltf => {
+                const model = gltf.scene;
+                model.position.set(...cfg.position);
+                model.scale.set(cfg.scale, cfg.scale, cfg.scale);
+                model.userData.rotSpeed = cfg.rotSpeed;
+                scene.add(model);
+                loadedModels.push(model);
+            });
+        });
+
+        // Responsive
+        window.addEventListener('resize', () => {
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+        });
+
+        // Animation loop
+        function animate() {
+            loadedModels.forEach(model => {
+                model.rotation.y += model.userData.rotSpeed || 0.002;
+                model.rotation.x += (model.userData.rotSpeed || 0.002) * 0.5;
+            });
+            renderer.render(scene, camera);
+            requestAnimationFrame(animate);
+        }
+        animate();
+    }
+
     initCustomCursor();
     initCardTiltEffect();
     initParticleAnimation();
+    initThreeBackground();
+
+    // --- Project Modal Logic ---
+    const projectData = {
+        one_minute_drift: {
+            title: 'One Minute Drift',
+            description: `<strong>Genre:</strong> Arcade Racing<br>
+                <ul style='text-align:left; margin:0 auto; max-width:300px;'>
+                  <li>⏱️ <b>60 seconds</b> to drift as far as you can!</li>
+                  <li>🔥 <b>Dynamic</b> drift physics and neon visuals</li>
+                  <li>🏆 Compete for the best score</li>
+                </ul>
+                <p style='margin-top:1em; color:var(--accent);'><em>"Can you master the art of the drift in just one minute?"</em></p>`,
+            images: [
+            './assets/images/projects/one_minute_drift_screenshot1.jpg',
+            './assets/images/projects/one_minute_drift_screenshot2.jpg',
+            './assets/images/projects/one_minute_drift_gallery1.jpg'
+        ]
+        },
+        aesthetic_cube: {
+            title: 'Aesthetic Cube',
+            description: `<strong>Genre:</strong> Minimalist Puzzle<br>
+                <ul style='text-align:left; margin:0 auto; max-width:300px;'>
+                  <li>🧩 <b>Chill puzzles</b> with geometric beauty</li>
+                  <li>🎵 Relaxing synth soundtrack</li>
+                  <li>🌈 Unlock <b>new color themes</b></li>
+                </ul>
+                <p style='margin-top:1em; color:var(--accent);'><em>"A puzzle game for your eyes and your mind."</em></p>`,
+            images: [
+                './assets/images/projects/aesthetic_cube_screenshot1.jpg',
+                './assets/images/projects/aesthetic_cube_screenshot2.jpg',
+                './assets/images/projects/aesthetic_cube_gallery1.jpg'
+            ]
+        },
+        rainbow_rollie: {
+            title: 'Rainbow Rollie',
+            description: `<strong>Genre:</strong> Platformer<br>
+                <ul style='text-align:left; margin:0 auto; max-width:300px;'>
+                  <li>🌈 <b>Roll</b> through vibrant, colorful worlds</li>
+                  <li>⚡ <b>Fast-paced</b> platforming action</li>
+                  <li>🎯 <b>Secrets</b> and hidden paths in every level</li>
+                </ul>
+                <p style='margin-top:1em; color:var(--accent);'><em>"How far can you roll before the colors run out?"</em></p>`,
+            images: [
+                './assets/images/projects/rainbow_rollie_screenshot1.jpg',
+                './assets/images/projects/rainbow_rollie_screenshot2.jpg',
+                './assets/images/projects/rainbow_rollie_gallery1.jpg'
+            ]
+        }
+        // Add more projects as needed
+    };
+
+    const modal = document.getElementById('project-modal');
+    const closeModalBtn = document.getElementById('close-project-modal');
+    const modalTitle = document.getElementById('modal-project-title');
+    const modalDesc = document.getElementById('modal-project-description');
+    const modalImg = document.getElementById('modal-project-img');
+    const modalPrev = document.getElementById('modal-prev-img');
+    const modalNext = document.getElementById('modal-next-img');
+
+    let currentProject = null;
+    let currentImgIndex = 0;
+
+    function openProjectModal(projectId) {
+        const data = projectData[projectId];
+        if (!data) return;
+        currentProject = projectId;
+        currentImgIndex = 0;
+        modalTitle.textContent = data.title;
+        modalDesc.innerHTML = data.description;
+        modalImg.src = data.images[0];
+        modal.classList.remove('hidden');
+    }
+
+    function closeProjectModal() {
+        modal.classList.add('hidden');
+    }
+
+    function showModalImg(index) {
+        const data = projectData[currentProject];
+        if (!data) return;
+        currentImgIndex = (index + data.images.length) % data.images.length;
+        modalImg.src = data.images[currentImgIndex];
+    }
+
+    document.querySelectorAll('.view-project-btn').forEach(btn => {
+        btn.addEventListener('click', e => {
+            const card = btn.closest('.project-card');
+            if (!card) return;
+            const projectId = card.getAttribute('data-project-id');
+            openProjectModal(projectId);
+            });
+        });
+
+    if (closeModalBtn) closeModalBtn.addEventListener('click', closeProjectModal);
+    if (modalPrev) modalPrev.addEventListener('click', () => showModalImg(currentImgIndex - 1));
+    if (modalNext) modalNext.addEventListener('click', () => showModalImg(currentImgIndex + 1));
+    if (modal) modal.addEventListener('click', e => {
+        if (e.target === modal) closeProjectModal();
+    });
+
+    // --- Skill Modal Logic ---
+    const skillData = {
+        unity3d: {
+            title: 'Unity 3D',
+            description: 'Expert in Unity engine for 2D/3D games, rapid prototyping, and cross-platform deployment.'
+        },
+        csharp: {
+            title: 'C#',
+            description: 'Advanced C# scripting for gameplay, tools, and editor extensions in Unity.'
+        },
+        cplusplus: {
+            title: 'C++',
+            description: 'Performance-focused code for engines, plugins, and game logic.'
+        },
+        modeling: {
+            title: '3D Modeling',
+            description: 'Asset creation in Blender/Maya for games, including props, environments, and characters.'
+        },
+        gamedesign: {
+            title: 'Game Design',
+            description: 'Level design, mechanics, and player experience balancing.'
+        },
+        vrar: {
+            title: 'VR/AR Development',
+            description: 'Immersive experiences for Oculus, SteamVR, and AR platforms.'
+        },
+        uiux: {
+            title: 'UI/UX Design',
+            description: 'Intuitive interfaces and user flows for games and apps.'
+        },
+        git: {
+            title: 'Git',
+            description: 'Version control, branching, and team collaboration.'
+        },
+        shader: {
+            title: 'Shader Programming',
+            description: 'Custom HLSL/GLSL shaders for unique visual effects.'
+        },
+        ai: {
+            title: 'Game AI',
+            description: 'Pathfinding, enemy behaviors, and decision systems.'
+        },
+        optimization: {
+            title: 'Optimization',
+            description: 'Profiling and performance tuning for smooth gameplay.'
+        },
+        agile: {
+            title: 'Agile/Scrum',
+            description: 'Project management, sprints, and iterative development.'
+        }
+    };
+
+    const skillModal = document.getElementById('skill-modal');
+    const closeSkillModalBtn = document.getElementById('close-skill-modal');
+    const modalSkillTitle = document.getElementById('modal-skill-title');
+    const modalSkillDesc = document.getElementById('modal-skill-description');
+
+    document.querySelectorAll('.skill-item').forEach(card => {
+        card.addEventListener('click', () => {
+            const skillId = card.getAttribute('data-skill-id');
+            const data = skillData[skillId];
+            if (!data) return;
+            modalSkillTitle.textContent = data.title;
+            modalSkillDesc.textContent = data.description;
+            skillModal.classList.remove('hidden');
+                });
+            });
+    if (closeSkillModalBtn) closeSkillModalBtn.addEventListener('click', () => skillModal.classList.add('hidden'));
+    if (skillModal) skillModal.addEventListener('click', e => {
+        if (e.target === skillModal) skillModal.classList.add('hidden');
+    });
+
+    // Easter Egg: Theme change on typing 'vapour' or 'retro'
+    const easterEggPopup = document.getElementById('easterEggPopup');
+    let keyBuffer = '';
+    const vapourCode = 'vapour';
+    const retroCode = 'retro';
+    const hackerCode = 'hacker';
+    const cyberpunkCode = 'cyberpunk';
+    let lastTheme = null;
+
+    document.addEventListener('keydown', (e) => {
+        // Ignore if typing in an input, textarea, or contenteditable
+        const active = document.activeElement;
+        if (active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA' || active.isContentEditable)) return;
+        // Only allow a-z keys
+        if (!/^[a-zA-Z]$/.test(e.key)) return;
+        keyBuffer += e.key.toLowerCase();
+        if (keyBuffer.length > 12) keyBuffer = keyBuffer.slice(-12);
+        if (keyBuffer.endsWith(vapourCode) && lastTheme !== 'vapour') {
+            document.body.classList.remove('theme-retro', 'theme-hacker', 'theme-cyberpunk');
+            document.body.classList.add('theme-vapour');
+            lastTheme = 'vapour';
+            showEasterEggPopup();
+        } else if (keyBuffer.endsWith(retroCode) && lastTheme !== 'retro') {
+            document.body.classList.remove('theme-vapour', 'theme-hacker', 'theme-cyberpunk');
+            document.body.classList.add('theme-retro');
+            lastTheme = 'retro';
+            showEasterEggPopup();
+        } else if (keyBuffer.endsWith(hackerCode) && lastTheme !== 'hacker') {
+            document.body.classList.remove('theme-vapour', 'theme-retro', 'theme-cyberpunk');
+            document.body.classList.add('theme-hacker');
+            lastTheme = 'hacker';
+            showEasterEggPopup();
+        } else if (keyBuffer.endsWith(cyberpunkCode) && lastTheme !== 'cyberpunk') {
+            document.body.classList.remove('theme-vapour', 'theme-retro', 'theme-hacker');
+            document.body.classList.add('theme-cyberpunk');
+            lastTheme = 'cyberpunk';
+            showEasterEggPopup();
+        }
+    });
+
+    function showEasterEggPopup() {
+        if (!easterEggPopup) return;
+        easterEggPopup.classList.add('active');
+        setTimeout(() => {
+            easterEggPopup.classList.remove('active');
+        }, 2500);
+    }
 
     // --- Final Setup ---
     console.log("Refactored script loaded successfully.");
@@ -344,4 +623,4 @@ document.addEventListener('DOMContentLoaded', () => {
         // We can just hide it, as the 'loaded' class on the body will handle the fade-out
         loadingScreen.style.display = 'none';
     }
-}); 
+});

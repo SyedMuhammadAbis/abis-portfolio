@@ -27,6 +27,8 @@
 
     <!-- Background Particle Canvas -->
     <canvas id="particle-canvas"></canvas>
+    <!-- Three.js 3D Models Background -->
+    <canvas id="three-bg"></canvas>
 
     <!-- Loading Screen -->
     <div id="loading">
@@ -120,29 +122,61 @@
     <section id="projects">
         <div class="container">
             <h2 class="section-header animate-on-scroll" data-animate="fade-up">My Projects</h2>
-            <div class="grid grid-cols-1 grid-cols-md-2 grid-cols-lg-3">
+            <div class="grid projects-grid grid-cols-1 grid-cols-md-2 grid-cols-lg-3">
                 <!-- Project 1 -->
-                <div class="info-card project-card animate-on-scroll" data-animate="fade-up" style="--i:0;">
-                    <div class="project-model"></div>
+                <div class="info-card project-card animate-on-scroll" data-animate="fade-up" data-project-id="one_minute_drift" style="--i:0;">
+                    <div class="project-model">
+                        <img src="./assets/images/projects/one_minute_drift_screenshot1.jpg" alt="One Minute Drift Thumbnail" class="project-thumb">
+                    </div>
                     <h3>One Minute Drift</h3>
                     <p>A fast-paced racing game where players must drift through challenging tracks.</p>
-                    <button class="modern-btn">View Project</button>
+                    <button class="modern-btn view-project-btn">View Project</button>
                 </div>
                 <!-- Project 2 -->
-                <div class="info-card project-card animate-on-scroll" data-animate="fade-up" style="--i:1;">
-                    <div class="project-model"></div>
+                <div class="info-card project-card animate-on-scroll" data-animate="fade-up" data-project-id="aesthetic_cube" style="--i:1;">
+                    <div class="project-model">
+                        <img src="./assets/images/projects/aesthetic_cube_screenshot1.jpg" alt="Aesthetic Cube Thumbnail" class="project-thumb">
+                    </div>
                     <h3>Aesthetic Cube</h3>
                     <p>A minimalist puzzle game with beautiful geometric patterns.</p>
-                    <button class="modern-btn">View Project</button>
+                    <button class="modern-btn view-project-btn">View Project</button>
                 </div>
                 <!-- Project 3 -->
-                <div class="info-card project-card animate-on-scroll" data-animate="fade-up" style="--i:2;">
-                    <div class="project-model"></div>
+                <div class="info-card project-card animate-on-scroll" data-animate="fade-up" data-project-id="rainbow_rollie" style="--i:2;">
+                    <div class="project-model">
+                        <img src="./assets/images/projects/rainbow_rollie_screenshot1.jpg" alt="Rainbow Rollie Thumbnail" class="project-thumb">
+                    </div>
                     <h3>Rainbow Rollie</h3>
                     <p>A colorful platformer where players control a rolling ball through vibrant levels.</p>
-                    <button class="modern-btn">View Project</button>
+                    <button class="modern-btn view-project-btn">View Project</button>
                 </div>
-                <!-- Add more projects similarly -->
+                <!-- Project 4 -->
+                <div class="info-card project-card animate-on-scroll" data-animate="fade-up" data-project-id="pickle_former" style="--i:3;">
+                    <div class="project-model">
+                        <img src="./assets/images/projects/pickle_former_screenshot1.jpg" alt="Pickle Former Thumbnail" class="project-thumb">
+                    </div>
+                    <h3>Pickle Former</h3>
+                    <p>A quirky puzzle platformer where you transform pickles to solve challenges.</p>
+                    <button class="modern-btn view-project-btn">View Project</button>
+                </div>
+                <!-- Project 5 -->
+                <div class="info-card project-card animate-on-scroll" data-animate="fade-up" data-project-id="baqra_surfer" style="--i:4;">
+                    <div class="project-model">
+                        <img src="./assets/images/projects/baqra_surfer_screenshot1.jpg" alt="Baqra Surfer Thumbnail" class="project-thumb">
+                    </div>
+                    <h3>Baqra Surfer</h3>
+                    <p>Surf the wildest waves as a goat in this fun and unexpected adventure!</p>
+                    <button class="modern-btn view-project-btn">View Project</button>
+                </div>
+                <!-- Project 6 -->
+                <div class="info-card project-card animate-on-scroll" data-animate="fade-up" data-project-id="cartoon_defence" style="--i:5;">
+                    <div class="project-model">
+                        <img src="./assets/images/projects/cartoon_defence_screenshot1.jpg" alt="Cartoon Defence Thumbnail" class="project-thumb">
+                    </div>
+                    <h3>Cartoon Defence</h3>
+                    <p>Defend your base with wacky cartoon weapons and hilarious enemies.</p>
+                    <button class="modern-btn view-project-btn">View Project</button>
+                </div>
             </div>
         </div>
     </section>
@@ -152,19 +186,6 @@
         <div class="container">
             <h2 class="section-header animate-on-scroll" data-animate="fade-up">Game Showcase</h2>
             <div class="grid grid-cols-1 grid-cols-lg-2">
-                <!-- Interactive 3D Model Viewer -->
-                <div class="glass-card animate-on-scroll" data-animate="fade-right">
-                    <h3 class="text-2xl font-bold mb-4">Interactive 3D Models</h3>
-                    <div class="model-viewer-container">
-                        <canvas id="modelViewer"></canvas>
-                        <div class="model-controls">
-                            <button class="modern-btn model-control-btn active" data-model="controller">Controller</button>
-                            <button class="modern-btn model-control-btn" data-model="gamepad">Gamepad</button>
-                            <button class="modern-btn model-control-btn" data-model="unity_logo">Unity</button>
-                        </div>
-                    </div>
-                </div>
-                
                 <!-- Playable Demo -->
                 <div class="glass-card animate-on-scroll" data-animate="fade-left">
                     <h3 class="text-2xl font-bold mb-4">Playable Demo</h3>
@@ -184,15 +205,54 @@
         <div class="container">
             <h2 class="section-header animate-on-scroll" data-animate="fade-up">My Skills</h2>
             <div class="grid grid-cols-2 grid-cols-md-3 grid-cols-lg-4">
-                <div class="info-card skill-item animate-on-scroll" data-animate="fade-up" style="--i:0;">
-                    <div class="skill-model"></div>
+                <div class="info-card skill-item animate-on-scroll" data-animate="fade-up" data-skill-id="unity3d" style="--i:0;">
+                    <div class="skill-model">🎮</div>
                     <h4>Unity 3D</h4>
                 </div>
-                <div class="info-card skill-item animate-on-scroll" data-animate="fade-up" style="--i:1;">
-                    <div class="skill-model"></div>
+                <div class="info-card skill-item animate-on-scroll" data-animate="fade-up" data-skill-id="csharp" style="--i:1;">
+                    <div class="skill-model">💻</div>
                     <h4>C#</h4>
                 </div>
-                <!-- Add more skills similarly -->
+                <div class="info-card skill-item animate-on-scroll" data-animate="fade-up" data-skill-id="cplusplus" style="--i:2;">
+                    <div class="skill-model">⚙️</div>
+                    <h4>C++</h4>
+                </div>
+                <div class="info-card skill-item animate-on-scroll" data-animate="fade-up" data-skill-id="modeling" style="--i:3;">
+                    <div class="skill-model">🧊</div>
+                    <h4>3D Modeling</h4>
+                </div>
+                <div class="info-card skill-item animate-on-scroll" data-animate="fade-up" data-skill-id="gamedesign" style="--i:4;">
+                    <div class="skill-model">🕹️</div>
+                    <h4>Game Design</h4>
+                </div>
+                <div class="info-card skill-item animate-on-scroll" data-animate="fade-up" data-skill-id="vrar" style="--i:5;">
+                    <div class="skill-model">🕶️</div>
+                    <h4>VR/AR Development</h4>
+                </div>
+                <div class="info-card skill-item animate-on-scroll" data-animate="fade-up" data-skill-id="uiux" style="--i:6;">
+                    <div class="skill-model">🎨</div>
+                    <h4>UI/UX Design</h4>
+                </div>
+                <div class="info-card skill-item animate-on-scroll" data-animate="fade-up" data-skill-id="git" style="--i:7;">
+                    <div class="skill-model">🔗</div>
+                    <h4>Git</h4>
+                </div>
+                <div class="info-card skill-item animate-on-scroll" data-animate="fade-up" data-skill-id="shader" style="--i:8;">
+                    <div class="skill-model">💡</div>
+                    <h4>Shader Programming</h4>
+                </div>
+                <div class="info-card skill-item animate-on-scroll" data-animate="fade-up" data-skill-id="ai" style="--i:9;">
+                    <div class="skill-model">🤖</div>
+                    <h4>Game AI</h4>
+                </div>
+                <div class="info-card skill-item animate-on-scroll" data-animate="fade-up" data-skill-id="optimization" style="--i:10;">
+                    <div class="skill-model">🚀</div>
+                    <h4>Optimization</h4>
+                </div>
+                <div class="info-card skill-item animate-on-scroll" data-animate="fade-up" data-skill-id="agile" style="--i:11;">
+                    <div class="skill-model">📈</div>
+                    <h4>Agile/Scrum</h4>
+                </div>
             </div>
         </div>
     </section>
@@ -293,5 +353,31 @@
             </div>
         </div>
     </div>
+
+    <!-- Project Modal -->
+    <div id="project-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <button id="close-project-modal" class="close-modal">&times;</button>
+            <h2 id="modal-project-title"></h2>
+            <p id="modal-project-description"></p>
+            <div id="modal-project-gallery" class="modal-gallery">
+                <button id="modal-prev-img" class="modal-nav">&#8592;</button>
+                <img id="modal-project-img" src="" alt="Project Screenshot">
+                <button id="modal-next-img" class="modal-nav">&#8594;</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Skill Modal -->
+    <div id="skill-modal" class="modal-overlay hidden">
+        <div class="modal-content skill-modal-content">
+            <button id="close-skill-modal" class="close-modal">&times;</button>
+            <h2 id="modal-skill-title"></h2>
+            <p id="modal-skill-description"></p>
+        </div>
+    </div>
+
+    <!-- Easter Egg Popup -->
+    <div id="easterEggPopup" class="easter-egg-popup">You unlocked an easter egg!</div>
 </body>
 </html>
