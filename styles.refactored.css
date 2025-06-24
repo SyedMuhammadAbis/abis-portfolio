@@ -956,5 +956,144 @@ footer {
 @media (max-width: 500px) {
   .project-card {
     max-width: 100%;
+    min-height: 200px;
   }
-} 
+}
+
+/* ==========================================================================
+   10. Responsive Styles
+   ========================================================================== */
+
+/* --- Tablet (Medium Screens) --- */
+@media (max-width: 1024px) {
+    h1 { font-size: 2.5rem; }
+    h2 { font-size: 2rem; }
+
+    .container {
+        padding: 0 2rem;
+    }
+
+    section {
+        padding: 4rem 1rem;
+    }
+
+    /* Adjust project grid for tablets */
+    .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* --- Mobile (Small Screens) --- */
+@media (max-width: 768px) {
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.75rem; }
+    p { font-size: 0.9rem; }
+
+    section {
+        padding: 3rem 1rem;
+        min-height: auto; /* Allow sections to be smaller than viewport height */
+    }
+
+    .container {
+        padding: 0 1rem;
+    }
+
+    /* --- Mobile Navigation --- */
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background-color: var(--card-bg);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem 0;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+    
+    .nav-link {
+        padding: 1rem 0;
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-toggle {
+        display: block; /* Show hamburger menu */
+    }
+    
+    /* --- Hero Section --- */
+    #name-section {
+        padding-top: 8rem; /* Add padding to push content down from nav */
+    }
+
+    #animated-name {
+        font-size: 3rem; /* Reduce name size */
+        letter-spacing: 0.2rem;
+    }
+
+    .role-wrapper, .experience-wrapper {
+        font-size: 1rem;
+    }
+    
+    /* --- Grids --- */
+    .projects-grid,
+    .skills-grid {
+        grid-template-columns: 1fr; /* Stack cards in a single column */
+    }
+
+    /* --- Cards --- */
+    .info-card, .project-card {
+        transform-style: flat; /* Disable 3D tilt on mobile */
+    }
+    .info-card:hover, .project-card:hover {
+        transform: translateY(-5px); /* Simpler hover effect for mobile (though hover is limited) */
+        box-shadow: none;
+        animation: none; /* Disable glow animation */
+    }
+
+    /* --- Contact --- */
+    .social-links {
+        flex-wrap: wrap; /* Allow links to wrap if needed */
+        justify-content: center;
+    }
+    .social-link {
+        margin: 0.5rem;
+    }
+    
+    /* --- Modal --- */
+    .modal-content {
+        width: 90vw;
+        max-width: none;
+    }
+
+    /* Disable expensive rendering effects on mobile */
+    .nav-links, .glass-card, .modal-content {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
+}
+
+/* Further adjustments for very small screens */
+@media (max-width: 480px) {
+    #animated-name {
+        font-size: 2.5rem;
+        letter-spacing: 0.1rem;
+    }
+
+    .overlay-content h1 {
+        font-size: 1.8rem;
+    }
+    
+    .modern-btn {
+        padding: 0.8rem 1.5rem;
+        font-size: 0.9rem;
+    }
+}

@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 const state = {
         theme: localStorage.getItem('theme') || 'dark',
     isMusicPlaying: false,
+        isMobile: /Mobi|Android/i.test(navigator.userAgent) || window.innerWidth < 768,
     };
 
     const audioCache = {};
@@ -102,9 +103,16 @@ const state = {
         });
     }, { threshold: 0.1 });
 
-    document.querySelectorAll('.animate-on-scroll').forEach(el => {
-        animationObserver.observe(el);
-    });
+    if (!state.isMobile) {
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            animationObserver.observe(el);
+        });
+        } else {
+        // On mobile, just make them visible without the animation
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            el.classList.add('is-visible');
+        });
+    }
 
     // 6. Game Showcase Logic
     const modelViewerCanvas = document.getElementById('modelViewer');
@@ -191,13 +199,22 @@ const state = {
     }
 
         const animatedName = document.getElementById('animated-name');
-    if(animatedName){
+    if (animatedName && !state.isMobile) {
         const fx = new TextScramble(animatedName);
-        const originalText = animatedName.innerText;
-        
-            setTimeout(() => {
-           fx.setText(originalText);
-        }, 1000); // Delay start of animation
+        const phrases = [
+            "Syed Muhammad Abis",
+            "Game Developer",
+            "Unity Specialist",
+            "Creative Coder"
+        ];
+        let counter = 0;
+        const next = () => {
+            fx.setText(phrases[counter]).then(() => {
+                setTimeout(next, 3000); // Wait 3 seconds before next text
+            });
+            counter = (counter + 1) % phrases.length;
+        };
+        setTimeout(next, 1000); // Initial delay
     }
 
     // 8. Custom Cursor Logic
@@ -271,7 +288,7 @@ const state = {
     }
     
     // 10. Background Particle Animation
-    function initParticleAnimation() {
+    function initParticleAnimation(particleCount) {
         const canvas = document.getElementById('particle-canvas');
         if (!canvas) return;
 
@@ -313,7 +330,6 @@ const state = {
 
         const createParticles = () => {
             particles = [];
-            const particleCount = (canvas.width * canvas.height) / 10000;
             for (let i = 0; i < particleCount; i++) {
                 particles.push(new Particle());
             }
@@ -391,10 +407,22 @@ const state = {
         animate();
     }
 
-    initCustomCursor();
-    initCardTiltEffect();
-    initParticleAnimation();
-    initThreeBackground();
+    // --- Final Initializations ---
+    // Conditionals check if the element exists before trying to initialize
+
+    // Run animations only on non-mobile devices
+    if (!state.isMobile) {
+        initCustomCursor();
+        initCardTiltEffect();
+        initThreeBackground();
+        initParticleAnimation(150); // Full particle count for desktop
+    } else {
+        initParticleAnimation(50); // Reduced particle count for mobile
+    }
+    
+    // These initializations are fine for all devices
+    initializeModals();
+    initializeSkillPopups();
 
     // --- Project Modal Logic ---
     const projectData = {
@@ -613,6 +641,26 @@ const state = {
         setTimeout(() => {
             easterEggPopup.classList.remove('active');
         }, 2500);
+    }
+
+    // 10. Mobile Navigation Toggle
+    const navToggle = document.querySelector('.nav-toggle');
+    const navLinks = document.querySelector('.nav-links');
+
+    if (navToggle && navLinks) {
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            playAudio('button_click', 0.7);
+        });
+
+        // Close mobile menu when a link is clicked
+        navLinks.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                }
+            });
+        });
     }
 
     // --- Final Setup ---
