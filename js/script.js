@@ -348,6 +348,195 @@ const state = {
         animate();
     }
 
+    // --- Modal & Popup Initializers ---
+    function initializeModals() {
+        // --- Project Modal Logic ---
+        const projectData = {
+            'pickle-former': {
+                title: 'Pickle Former',
+                description: `<strong>Genre:</strong> 3D Action-Platformer<br>
+                    <p>Play as a mad scientist's escaped creation in this quirky adventure.</p>`,
+                images: [
+                    './assets/images/projects/pickle_former_gallery1.jpg',
+                    './assets/images/projects/pickle_former_screenshot1.jpg',
+                    './assets/images/projects/pickle_former_screenshot2.jpg',
+                ]
+            },
+            'one-minute-drift': {
+                title: 'One Minute Drift',
+                description: `<strong>Genre:</strong> Arcade Racing<br>
+                    <p>A fast-paced arcade drifting game. Get the highest score in one minute.</p>`,
+                images: [
+                    './assets/images/projects/one_minute_drift_gallery1.jpg',
+                    './assets/images/projects/one_minute_drift_screenshot1.jpg',
+                    './assets/images/projects/one_minute_drift_screenshot2.jpg',
+                ]
+            },
+            'baqra-surfer': {
+                title: 'Baqra Surfer',
+                description: `<strong>Genre:</strong> Endless Runner<br>
+                    <p>An endless runner where you help a goat surf through a hazardous river.</p>`,
+                images: [
+                    './assets/images/projects/baqra_surfer_gallery1.jpg',
+                    './assets/images/projects/baqra_surfer_screenshot1.jpg',
+                    './assets/images/projects/baqra_surfer_screenshot2.jpg',
+                ]
+            },
+            'aesthetic-cube': {
+                title: 'Aesthetic Cube',
+                description: `<strong>Genre:</strong> Puzzle<br>
+                    <p>A relaxing puzzle game about manipulating a 3D cube to match patterns.</p>`,
+                images: [
+                    './assets/images/projects/aesthetic_cube_gallery1.jpg',
+                    './assets/images/projects/aesthetic_cube_screenshot1.jpg',
+                    './assets/images/projects/aesthetic_cube_screenshot2.jpg',
+                ]
+            },
+            'cartoon-defence': {
+                title: 'Cartoon Defence',
+                description: `<strong>Genre:</strong> Tower Defense<br>
+                    <p>A tower defense game with a unique cartoon art style and quirky enemies.</p>`,
+                images: [
+                    './assets/images/projects/cartoon_defence_gallery1.jpg',
+                    './assets/images/projects/cartoon_defence_screenshot1.jpg',
+                    './assets/images/projects/cartoon_defence_screenshot2.jpg',
+                ]
+            },
+            'rainbow-rollie': {
+                title: 'Rainbow Rollie',
+                description: `<strong>Genre:</strong> Physics-Platformer<br>
+                    <p>A physics-based puzzle-platformer. Roll your way through colorful levels.</p>`,
+                images: [
+                    './assets/images/projects/rainbow_rollie_gallery1.jpg',
+                    './assets/images/projects/rainbow_rollie_screenshot1.jpg',
+                    './assets/images/projects/rainbow_rollie_screenshot2.jpg',
+                ]
+            }
+        };
+
+        const modal = document.getElementById('project-modal');
+        const closeModalBtn = document.getElementById('close-project-modal');
+        const modalTitle = document.getElementById('modal-project-title');
+        const modalDesc = document.getElementById('modal-project-description');
+        const modalImg = document.getElementById('modal-project-img');
+        const modalPrev = document.getElementById('modal-prev-img');
+        const modalNext = document.getElementById('modal-next-img');
+
+        let currentProject = null;
+        let currentImgIndex = 0;
+
+        function openProjectModal(projectId) {
+            const data = projectData[projectId];
+            if (!data) return;
+            currentProject = projectId;
+            currentImgIndex = 0;
+            modalTitle.textContent = data.title;
+            modalDesc.innerHTML = data.description;
+            showModalImg(0);
+            modal.classList.remove('hidden');
+        }
+
+        function closeProjectModal() {
+            modal.classList.add('hidden');
+        }
+
+        function showModalImg(index) {
+            const data = projectData[currentProject];
+            if (!data || !data.images) return;
+            currentImgIndex = (index + data.images.length) % data.images.length;
+            modalImg.src = data.images[currentImgIndex];
+        }
+
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('click', e => {
+                const projectId = card.getAttribute('data-project-id');
+                if (projectId) {
+                    openProjectModal(projectId);
+                }
+            });
+        });
+
+        if (closeModalBtn) closeModalBtn.addEventListener('click', closeProjectModal);
+        if (modalPrev) modalPrev.addEventListener('click', () => showModalImg(currentImgIndex - 1));
+        if (modalNext) modalNext.addEventListener('click', () => showModalImg(currentImgIndex + 1));
+        if (modal) modal.addEventListener('click', e => {
+            if (e.target === modal) closeProjectModal();
+        });
+    }
+
+    function initializeSkillPopups() {
+        const skillData = {
+            unity3d: {
+                title: 'Unity 3D',
+                description: 'Expert in Unity engine for 2D/3D games, rapid prototyping, and cross-platform deployment.'
+            },
+            csharp: {
+                title: 'C#',
+                description: 'Advanced C# scripting for gameplay, tools, and editor extensions in Unity.'
+            },
+            cplusplus: {
+                title: 'C++',
+                description: 'Performance-focused code for engines, plugins, and game logic.'
+            },
+            modeling: {
+                title: '3D Modeling',
+                description: 'Asset creation in Blender/Maya for games, including props, environments, and characters.'
+            },
+            gamedesign: {
+                title: 'Game Design',
+                description: 'Level design, mechanics, and player experience balancing.'
+            },
+            vrar: {
+                title: 'VR/AR Development',
+                description: 'Immersive experiences for Oculus, SteamVR, and AR platforms.'
+            },
+            uiux: {
+                title: 'UI/UX Design',
+                description: 'Intuitive interfaces and user flows for games and apps.'
+            },
+            git: {
+                title: 'Git',
+                description: 'Version control, branching, and team collaboration.'
+            },
+            shader: {
+                title: 'Shader Programming',
+                description: 'Custom HLSL/GLSL shaders for unique visual effects.'
+            },
+            ai: {
+                title: 'Game AI',
+                description: 'Pathfinding, enemy behaviors, and decision systems.'
+            },
+            optimization: {
+                title: 'Optimization',
+                description: 'Profiling and performance tuning for smooth gameplay.'
+            },
+            agile: {
+                title: 'Agile/Scrum',
+                description: 'Project management, sprints, and iterative development.'
+            }
+        };
+
+        const skillModal = document.getElementById('skill-modal');
+        const closeSkillModalBtn = document.getElementById('close-skill-modal');
+        const modalSkillTitle = document.getElementById('modal-skill-title');
+        const modalSkillDesc = document.getElementById('modal-skill-description');
+
+        document.querySelectorAll('.skill-item').forEach(card => {
+            card.addEventListener('click', () => {
+                const skillId = card.getAttribute('data-skill-id');
+                const data = skillData[skillId];
+                if (!data) return;
+                modalSkillTitle.textContent = data.title;
+                modalSkillDesc.textContent = data.description;
+                skillModal.classList.remove('hidden');
+            });
+        });
+        if (closeSkillModalBtn) closeSkillModalBtn.addEventListener('click', () => skillModal.classList.add('hidden'));
+        if (skillModal) skillModal.addEventListener('click', e => {
+            if (e.target === skillModal) skillModal.classList.add('hidden');
+        });
+    }
+
     // --- Three.js 3D Models Background ---
     function initThreeBackground() {
         const canvas = document.getElementById('three-bg');
@@ -423,177 +612,6 @@ const state = {
     // These initializations are fine for all devices
     initializeModals();
     initializeSkillPopups();
-
-    // --- Project Modal Logic ---
-    const projectData = {
-        one_minute_drift: {
-            title: 'One Minute Drift',
-            description: `<strong>Genre:</strong> Arcade Racing<br>
-                <ul style='text-align:left; margin:0 auto; max-width:300px;'>
-                  <li>⏱️ <b>60 seconds</b> to drift as far as you can!</li>
-                  <li>🔥 <b>Dynamic</b> drift physics and neon visuals</li>
-                  <li>🏆 Compete for the best score</li>
-                </ul>
-                <p style='margin-top:1em; color:var(--accent);'><em>"Can you master the art of the drift in just one minute?"</em></p>`,
-            images: [
-            './assets/images/projects/one_minute_drift_screenshot1.jpg',
-            './assets/images/projects/one_minute_drift_screenshot2.jpg',
-            './assets/images/projects/one_minute_drift_gallery1.jpg'
-        ]
-        },
-        aesthetic_cube: {
-            title: 'Aesthetic Cube',
-            description: `<strong>Genre:</strong> Minimalist Puzzle<br>
-                <ul style='text-align:left; margin:0 auto; max-width:300px;'>
-                  <li>🧩 <b>Chill puzzles</b> with geometric beauty</li>
-                  <li>🎵 Relaxing synth soundtrack</li>
-                  <li>🌈 Unlock <b>new color themes</b></li>
-                </ul>
-                <p style='margin-top:1em; color:var(--accent);'><em>"A puzzle game for your eyes and your mind."</em></p>`,
-            images: [
-                './assets/images/projects/aesthetic_cube_screenshot1.jpg',
-                './assets/images/projects/aesthetic_cube_screenshot2.jpg',
-                './assets/images/projects/aesthetic_cube_gallery1.jpg'
-            ]
-        },
-        rainbow_rollie: {
-            title: 'Rainbow Rollie',
-            description: `<strong>Genre:</strong> Platformer<br>
-                <ul style='text-align:left; margin:0 auto; max-width:300px;'>
-                  <li>🌈 <b>Roll</b> through vibrant, colorful worlds</li>
-                  <li>⚡ <b>Fast-paced</b> platforming action</li>
-                  <li>🎯 <b>Secrets</b> and hidden paths in every level</li>
-                </ul>
-                <p style='margin-top:1em; color:var(--accent);'><em>"How far can you roll before the colors run out?"</em></p>`,
-            images: [
-                './assets/images/projects/rainbow_rollie_screenshot1.jpg',
-                './assets/images/projects/rainbow_rollie_screenshot2.jpg',
-                './assets/images/projects/rainbow_rollie_gallery1.jpg'
-            ]
-        }
-        // Add more projects as needed
-    };
-
-    const modal = document.getElementById('project-modal');
-    const closeModalBtn = document.getElementById('close-project-modal');
-    const modalTitle = document.getElementById('modal-project-title');
-    const modalDesc = document.getElementById('modal-project-description');
-    const modalImg = document.getElementById('modal-project-img');
-    const modalPrev = document.getElementById('modal-prev-img');
-    const modalNext = document.getElementById('modal-next-img');
-
-    let currentProject = null;
-    let currentImgIndex = 0;
-
-    function openProjectModal(projectId) {
-        const data = projectData[projectId];
-        if (!data) return;
-        currentProject = projectId;
-        currentImgIndex = 0;
-        modalTitle.textContent = data.title;
-        modalDesc.innerHTML = data.description;
-        modalImg.src = data.images[0];
-        modal.classList.remove('hidden');
-    }
-
-    function closeProjectModal() {
-        modal.classList.add('hidden');
-    }
-
-    function showModalImg(index) {
-        const data = projectData[currentProject];
-        if (!data) return;
-        currentImgIndex = (index + data.images.length) % data.images.length;
-        modalImg.src = data.images[currentImgIndex];
-    }
-
-    document.querySelectorAll('.view-project-btn').forEach(btn => {
-        btn.addEventListener('click', e => {
-            const card = btn.closest('.project-card');
-            if (!card) return;
-            const projectId = card.getAttribute('data-project-id');
-            openProjectModal(projectId);
-            });
-        });
-
-    if (closeModalBtn) closeModalBtn.addEventListener('click', closeProjectModal);
-    if (modalPrev) modalPrev.addEventListener('click', () => showModalImg(currentImgIndex - 1));
-    if (modalNext) modalNext.addEventListener('click', () => showModalImg(currentImgIndex + 1));
-    if (modal) modal.addEventListener('click', e => {
-        if (e.target === modal) closeProjectModal();
-    });
-
-    // --- Skill Modal Logic ---
-    const skillData = {
-        unity3d: {
-            title: 'Unity 3D',
-            description: 'Expert in Unity engine for 2D/3D games, rapid prototyping, and cross-platform deployment.'
-        },
-        csharp: {
-            title: 'C#',
-            description: 'Advanced C# scripting for gameplay, tools, and editor extensions in Unity.'
-        },
-        cplusplus: {
-            title: 'C++',
-            description: 'Performance-focused code for engines, plugins, and game logic.'
-        },
-        modeling: {
-            title: '3D Modeling',
-            description: 'Asset creation in Blender/Maya for games, including props, environments, and characters.'
-        },
-        gamedesign: {
-            title: 'Game Design',
-            description: 'Level design, mechanics, and player experience balancing.'
-        },
-        vrar: {
-            title: 'VR/AR Development',
-            description: 'Immersive experiences for Oculus, SteamVR, and AR platforms.'
-        },
-        uiux: {
-            title: 'UI/UX Design',
-            description: 'Intuitive interfaces and user flows for games and apps.'
-        },
-        git: {
-            title: 'Git',
-            description: 'Version control, branching, and team collaboration.'
-        },
-        shader: {
-            title: 'Shader Programming',
-            description: 'Custom HLSL/GLSL shaders for unique visual effects.'
-        },
-        ai: {
-            title: 'Game AI',
-            description: 'Pathfinding, enemy behaviors, and decision systems.'
-        },
-        optimization: {
-            title: 'Optimization',
-            description: 'Profiling and performance tuning for smooth gameplay.'
-        },
-        agile: {
-            title: 'Agile/Scrum',
-            description: 'Project management, sprints, and iterative development.'
-        }
-    };
-
-    const skillModal = document.getElementById('skill-modal');
-    const closeSkillModalBtn = document.getElementById('close-skill-modal');
-    const modalSkillTitle = document.getElementById('modal-skill-title');
-    const modalSkillDesc = document.getElementById('modal-skill-description');
-
-    document.querySelectorAll('.skill-item').forEach(card => {
-        card.addEventListener('click', () => {
-            const skillId = card.getAttribute('data-skill-id');
-            const data = skillData[skillId];
-            if (!data) return;
-            modalSkillTitle.textContent = data.title;
-            modalSkillDesc.textContent = data.description;
-            skillModal.classList.remove('hidden');
-                });
-            });
-    if (closeSkillModalBtn) closeSkillModalBtn.addEventListener('click', () => skillModal.classList.add('hidden'));
-    if (skillModal) skillModal.addEventListener('click', e => {
-        if (e.target === skillModal) skillModal.classList.add('hidden');
-    });
 
     // Easter Egg: Theme change on typing 'vapour' or 'retro'
     const easterEggPopup = document.getElementById('easterEggPopup');
