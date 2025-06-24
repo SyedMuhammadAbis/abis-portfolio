@@ -36,7 +36,26 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // --- Event Listeners ---
     
-    // 1. Theme Toggle
+    // 1. Audio Consent Overlay
+    const audioOverlay = document.getElementById('audio-consent-overlay');
+    const enterButton = document.getElementById('enter-site-btn');
+    const bgMusic = new Audio('./assets/audio/bg_music.mp3');
+    bgMusic.loop = true;
+    bgMusic.volume = 0.3; // Start with a lower volume
+
+    if (audioOverlay && enterButton) {
+        enterButton.addEventListener('click', () => {
+            bgMusic.play().catch(err => console.error("Autoplay failed:", err));
+            state.isMusicPlaying = true;
+            
+            const musicToggle = document.getElementById('music-toggle');
+            if (musicToggle) musicToggle.setAttribute('data-playing', 'true');
+
+            audioOverlay.classList.add('hidden');
+        });
+    }
+
+    // 2. Theme Toggle
     const themeToggle = document.getElementById('theme-toggle');
     if (themeToggle) {
         themeToggle.addEventListener('click', () => {
@@ -47,11 +66,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 2. Music Toggle
+    // 3. Music Toggle
     const musicToggle = document.getElementById('music-toggle');
-    const bgMusic = new Audio('./assets/audio/bg_music.mp3');
-    bgMusic.loop = true;
-
     if (musicToggle) {
         musicToggle.addEventListener('click', () => {
             if (state.isMusicPlaying) {
@@ -65,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 3. Smooth Scroll for Nav Links
+    // 4. Smooth Scroll for Nav Links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -76,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 4. Scroll-based Animations
+    // 5. Scroll-based Animations
     const animationObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -90,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
         animationObserver.observe(el);
     });
 
-    // 5. Game Showcase Logic
+    // 6. Game Showcase Logic
     const modelViewerCanvas = document.getElementById('modelViewer');
     if (modelViewerCanvas) {
         // Basic placeholder logic. For a full implementation, a 3D library like Three.js is needed.
@@ -119,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 6. Text Scramble Effect
+    // 7. Text Scramble Effect
     class TextScramble {
         constructor(el) {
             this.el = el;
@@ -184,7 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 1000); // Delay start of animation
     }
 
-    // 7. Custom Cursor Logic
+    // 8. Custom Cursor Logic
     function initCustomCursor() {
         const cursor = document.querySelector('.cursor');
         const follower = document.querySelector('.cursor-follower');
@@ -229,7 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 8. 3D Card Tilt Effect
+    // 9. 3D Card Tilt Effect
     function initCardTiltEffect() {
         const cards = document.querySelectorAll('.info-card');
         cards.forEach(card => {
@@ -254,7 +270,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
-    // 9. Background Particle Animation
+    // 10. Background Particle Animation
     function initParticleAnimation() {
         const canvas = document.getElementById('particle-canvas');
         if (!canvas) return;

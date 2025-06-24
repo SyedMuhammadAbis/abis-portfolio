@@ -242,6 +242,39 @@ section {
    5. Component Styles
    ========================================================================== */
 
+/* --- Overlays --- */
+#audio-consent-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(15, 23, 42, 0.95);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--primary-text);
+    transition: opacity 0.5s ease-out;
+}
+
+#audio-consent-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.overlay-content h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.overlay-content p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: var(--secondary-text);
+}
+
 /* --- General Components --- */
 
 #loading {
