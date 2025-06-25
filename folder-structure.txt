@@ -1,0 +1,63 @@
+abis-portfolio/
+├── assets/
+│   ├── audio/
+│   │   ├── bg_music.mp3
+│   │   ├── nav_hover.mp3
+│   │   ├── button_click.mp3
+│   │   ├── section_hum.mp3
+│   │   ├── glitch.mp3
+│   │   ├── crt_on.mp3
+│   ├── images/
+│   │   ├── projects/
+│   │   │   ├── pickle_former_gallery1.jpg
+│   │   │   ├── pickle_former_screenshot1.jpg
+│   │   │   ├── pickle_former_screenshot2.jpg
+│   │   │   ├── pickle_former_demo.gif
+│   │   │   ├── one_minute_drift_gallery1.jpg
+│   │   │   ├── one_minute_drift_screenshot1.jpg
+│   │   │   ├── one_minute_drift_screenshot2.jpg
+│   │   │   ├── one_minute_drift_demo.gif
+│   │   │   ├── baqra_surfer_gallery1.jpg
+│   │   │   ├── baqra_surfer_screenshot1.jpg
+│   │   │   ├── baqra_surfer_screenshot2.jpg
+│   │   │   ├── baqra_surfer_demo.gif
+│   │   │   ├── aesthetic_cube_gallery1.jpg
+│   │   │   ├── aesthetic_cube_screenshot1.jpg
+│   │   │   ├── aesthetic_cube_screenshot2.jpg
+│   │   │   ├── aesthetic_cube_demo.gif
+│   │   │   ├── cartoon_defence_gallery1.jpg
+│   │   │   ├── cartoon_defence_screenshot1.jpg
+│   │   │   ├── cartoon_defence_screenshot2.jpg
+│   │   │   ├── cartoon_defence_demo.gif
+│   │   │   ├── rainbow_rollie_gallery1.jpg
+│   │   │   ├── rainbow_rollie_screenshot1.jpg
+│   │   │   ├── rainbow_rollie_screenshot2.jpg
+│   │   │   ├── rainbow_rollie_demo.gif
+│   ├── models/
+│   │   ├── gamepad/
+│   │   │   ├── license.txt
+│   │   │   ├── scene.bin
+│   │   │   ├── scene.gltf
+│   │   ├── unity_logo/
+│   │   │   ├── license.txt
+│   │   │   ├── scene.bin
+│   │   │   ├── scene.gltf
+│   │   ├── xboxone_controller/
+│   │   │   ├── license.txt
+│   │   │   ├── scene.bin
+│   │   │   ├── scene.gltf
+│   │   │   ├── textures/
+│   │   │   │   ├── Material_29_baseColor.jpeg
+│   │   │   │   ├── Material_29_metallicRoughness.png
+│   │   │   │   ├── Material_32_baseColor.png
+│   │   │   │   ├── Material_37_baseColor.png
+│   │   │   │   ├── Material_41_baseColor.png
+│   │   │   │   ├── Material_53_baseColor.png
+│   │   │   │   ├── Material_54_baseColor.png
+├── js/
+│   └── script.js
+├── styles.css
+├── index.html
+├── package-lock.json
+├── node_modules/
+├── folder-structure.txt

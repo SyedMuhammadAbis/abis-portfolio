@@ -84,13 +84,47 @@ const state = {
 
     // Volume Slider Logic
     const musicVolumeSlider = document.getElementById('music-volume-slider');
-    if (musicVolumeSlider) {
+    const musicControlWrapper = document.querySelector('.music-control-wrapper');
+    let sliderHideTimeout = null;
+    if (musicVolumeSlider && musicControlWrapper) {
         // Set slider to current volume on load
         musicVolumeSlider.value = bgMusic.volume;
         // Update volume in real time
         musicVolumeSlider.addEventListener('input', (e) => {
             const vol = parseFloat(e.target.value);
             bgMusic.volume = vol;
+        });
+        // Show slider on mouseenter
+        musicControlWrapper.addEventListener('mouseenter', () => {
+            if (sliderHideTimeout) clearTimeout(sliderHideTimeout);
+            musicControlWrapper.classList.add('show-slider');
+            musicControlWrapper.classList.remove('hiding-slider');
+        });
+        // Hide slider after delay on mouseleave
+        musicControlWrapper.addEventListener('mouseleave', () => {
+            sliderHideTimeout = setTimeout(() => {
+                musicControlWrapper.classList.remove('show-slider');
+                musicControlWrapper.classList.add('hiding-slider');
+                setTimeout(() => {
+                    musicControlWrapper.classList.remove('hiding-slider');
+                }, 250); // match the CSS transition duration
+            }, 1000); // 1 second delay
+        });
+        // If mouse enters slider directly, cancel hide
+        musicVolumeSlider.addEventListener('mouseenter', () => {
+            if (sliderHideTimeout) clearTimeout(sliderHideTimeout);
+            musicControlWrapper.classList.add('show-slider');
+            musicControlWrapper.classList.remove('hiding-slider');
+        });
+        // If mouse leaves slider, start hide timer
+        musicVolumeSlider.addEventListener('mouseleave', () => {
+            sliderHideTimeout = setTimeout(() => {
+                musicControlWrapper.classList.remove('show-slider');
+                musicControlWrapper.classList.add('hiding-slider');
+                setTimeout(() => {
+                    musicControlWrapper.classList.remove('hiding-slider');
+                }, 250);
+            }, 1000);
         });
     }
 
@@ -366,63 +400,75 @@ const state = {
         const projectData = {
             'pickle-former': {
                 title: 'Pickle Former',
-                description: `<strong>Genre:</strong> 3D Action-Platformer<br>
-                    <p>Play as a mad scientist's escaped creation in this quirky adventure.</p>`,
+                description: `<strong>Genre:</strong> 3D Action-Platformer<br><p>Play as a mad scientist's escaped creation in this quirky adventure. <br><br><strong>Features:</strong> <ul><li>Physics-based puzzles</li><li>Unique transformation mechanics</li><li>Boss battles and secret areas</li></ul><br>Embark on a journey of self-discovery and chaos as you outsmart your creator and the world!</p>`,
                 images: [
                     './assets/images/projects/pickle_former_gallery1.jpg',
-            './assets/images/projects/pickle_former_screenshot1.jpg',
-            './assets/images/projects/pickle_former_screenshot2.jpg',
-                ]
+                    './assets/images/projects/pickle_former_screenshot1.jpg',
+                    './assets/images/projects/pickle_former_screenshot2.jpg',
+                ],
+                gifUrl: 'https://media.giphy.com/media/3o7aD2saalBwwftBIY/giphy.gif',
+                videoUrl: 'https://www.youtube.com/embed/Pbc1k6cM2aI',
+                youtubeUrl: 'https://youtu.be/Pbc1k6cM2aI?si=qIuXj4V_PXAUNi3o'
             },
             'one-minute-drift': {
                 title: 'One Minute Drift',
-                description: `<strong>Genre:</strong> Arcade Racing<br>
-                    <p>A fast-paced arcade drifting game. Get the highest score in one minute.</p>`,
+                description: `<strong>Genre:</strong> Arcade Racing<br><p>A fast-paced arcade drifting game. <br><br><strong>Features:</strong> <ul><li>One-minute time attack</li><li>Global leaderboards</li><li>Stylish low-poly visuals</li></ul><br>Master the art of drifting and climb the ranks in this addictive score-chaser!</p>`,
                 images: [
                     './assets/images/projects/one_minute_drift_gallery1.jpg',
                     './assets/images/projects/one_minute_drift_screenshot1.jpg',
                     './assets/images/projects/one_minute_drift_screenshot2.jpg',
-                ]
+                ],
+                gifUrl: 'https://media.giphy.com/media/3o7aD2saalBwwftBIY/giphy.gif',
+                videoUrl: 'https://www.youtube.com/embed/Pbc1k6cM2aI',
+                youtubeUrl: 'https://youtu.be/Pbc1k6cM2aI?si=qIuXj4V_PXAUNi3o'
             },
             'baqra-surfer': {
                 title: 'Baqra Surfer',
-                description: `<strong>Genre:</strong> Endless Runner<br>
-                    <p>An endless runner where you help a goat surf through a hazardous river.</p>`,
+                description: `<strong>Genre:</strong> Endless Runner<br><p>Help a goat surf through a hazardous river.<br><br><strong>Features:</strong> <ul><li>Procedurally generated obstacles</li><li>Power-ups and upgrades</li><li>Chill synthwave soundtrack</li></ul><br>How far can you surf before the river claims you?</p>`,
                 images: [
                     './assets/images/projects/baqra_surfer_gallery1.jpg',
-            './assets/images/projects/baqra_surfer_screenshot1.jpg',
-            './assets/images/projects/baqra_surfer_screenshot2.jpg',
-                ]
+                    './assets/images/projects/baqra_surfer_screenshot1.jpg',
+                    './assets/images/projects/baqra_surfer_screenshot2.jpg',
+                ],
+                gifUrl: 'https://media.giphy.com/media/3o7aD2saalBwwftBIY/giphy.gif',
+                videoUrl: 'https://www.youtube.com/embed/Pbc1k6cM2aI',
+                youtubeUrl: 'https://youtu.be/Pbc1k6cM2aI?si=qIuXj4V_PXAUNi3o'
             },
             'aesthetic-cube': {
                 title: 'Aesthetic Cube',
-                description: `<strong>Genre:</strong> Puzzle<br>
-                    <p>A relaxing puzzle game about manipulating a 3D cube to match patterns.</p>`,
+                description: `<strong>Genre:</strong> Puzzle<br><p>A relaxing puzzle game about manipulating a 3D cube to match patterns.<br><br><strong>Features:</strong> <ul><li>Minimalist visuals</li><li>Soothing sound design</li><li>Hundreds of handcrafted levels</li></ul><br>Unwind and challenge your mind with beautiful, meditative puzzles.</p>`,
                 images: [
                     './assets/images/projects/aesthetic_cube_gallery1.jpg',
                     './assets/images/projects/aesthetic_cube_screenshot1.jpg',
                     './assets/images/projects/aesthetic_cube_screenshot2.jpg',
-                ]
+                ],
+                gifUrl: 'https://media.giphy.com/media/3o7aD2saalBwwftBIY/giphy.gif',
+                videoUrl: 'https://www.youtube.com/embed/Pbc1k6cM2aI',
+                youtubeUrl: 'https://youtu.be/Pbc1k6cM2aI?si=qIuXj4V_PXAUNi3o'
             },
             'cartoon-defence': {
                 title: 'Cartoon Defence',
-                description: `<strong>Genre:</strong> Tower Defense<br>
-                    <p>A tower defense game with a unique cartoon art style and quirky enemies.</p>`,
+                description: `<strong>Genre:</strong> Tower Defense<br><p>A tower defense game with a unique cartoon art style and quirky enemies.<br><br><strong>Features:</strong> <ul><li>Dozens of towers and upgrades</li><li>Challenging boss waves</li><li>Hand-drawn animations</li></ul><br>Defend your base with strategy and style!</p>`,
                 images: [
                     './assets/images/projects/cartoon_defence_gallery1.jpg',
-            './assets/images/projects/cartoon_defence_screenshot1.jpg',
-            './assets/images/projects/cartoon_defence_screenshot2.jpg',
-                ]
+                    './assets/images/projects/cartoon_defence_screenshot1.jpg',
+                    './assets/images/projects/cartoon_defence_screenshot2.jpg',
+                ],
+                gifUrl: 'https://media.giphy.com/media/3o7aD2saalBwwftBIY/giphy.gif',
+                videoUrl: 'https://www.youtube.com/embed/Pbc1k6cM2aI',
+                youtubeUrl: 'https://youtu.be/Pbc1k6cM2aI?si=qIuXj4V_PXAUNi3o'
             },
             'rainbow-rollie': {
                 title: 'Rainbow Rollie',
-                description: `<strong>Genre:</strong> Physics-Platformer<br>
-                    <p>A physics-based puzzle-platformer. Roll your way through colorful levels.</p>`,
+                description: `<strong>Genre:</strong> Physics-Platformer<br><p>Roll your way through colorful levels.<br><br><strong>Features:</strong> <ul><li>Physics-based puzzles</li><li>Vibrant, dynamic environments</li><li>Hidden collectibles</li></ul><br>Test your skills and reflexes in this joyful platformer adventure!</p>`,
                 images: [
                     './assets/images/projects/rainbow_rollie_gallery1.jpg',
                     './assets/images/projects/rainbow_rollie_screenshot1.jpg',
                     './assets/images/projects/rainbow_rollie_screenshot2.jpg',
-                ]
+                ],
+                gifUrl: 'https://media.giphy.com/media/3o7aD2saalBwwftBIY/giphy.gif',
+                videoUrl: 'https://www.youtube.com/embed/Pbc1k6cM2aI',
+                youtubeUrl: 'https://youtu.be/Pbc1k6cM2aI?si=qIuXj4V_PXAUNi3o'
             }
         };
 
@@ -433,8 +479,11 @@ const state = {
         const modalImg = document.getElementById('modal-project-img');
         const modalPrev = document.getElementById('modal-prev-img');
         const modalNext = document.getElementById('modal-next-img');
+        const modalVideo = document.getElementById('modal-project-video');
+        const modalYTLink = document.getElementById('modal-project-ytlink');
+        const modalGif = document.getElementById('modal-project-gif');
 
-    let currentProject = null;
+        let currentProject = null;
         let currentImgIndex = 0;
         let projectImageCache = {};
 
@@ -460,6 +509,21 @@ const state = {
             modalTitle.textContent = data.title;
             modalDesc.innerHTML = data.description;
             showModalImg(0);
+            // Show GIF if present
+            if (data.gifUrl) {
+                modalGif.innerHTML = `<img src='${data.gifUrl}' alt='Project GIF' style='max-width:100%;border-radius:0.5rem;box-shadow:0 2px 10px rgba(0,0,0,0.15);margin-bottom:1rem;'>`;
+            } else {
+                modalGif.innerHTML = '';
+            }
+            // Embed YouTube video
+            if (data.videoUrl) {
+                modalVideo.innerHTML = `<iframe width='100%' height='240' src='${data.videoUrl}' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share' allowfullscreen></iframe>`;
+                modalYTLink.href = data.youtubeUrl || data.videoUrl;
+                modalYTLink.style.display = 'block';
+            } else {
+                modalVideo.innerHTML = '';
+                modalYTLink.style.display = 'none';
+            }
             modal.classList.remove('hidden');
         }
 
@@ -503,6 +567,12 @@ const state = {
         if (modal) modal.addEventListener('click', e => {
             if (e.target === modal) closeProjectModal();
         });
+
+        if (modalYTLink) {
+            modalYTLink.addEventListener('click', (e) => {
+                playAudio('button_click');
+            });
+        }
     }
 
     function initializeSkillPopups() {

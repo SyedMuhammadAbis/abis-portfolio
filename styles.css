@@ -811,6 +811,8 @@ footer {
     box-shadow: 0 10px 40px rgba(0,0,0,0.4);
     position: relative;
     text-align: center;
+    max-height: 90vh;
+    overflow-y: auto;
 }
 .close-modal {
     position: absolute;
@@ -1128,7 +1130,7 @@ footer {
   position: relative;
   display: flex;
   align-items: center;
-  padding: 0 16px 0 0; /* extra right padding for easier hover */
+  padding: 0 16px 0 0;
   gap: 0.5rem;
 }
 
@@ -1137,25 +1139,28 @@ footer {
   position: absolute;
   left: 110%;
   top: 50%;
-  transform: translateY(-50%) translateX(20px);
   width: 120px;
   height: 4px;
-  background: var(--card-bg);
+  background: rgba(30, 30, 60, 0.25); /* glassy background */
   border-radius: 2px;
   accent-color: var(--accent);
   transition: opacity 0.25s cubic-bezier(0.4,0,0.2,1), transform 0.25s cubic-bezier(0.4,0,0.2,1), opacity 0.15s 0.15s;
   z-index: 10;
   box-shadow: 0 2px 8px rgba(0,0,0,0.12);
   opacity: 0;
-  pointer-events: none;
+  transform: translateY(-50%) translateX(0);
+  border: 1px solid rgba(139, 92, 246, 0.18); /* subtle accent border */
+  backdrop-filter: blur(6px);
 }
 
-.music-control-wrapper:hover #music-volume-slider,
-.music-control-wrapper:focus-within #music-volume-slider {
+.music-control-wrapper.show-slider #music-volume-slider {
   opacity: 1;
-  transform: translateY(-50%) translateX(0);
+  transform: translateY(-50%) translateX(0) !important;
   pointer-events: auto;
-  transition-delay: 0s, 0s, 0s;
+}
+
+.music-control-wrapper.hiding-slider #music-volume-slider {
+  pointer-events: none;
 }
 
 #music-volume-slider::-webkit-slider-thumb {
@@ -1164,8 +1169,8 @@ footer {
   height: 16px;
   border-radius: 50%;
   background: var(--accent);
-  border: 2px solid #fff;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  border: 2px solid rgba(255,255,255,0.7);
+  box-shadow: 0 2px 8px var(--accent), 0 0 0 2px rgba(139,92,246,0.15);
   cursor: pointer;
   transition: background 0.2s;
 }
@@ -1177,8 +1182,8 @@ footer {
   height: 16px;
   border-radius: 50%;
   background: var(--accent);
-  border: 2px solid #fff;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  border: 2px solid rgba(255,255,255,0.7);
+  box-shadow: 0 2px 8px var(--accent), 0 0 0 2px rgba(139,92,246,0.15);
   cursor: pointer;
 }
 #music-volume-slider::-ms-thumb {
@@ -1186,20 +1191,22 @@ footer {
   height: 16px;
   border-radius: 50%;
   background: var(--accent);
-  border: 2px solid #fff;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  border: 2px solid rgba(255,255,255,0.7);
+  box-shadow: 0 2px 8px var(--accent), 0 0 0 2px rgba(139,92,246,0.15);
   cursor: pointer;
 }
 #music-volume-slider::-webkit-slider-runnable-track {
   height: 4px;
-  background: var(--accent);
+  background: linear-gradient(90deg, var(--accent) 0%, var(--accent) 100%);
   border-radius: 2px;
+  opacity: 0.7;
 }
 #music-volume-slider::-ms-fill-lower {
   background: var(--accent);
+  opacity: 0.7;
 }
 #music-volume-slider::-ms-fill-upper {
-  background: var(--card-bg);
+  background: rgba(30, 30, 60, 0.25);
 }
 #music-volume-slider:focus {
   outline: none;
@@ -1210,4 +1217,28 @@ footer {
   #music-volume-slider {
     width: 80px;
   }
+}
+
+/* Custom Scrollbar Styles */
+body, .modal-content, #music-volume-slider, * {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) rgba(30,30,60,0.18);
+}
+
+body::-webkit-scrollbar, .modal-content::-webkit-scrollbar, #music-volume-slider::-webkit-scrollbar {
+  width: 10px;
+  background: rgba(30,30,60,0.18);
+  border-radius: 8px;
+}
+body::-webkit-scrollbar-thumb, .modal-content::-webkit-scrollbar-thumb, #music-volume-slider::-webkit-scrollbar-thumb {
+  background: linear-gradient(120deg, var(--accent) 60%, rgba(139,92,246,0.5) 100%);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(139,92,246,0.15);
+  border: 2px solid rgba(255,255,255,0.15);
+}
+body::-webkit-scrollbar-thumb:hover, .modal-content::-webkit-scrollbar-thumb:hover, #music-volume-slider::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(120deg, var(--accent) 80%, rgba(139,92,246,0.7) 100%);
+}
+body::-webkit-scrollbar-corner, .modal-content::-webkit-scrollbar-corner, #music-volume-slider::-webkit-scrollbar-corner {
+  background: transparent;
 }
