@@ -1,0 +1,11 @@
+Model Information:
+* title:	UNITY 3D LOGO
+* source:	https://sketchfab.com/3d-models/unity-3d-logo-083f1a0c83ab486fac74e1fdd88ff408
+* author:	Shyam Barange (https://sketchfab.com/shyam11)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "UNITY 3D LOGO" (https://sketchfab.com/3d-models/unity-3d-logo-083f1a0c83ab486fac74e1fdd88ff408) by Shyam Barange (https://sketchfab.com/shyam11) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

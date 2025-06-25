@@ -1,0 +1,11 @@
+Model Information:
+* title:	Gamepad
+* source:	https://sketchfab.com/3d-models/gamepad-6601e19714d349d1892eead6fcc509da
+* author:	Citron Vert (https://sketchfab.com/citron.vert)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Gamepad" (https://sketchfab.com/3d-models/gamepad-6601e19714d349d1892eead6fcc509da) by Citron Vert (https://sketchfab.com/citron.vert) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

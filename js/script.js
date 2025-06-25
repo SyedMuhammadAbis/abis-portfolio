@@ -424,12 +424,27 @@ const state = {
 
     let currentProject = null;
         let currentImgIndex = 0;
+        let projectImageCache = {};
+
+        function preloadProjectImages(projectId) {
+            const data = projectData[projectId];
+            if (!data || !data.images) return;
+            if (!projectImageCache[projectId]) projectImageCache[projectId] = [];
+            data.images.forEach((src, idx) => {
+                if (!projectImageCache[projectId][idx]) {
+                    const img = new Image();
+                    img.src = src;
+                    projectImageCache[projectId][idx] = img;
+                }
+            });
+        }
 
         function openProjectModal(projectId) {
             const data = projectData[projectId];
             if (!data) return;
             currentProject = projectId;
             currentImgIndex = 0;
+            preloadProjectImages(projectId);
             modalTitle.textContent = data.title;
             modalDesc.innerHTML = data.description;
             showModalImg(0);
@@ -444,7 +459,11 @@ const state = {
             const data = projectData[currentProject];
             if (!data || !data.images) return;
             currentImgIndex = (index + data.images.length) % data.images.length;
-            modalImg.src = data.images[currentImgIndex];
+            if (projectImageCache[currentProject] && projectImageCache[currentProject][currentImgIndex]) {
+                modalImg.src = projectImageCache[currentProject][currentImgIndex].src;
+    } else {
+                modalImg.src = data.images[currentImgIndex];
+            }
         }
 
         document.querySelectorAll('.project-card').forEach(card => {
@@ -454,8 +473,8 @@ const state = {
                 if (projectId) {
                     openProjectModal(projectId);
                 }
-            });
         });
+    });
 
         if (closeModalBtn) closeModalBtn.addEventListener('click', () => {
             playAudio('button_click');
@@ -574,40 +593,47 @@ const state = {
         // Models
         const loader = new THREE.GLTFLoader();
         const modelConfigs = [
-            { file: './assets/models/controller.gltf', position: [-2.5, 0.5, 0], scale: 1.2, rotSpeed: 0.003 },
-            { file: './assets/models/gamepad.gltf', position: [2.5, -0.5, 0], scale: 1.2, rotSpeed: -0.002 },
-            { file: './assets/models/unity_logo.gltf', position: [0, 1.8, 0], scale: 1.5, rotSpeed: 0.0015 }
+            { file: './assets/models/xboxone_controller/scene.gltf', position: [-2.5, 0.5, 2], scale: 1.2, rotSpeed: 0.003 },
+            { file: './assets/models/gamepad/scene.gltf', position: [2.5, -0.5, 0], scale: 1.2, rotSpeed: -0.002 },
+            { file: './assets/models/unity_logo/scene.gltf', position: [0, 1.8, -2], scale: 1.5, rotSpeed: 0.0015 }
         ];
         const loadedModels = [];
 
         modelConfigs.forEach(cfg => {
-            loader.load(cfg.file, gltf => {
-                const model = gltf.scene;
-                model.position.set(...cfg.position);
-                model.scale.set(cfg.scale, cfg.scale, cfg.scale);
-                model.userData.rotSpeed = cfg.rotSpeed;
-                scene.add(model);
-                loadedModels.push(model);
-                });
-            });
+            loader.load(
+                cfg.file, 
+                gltf => {
+                    const model = gltf.scene;
+                    model.position.set(...cfg.position);
+                    model.scale.set(cfg.scale, cfg.scale, cfg.scale);
+                    model.userData.rotSpeed = cfg.rotSpeed;
+                    scene.add(model);
+                    loadedModels.push(model);
+                },
+                undefined, // onProgress callback (optional)
+                error => {
+                    console.error(`An error happened while loading model: ${cfg.file}`, error);
+                }
+            );
+        });
 
         // Responsive
             window.addEventListener('resize', () => {
             renderer.setSize(window.innerWidth, window.innerHeight);
             camera.aspect = window.innerWidth / window.innerHeight;
                 camera.updateProjectionMatrix();
-        });
+            });
 
-        // Animation loop
-        function animate() {
+            // Animation loop
+            function animate() {
             loadedModels.forEach(model => {
                 model.rotation.y += model.userData.rotSpeed || 0.002;
                 model.rotation.x += (model.userData.rotSpeed || 0.002) * 0.5;
             });
             renderer.render(scene, camera);
-            requestAnimationFrame(animate);
-        }
-        animate();
+                requestAnimationFrame(animate);
+            }
+            animate();
     }
 
     // --- Final Initializations ---
