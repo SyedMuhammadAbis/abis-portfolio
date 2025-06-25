@@ -358,8 +358,8 @@ const state = {
                     <p>Play as a mad scientist's escaped creation in this quirky adventure.</p>`,
                 images: [
                     './assets/images/projects/pickle_former_gallery1.jpg',
-                    './assets/images/projects/pickle_former_screenshot1.jpg',
-                    './assets/images/projects/pickle_former_screenshot2.jpg',
+            './assets/images/projects/pickle_former_screenshot1.jpg',
+            './assets/images/projects/pickle_former_screenshot2.jpg',
                 ]
             },
             'one-minute-drift': {
@@ -378,8 +378,8 @@ const state = {
                     <p>An endless runner where you help a goat surf through a hazardous river.</p>`,
                 images: [
                     './assets/images/projects/baqra_surfer_gallery1.jpg',
-                    './assets/images/projects/baqra_surfer_screenshot1.jpg',
-                    './assets/images/projects/baqra_surfer_screenshot2.jpg',
+            './assets/images/projects/baqra_surfer_screenshot1.jpg',
+            './assets/images/projects/baqra_surfer_screenshot2.jpg',
                 ]
             },
             'aesthetic-cube': {
@@ -398,8 +398,8 @@ const state = {
                     <p>A tower defense game with a unique cartoon art style and quirky enemies.</p>`,
                 images: [
                     './assets/images/projects/cartoon_defence_gallery1.jpg',
-                    './assets/images/projects/cartoon_defence_screenshot1.jpg',
-                    './assets/images/projects/cartoon_defence_screenshot2.jpg',
+            './assets/images/projects/cartoon_defence_screenshot1.jpg',
+            './assets/images/projects/cartoon_defence_screenshot2.jpg',
                 ]
             },
             'rainbow-rollie': {
@@ -422,7 +422,7 @@ const state = {
         const modalPrev = document.getElementById('modal-prev-img');
         const modalNext = document.getElementById('modal-next-img');
 
-        let currentProject = null;
+    let currentProject = null;
         let currentImgIndex = 0;
 
         function openProjectModal(projectId) {
@@ -546,7 +546,7 @@ const state = {
         renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(window.innerWidth, window.innerHeight);
 
-        const scene = new THREE.Scene();
+            const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
         camera.position.set(0, 0, 8);
 
@@ -574,14 +574,14 @@ const state = {
                 model.userData.rotSpeed = cfg.rotSpeed;
                 scene.add(model);
                 loadedModels.push(model);
+                });
             });
-        });
 
         // Responsive
-        window.addEventListener('resize', () => {
+            window.addEventListener('resize', () => {
             renderer.setSize(window.innerWidth, window.innerHeight);
             camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
+                camera.updateProjectionMatrix();
         });
 
         // Animation loop
