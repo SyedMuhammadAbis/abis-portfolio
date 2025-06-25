@@ -535,11 +535,18 @@ const state = {
             const data = projectData[currentProject];
             if (!data || !data.images) return;
             currentImgIndex = (index + data.images.length) % data.images.length;
-            if (projectImageCache[currentProject] && projectImageCache[currentProject][currentImgIndex]) {
-                modalImg.src = projectImageCache[currentProject][currentImgIndex].src;
-    } else {
-                modalImg.src = data.images[currentImgIndex];
-            }
+            let imgSrc = data.images[currentImgIndex];
+            // Try to use .webp if available
+            const webpSrc = imgSrc.replace(/\.(jpg|jpeg|png)$/i, '.webp');
+            // Check if .webp exists by preloading
+            const testImg = new Image();
+            testImg.onload = function() {
+                modalImg.src = webpSrc;
+            };
+            testImg.onerror = function() {
+                modalImg.src = imgSrc;
+            };
+            testImg.src = webpSrc;
         }
 
         document.querySelectorAll('.project-card').forEach(card => {
@@ -737,6 +744,7 @@ const state = {
         initThreeBackground();
         initParticleAnimation(150); // Full particle count for desktop
     } else {
+        // On mobile, only run lightweight particle animation
         initParticleAnimation(50); // Reduced particle count for mobile
     }
     
