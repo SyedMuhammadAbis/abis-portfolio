@@ -684,14 +684,11 @@ const state = {
         scene.add(dir);
 
         // --- Begin: Dynamic base path for GitHub Pages compatibility ---
-        // This will detect if the site is running in a subdirectory (e.g., /your-repo/) and prepend it to asset paths
-        let basePath = '';
+        let basePath = '/';
         const pathParts = window.location.pathname.split('/').filter(Boolean);
-        if (pathParts.length > 0 && pathParts[0] !== '') {
-            // Assume first part is the repo name if not running at root
+        // If the first part is not an .html file, treat it as the repo name (for GitHub Pages)
+        if (pathParts.length > 0 && !pathParts[0].endsWith('.html')) {
             basePath = '/' + pathParts[0] + '/';
-        } else {
-            basePath = '/';
         }
         // --- End: Dynamic base path ---
 
