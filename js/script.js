@@ -577,7 +577,11 @@ const state = {
 
         if (modalYTLink) {
             modalYTLink.addEventListener('click', (e) => {
+                e.preventDefault();
                 playAudio('button_click');
+                if (modalYTLink.href) {
+                    window.open(modalYTLink.href, '_blank', 'noopener');
+                }
             });
         }
     }
