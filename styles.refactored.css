@@ -1119,22 +1119,7 @@ footer {
     }
 }
 
-/* Animated gradient text for highlights */
-.gradient-animate {
-    background: linear-gradient(90deg, var(--accent), var(--primary-text), var(--accent));
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    color: transparent;
-    animation: gradient-slide 2.5s linear infinite;
-}
-
-@keyframes gradient-slide {
-    0% {
-        background-position: 0% 50%;
-    }
-    100% {
-        background-position: 100% 50%;
-    }
+#about-animated-title {
+    color: var(--accent);
+    font-weight: 900;
 }

@@ -449,6 +449,7 @@ const state = {
 
         document.querySelectorAll('.project-card').forEach(card => {
             card.addEventListener('click', e => {
+                playAudio('button_click');
                 const projectId = card.getAttribute('data-project-id');
                 if (projectId) {
                     openProjectModal(projectId);
@@ -456,9 +457,18 @@ const state = {
             });
         });
 
-        if (closeModalBtn) closeModalBtn.addEventListener('click', closeProjectModal);
-        if (modalPrev) modalPrev.addEventListener('click', () => showModalImg(currentImgIndex - 1));
-        if (modalNext) modalNext.addEventListener('click', () => showModalImg(currentImgIndex + 1));
+        if (closeModalBtn) closeModalBtn.addEventListener('click', () => {
+            playAudio('button_click');
+            closeProjectModal();
+        });
+        if (modalPrev) modalPrev.addEventListener('click', () => {
+            playAudio('button_click');
+            showModalImg(currentImgIndex - 1);
+        });
+        if (modalNext) modalNext.addEventListener('click', () => {
+            playAudio('button_click');
+            showModalImg(currentImgIndex + 1);
+        });
         if (modal) modal.addEventListener('click', e => {
             if (e.target === modal) closeProjectModal();
         });
@@ -523,6 +533,7 @@ const state = {
 
         document.querySelectorAll('.skill-item').forEach(card => {
             card.addEventListener('click', () => {
+                playAudio('button_click');
                 const skillId = card.getAttribute('data-skill-id');
                 const data = skillData[skillId];
                 if (!data) return;
@@ -531,7 +542,10 @@ const state = {
                 skillModal.classList.remove('hidden');
             });
         });
-        if (closeSkillModalBtn) closeSkillModalBtn.addEventListener('click', () => skillModal.classList.add('hidden'));
+        if (closeSkillModalBtn) closeSkillModalBtn.addEventListener('click', () => {
+            playAudio('button_click');
+            skillModal.classList.add('hidden');
+        });
         if (skillModal) skillModal.addEventListener('click', e => {
             if (e.target === skillModal) skillModal.classList.add('hidden');
         });
@@ -679,6 +693,19 @@ const state = {
                 }
             });
         });
+    }
+
+    // Text Scramble for About Me Title (looped)
+    const aboutAnimatedTitle = document.getElementById('about-animated-title');
+    if (aboutAnimatedTitle && !state.isMobile) {
+        const scramble = new TextScramble(aboutAnimatedTitle);
+        const phrase = 'About Me';
+        function loopScramble() {
+            scramble.setText(phrase).then(() => {
+                setTimeout(loopScramble, 3000);
+            });
+        }
+        setTimeout(loopScramble, 1000);
     }
 
     // --- Final Setup ---
