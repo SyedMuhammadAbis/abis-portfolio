@@ -593,13 +593,13 @@ const state = {
         // Models
         const loader = new THREE.GLTFLoader();
         const modelConfigs = [
-            { file: './assets/models/xboxone_controller/scene.gltf', position: [-2.5, 0.5, 2], scale: 1.2, rotSpeed: 0.003 },
-            { file: './assets/models/gamepad/scene.gltf', position: [2.5, -0.5, 0], scale: 1.2, rotSpeed: -0.002 },
-            { file: './assets/models/unity_logo/scene.gltf', position: [0, 1.8, -2], scale: 1.5, rotSpeed: 0.0015 }
+            { file: './assets/models/xboxone_controller/scene.gltf', position: [5, -1.2, 0.5], scale: 7.5, rotSpeed: 0.003 },
+            { file: './assets/models/gamepad/scene.gltf', position: [-2.5, 0.5, 0], scale: 1.2, rotSpeed: -0.002 },
+            { file: './assets/models/unity_logo/scene.gltf', position: [0, 1.8, -2], scale: 0.2, rotSpeed: 0.0015 }
         ];
         const loadedModels = [];
 
-        modelConfigs.forEach(cfg => {
+        modelConfigs.forEach((cfg, idx) => {
             loader.load(
                 cfg.file, 
                 gltf => {
@@ -607,6 +607,11 @@ const state = {
                     model.position.set(...cfg.position);
                     model.scale.set(cfg.scale, cfg.scale, cfg.scale);
                     model.userData.rotSpeed = cfg.rotSpeed;
+                    if (idx === 0) {
+                        // Xbox controller: face forward and slightly up
+                        model.rotation.y = -Math.PI / 2;
+                        model.rotation.x = -Math.PI / 10;
+                    }
                     scene.add(model);
                     loadedModels.push(model);
                 },
