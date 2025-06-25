@@ -82,6 +82,18 @@ const state = {
         });
     }
 
+    // Volume Slider Logic
+    const musicVolumeSlider = document.getElementById('music-volume-slider');
+    if (musicVolumeSlider) {
+        // Set slider to current volume on load
+        musicVolumeSlider.value = bgMusic.volume;
+        // Update volume in real time
+        musicVolumeSlider.addEventListener('input', (e) => {
+            const vol = parseFloat(e.target.value);
+            bgMusic.volume = vol;
+        });
+    }
+
     // 4. Smooth Scroll for Nav Links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -594,7 +606,7 @@ const state = {
         const loader = new THREE.GLTFLoader();
         const modelConfigs = [
             { file: './assets/models/xboxone_controller/scene.gltf', position: [5, -1.2, 0.5], scale: 7.5, rotSpeed: 0.003 },
-            { file: './assets/models/gamepad/scene.gltf', position: [-2.5, 0.5, 0], scale: 1.2, rotSpeed: -0.002 },
+            { file: './assets/models/gamepad/scene.gltf', position: [-6, -2, 0], scale: 1.2, rotSpeed: -0.002 },
             { file: './assets/models/unity_logo/scene.gltf', position: [0, 1.8, -2], scale: 0.2, rotSpeed: 0.0015 }
         ];
         const loadedModels = [];
@@ -611,6 +623,10 @@ const state = {
                         // Xbox controller: face forward and slightly up
                         model.rotation.y = -Math.PI / 2;
                         model.rotation.x = -Math.PI / 10;
+                    }
+                    if (idx === 1) {
+                        // Gamepad: rotate to face forward
+                        model.rotation.y = Math.PI;
                     }
                     scene.add(model);
                     loadedModels.push(model);
