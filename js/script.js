@@ -672,7 +672,7 @@ const state = {
         renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(window.innerWidth, window.innerHeight);
 
-            const scene = new THREE.Scene();
+        const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
         camera.position.set(0, 0, 8);
 
@@ -683,12 +683,24 @@ const state = {
         dir.position.set(5, 10, 7);
         scene.add(dir);
 
+        // --- Begin: Dynamic base path for GitHub Pages compatibility ---
+        // This will detect if the site is running in a subdirectory (e.g., /your-repo/) and prepend it to asset paths
+        let basePath = '';
+        const pathParts = window.location.pathname.split('/').filter(Boolean);
+        if (pathParts.length > 0 && pathParts[0] !== '') {
+            // Assume first part is the repo name if not running at root
+            basePath = '/' + pathParts[0] + '/';
+        } else {
+            basePath = '/';
+        }
+        // --- End: Dynamic base path ---
+
         // Models
         const loader = new THREE.GLTFLoader();
         const modelConfigs = [
-            { file: './assets/models/xboxone_controller/scene.gltf', position: [5, -1.2, 0.5], scale: 7.5, rotSpeed: 0.003 },
-            { file: './assets/models/gamepad/scene.gltf', position: [-6, -2, 0], scale: 1.2, rotSpeed: -0.002 },
-            { file: './assets/models/unity_logo/scene.gltf', position: [0, 1.8, -2], scale: 0.2, rotSpeed: 0.0015 }
+            { file: basePath + 'assets/models/xboxone_controller/scene.gltf', position: [5, -1.2, 0.5], scale: 7.5, rotSpeed: 0.003 },
+            { file: basePath + 'assets/models/gamepad/scene.gltf', position: [-6, -2, 0], scale: 1.2, rotSpeed: -0.002 },
+            { file: basePath + 'assets/models/unity_logo/scene.gltf', position: [0, 1.8, -2], scale: 0.2, rotSpeed: 0.0015 }
         ];
         const loadedModels = [];
 
