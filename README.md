@@ -4,6 +4,11 @@ Welcome! This is the codebase for the personal portfolio website of Syed Muhamma
 
 ---
 
+## 🚀 Live Demo
+**View the live website:** [https://syedmuhammadabis.github.io/abis-portfolio/](https://syedmuhammadabis.github.io/abis-portfolio/)
+
+---
+
 ## Table of Contents
 1. [What is this project?](#what-is-this-project)
 2. [Live Demo](#live-demo)
@@ -57,6 +62,7 @@ You can use it as a template for your own portfolio, or as a learning resource f
   - Uses Three.js, loaded in `js/script.js` (`initThreeBackground` function).
   - Models are in `assets/models/`.
   - Disabled on mobile for performance.
+  - Uses dynamic path resolution for GitHub Pages compatibility (works both locally and when deployed).
 - **How to customize:** Add or replace models in `assets/models/` and update the config in `js/script.js`.
 
 ### Particle Background
@@ -72,6 +78,7 @@ You can use it as a template for your own portfolio, or as a learning resource f
   - Project modals: See `initializeModals` in `js/script.js`.
   - Skill modals: See `initializeSkillPopups` in `js/script.js`.
   - Modal HTML is in `index.html` (look for `#project-modal` and `#skill-modal`).
+  - Background scroll is prevented when modals are open for better UX.
 - **How to customize:** Update the modal content in the JS data objects, or change the modal layout in the HTML.
 
 ### Volume Slider
@@ -128,7 +135,9 @@ You can use it as a template for your own portfolio, or as a learning resource f
 ---
 
 ## Live Demo
-You can deploy this site to [GitHub Pages](https://pages.github.com/) or any static web host. Just upload the files and you're live!
+**Live Website:** [https://syedmuhammadabis.github.io/abis-portfolio/](https://syedmuhammadabis.github.io/abis-portfolio/)
+
+You can also deploy this site to [GitHub Pages](https://pages.github.com/) or any static web host. Just upload the files and you're live!
 
 ---
 

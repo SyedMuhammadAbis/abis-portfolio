@@ -525,10 +525,14 @@ const state = {
                 modalYTLink.style.display = 'none';
             }
             modal.classList.remove('hidden');
+            // Prevent background scroll
+            document.body.style.overflow = 'hidden';
         }
 
         function closeProjectModal() {
             modal.classList.add('hidden');
+            // Restore background scroll
+            document.body.style.overflow = '';
         }
 
         function showModalImg(index) {
@@ -652,14 +656,22 @@ const state = {
                 modalSkillTitle.textContent = data.title;
                 modalSkillDesc.textContent = data.description;
                 skillModal.classList.remove('hidden');
+                // Prevent background scroll
+                document.body.style.overflow = 'hidden';
             });
         });
         if (closeSkillModalBtn) closeSkillModalBtn.addEventListener('click', () => {
             playAudio('button_click');
             skillModal.classList.add('hidden');
+            // Restore background scroll
+            document.body.style.overflow = '';
         });
         if (skillModal) skillModal.addEventListener('click', e => {
-            if (e.target === skillModal) skillModal.classList.add('hidden');
+            if (e.target === skillModal) {
+                skillModal.classList.add('hidden');
+                // Restore background scroll
+                document.body.style.overflow = '';
+            }
         });
     }
 
