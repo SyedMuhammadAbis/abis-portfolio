@@ -8,31 +8,56 @@ abis-portfolio/
 │   │   ├── glitch.mp3
 │   │   ├── crt_on.mp3
 │   ├── images/
-│   │   ├── projects/
+│   │   └── (empty - all project images moved to individual project folders)
+│   ├── projects/
+│   │   ├── pickle-former/
 │   │   │   ├── pickle_former_gallery1.jpg
+│   │   │   ├── pickle_former_gallery1.webp
 │   │   │   ├── pickle_former_screenshot1.jpg
+│   │   │   ├── pickle_former_screenshot1.webp
 │   │   │   ├── pickle_former_screenshot2.jpg
-│   │   │   ├── pickle_former_demo.gif
+│   │   │   ├── pickle_former_screenshot2.webp
+│   │   │   └── pickle_former_demo.gif
+│   │   ├── one-minute-drift/
 │   │   │   ├── one_minute_drift_gallery1.jpg
+│   │   │   ├── one_minute_drift_gallery1.webp
 │   │   │   ├── one_minute_drift_screenshot1.jpg
+│   │   │   ├── one_minute_drift_screenshot1.webp
 │   │   │   ├── one_minute_drift_screenshot2.jpg
-│   │   │   ├── one_minute_drift_demo.gif
+│   │   │   ├── one_minute_drift_screenshot2.webp
+│   │   │   └── one_minute_drift_demo.gif
+│   │   ├── baqra-surfer/
 │   │   │   ├── baqra_surfer_gallery1.jpg
+│   │   │   ├── baqra_surfer_gallery1.webp
 │   │   │   ├── baqra_surfer_screenshot1.jpg
+│   │   │   ├── baqra_surfer_screenshot1.webp
 │   │   │   ├── baqra_surfer_screenshot2.jpg
-│   │   │   ├── baqra_surfer_demo.gif
+│   │   │   ├── baqra_surfer_screenshot2.webp
+│   │   │   └── baqra_surfer_demo.gif
+│   │   ├── aesthetic-cube/
 │   │   │   ├── aesthetic_cube_gallery1.jpg
+│   │   │   ├── aesthetic_cube_gallery1.webp
 │   │   │   ├── aesthetic_cube_screenshot1.jpg
+│   │   │   ├── aesthetic_cube_screenshot1.webp
 │   │   │   ├── aesthetic_cube_screenshot2.jpg
-│   │   │   ├── aesthetic_cube_demo.gif
+│   │   │   ├── aesthetic_cube_screenshot2.webp
+│   │   │   └── aesthetic_cube_demo.gif
+│   │   ├── cartoon-defence/
 │   │   │   ├── cartoon_defence_gallery1.jpg
+│   │   │   ├── cartoon_defence_gallery1.webp
 │   │   │   ├── cartoon_defence_screenshot1.jpg
+│   │   │   ├── cartoon_defence_screenshot1.webp
 │   │   │   ├── cartoon_defence_screenshot2.jpg
-│   │   │   ├── cartoon_defence_demo.gif
-│   │   │   ├── rainbow_rollie_gallery1.jpg
-│   │   │   ├── rainbow_rollie_screenshot1.jpg
-│   │   │   ├── rainbow_rollie_screenshot2.jpg
-│   │   │   ├── rainbow_rollie_demo.gif
+│   │   │   ├── cartoon_defence_screenshot2.webp
+│   │   │   └── cartoon_defence_demo.gif
+│   │   └── rainbow-rollie/
+│   │       ├── rainbow_rollie_gallery1.jpg
+│   │       ├── rainbow_rollie_gallery1.webp
+│   │       ├── rainbow_rollie_screenshot1.jpg
+│   │       ├── rainbow_rollie_screenshot1.webp
+│   │       ├── rainbow_rollie_screenshot2.jpg
+│   │       ├── rainbow_rollie_screenshot2.webp
+│   │       └── rainbow_rollie_demo.gif
 │   ├── models/
 │   │   ├── gamepad/
 │   │   │   ├── license.txt
