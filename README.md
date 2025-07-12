@@ -161,7 +161,6 @@ You can also deploy this site to [GitHub Pages](https://pages.github.com/) or an
   - A GIF demo (if available)
   - An embedded YouTube video (plays in the modal)
   - A "Watch on YouTube" button that opens the video in a new tab and plays a sound effect
-- **Project Organization:** Each project has its own folder in `assets/projects/` containing all related images, GIFs, and assets
 
 ### 4. **Skills Section**
 - All your skills are shown as cards with icons
@@ -203,7 +202,7 @@ You can also deploy this site to [GitHub Pages](https://pages.github.com/) or an
 
 ### **Assets**
 - `assets/audio/` — All sound files (both original and optimized)
-- `assets/projects/` — Individual project folders containing all related images, GIFs, and WebP versions
+- `assets/images/projects/` — All project images, GIFs, and their WebP versions
 - `assets/models/` — 3D models for the animated background (desktop only)
 
 ### **Documentation**
@@ -215,23 +214,22 @@ You can also deploy this site to [GitHub Pages](https://pages.github.com/) or an
 ## How to Add or Change Content
 
 ### **Add a New Project**
-1. Create a new folder in `assets/projects/` for your project (e.g., `assets/projects/my-new-project/`).
-2. Add your images (JPG/PNG and WebP) and a GIF to the project folder.
-3. In `js/script.js`, find the `projectData` object. Add a new entry for your project:
+1. Add your images (JPG/PNG and WebP) and a GIF to `assets/images/projects/`.
+2. In `js/script.js`, find the `projectData` object. Add a new entry for your project:
    ```js
    'my-new-project': {
      title: 'My New Project',
      description: 'A detailed description here...',
      images: [
-       './assets/projects/my-new-project/my_new_project_gallery1.jpg',
-       './assets/projects/my-new-project/my_new_project_screenshot1.jpg',
+       './assets/images/projects/my_new_project_gallery1.jpg',
+       './assets/images/projects/my_new_project_screenshot1.jpg',
      ],
-     gifUrl: './assets/projects/my-new-project/my_new_project_demo.gif',
+     gifUrl: './assets/images/projects/my_new_project_demo.gif',
      videoUrl: 'https://www.youtube.com/embed/your_video_id',
      youtubeUrl: 'https://youtu.be/your_video_id'
    }
    ```
-4. Add a new project card in `index.html` (copy an existing one and update the `data-project-id` and image paths).
+3. Add a new project card in `index.html` (copy an existing one and update the `data-project-id` and image paths).
 
 ### **Add a New Skill**
 1. In `js/script.js`, find the `skillData` object. Add a new entry:
