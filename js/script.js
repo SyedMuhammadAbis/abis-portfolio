@@ -482,6 +482,18 @@ const state = {
                 gifUrl: basePath + 'assets/images/projects/rainbow-rollie/rainbow_rollie_demo.gif',
                 videoUrl: 'https://www.youtube.com/embed/Pbc1k6cM2aI',
                 youtubeUrl: 'https://youtu.be/Pbc1k6cM2aI?si=qIuXj4V_PXAUNi3o'
+            },
+            'deadly-virus-unity': {
+                title: 'Deadly Virus In UnityEngine',
+                description: `<strong>Genre:</strong> Security Research / Educational Demo<br><p>A Unity project demonstrating file system overload attack vectors for educational and research purposes.<br><br><strong>Features:</strong> <ul><li>Multi-scene deceptive game design</li><li>Custom Alt+F4 blocker with native DLL</li><li>Frame-based file system overload payload</li><li>Professional UI presentation</li></ul><br>Built to demonstrate security vulnerabilities and attack patterns in controlled environments. Includes custom native Windows DLL for keyboard interception.</p>`,
+                images: [
+                    basePath + 'assets/images/projects/deadly-virus-unity/deadly_virus_unity_gallery1.jpg',
+                    basePath + 'assets/images/projects/deadly-virus-unity/deadly_virus_unity_screenshot1.jpg',
+                    basePath + 'assets/images/projects/deadly-virus-unity/deadly_virus_unity_screenshot2.jpg',
+                ],
+                gifUrl: basePath + 'assets/images/projects/deadly-virus-unity/deadly_virus_unity_demo.gif',
+                videoUrl: 'https://www.youtube.com/embed/Pbc1k6cM2aI',
+                youtubeUrl: 'https://youtu.be/Pbc1k6cM2aI?si=qIuXj4V_PXAUNi3o'
             }
         };
 
@@ -766,9 +778,9 @@ const state = {
         // Models
         const loader = new THREE.GLTFLoader();
         const modelConfigs = [
-            { file: basePath + 'assets/models/xboxone_controller/scene.gltf', position: [5, -1.2, 0.5], scale: 7.5, rotSpeed: 0.003 },
-            { file: basePath + 'assets/models/gamepad/scene.gltf', position: [-6, -2, 0], scale: 1.2, rotSpeed: -0.002 },
-            { file: basePath + 'assets/models/unity_logo/scene.gltf', position: [0, 1.8, -2], scale: 0.2, rotSpeed: 0.0015 }
+            { file: basePath + 'assets/models/xboxone_controller/scene.gltf', position: [-8, -2, 0], scale: 7.5, rotSpeed: 0.003 },
+            { file: basePath + 'assets/models/gamepad/scene.gltf', position: [0, 1.8, -2], scale: 1.2, rotSpeed: -0.002 },
+            { file: basePath + 'assets/models/unity_logo/scene.gltf', position: [6, -3, 0.5], scale: 0.2, rotSpeed: 0.0015 }
         ];
         const loadedModels = [];
 
@@ -781,13 +793,17 @@ const state = {
                     model.scale.set(cfg.scale, cfg.scale, cfg.scale);
                     model.userData.rotSpeed = cfg.rotSpeed;
                     if (idx === 0) {
-                        // Xbox controller: face forward and slightly up
+                        // Xbox controller (now on left): face forward and slightly up
                         model.rotation.y = -Math.PI / 2;
                         model.rotation.x = -Math.PI / 10;
                     }
                     if (idx === 1) {
                         // Gamepad: rotate to face forward
                         model.rotation.y = Math.PI;
+                    }
+                    if (idx === 2) {
+                        // Unity logo (now on right): adjust rotation if needed
+                        // Keep default rotation or adjust as needed
                     }
                     scene.add(model);
                     loadedModels.push(model);
@@ -806,16 +822,28 @@ const state = {
                 camera.updateProjectionMatrix();
             });
 
-            // Animation loop
-            function animate() {
-            loadedModels.forEach(model => {
-                model.rotation.y += model.userData.rotSpeed || 0.002;
-                model.rotation.x += (model.userData.rotSpeed || 0.002) * 0.5;
-            });
-            renderer.render(scene, camera);
+            // Animation loop with FPS limiting (30 FPS to reduce CPU/GPU stress)
+            let lastFrameTime = 0;
+            const targetFPS = 30;
+            const frameInterval = 1000 / targetFPS; // milliseconds per frame
+            
+            function animate(currentTime) {
                 requestAnimationFrame(animate);
+                
+                // Limit to target FPS
+                const elapsed = currentTime - lastFrameTime;
+                if (elapsed < frameInterval) {
+                    return;
+                }
+                lastFrameTime = currentTime - (elapsed % frameInterval);
+                
+                loadedModels.forEach(model => {
+                    model.rotation.y += model.userData.rotSpeed || 0.002;
+                    model.rotation.x += (model.userData.rotSpeed || 0.002) * 0.5;
+                });
+                renderer.render(scene, camera);
             }
-            animate();
+            animate(0);
     }
 
     // --- Final Initializations ---

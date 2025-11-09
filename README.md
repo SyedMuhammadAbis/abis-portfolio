@@ -65,6 +65,15 @@ You can use it as a template for your own portfolio, or as a learning resource f
   - Uses dynamic path resolution for GitHub Pages compatibility (works both locally and when deployed).
 - **How to customize:** Add or replace models in `assets/models/` and update the config in `js/script.js`.
 
+### Project Assets Organization
+- **What it does:** Each project has its own dedicated folder containing all its assets (images, screenshots, GIFs).
+- **How it works:**
+  - Project folders are in `assets/images/projects/` (e.g., `pickle-former/`, `one-minute-drift/`).
+  - Each folder contains JPG images, WebP versions, screenshots, and demo GIFs.
+  - The code uses dynamic base paths (`basePath` variable) for GitHub Pages compatibility.
+  - Paths automatically adjust: `/` for local development, `/repo-name/` for GitHub Pages.
+- **How to customize:** Create a new folder for each project and organize assets within it. Update paths in `js/script.js` using the `basePath` variable (see "Add a New Project" section).
+
 ### Particle Background
 - **What it does:** Animated particles float in the background (always enabled, but fewer on mobile).
 - **How it works:**
@@ -202,7 +211,9 @@ You can also deploy this site to [GitHub Pages](https://pages.github.com/) or an
 
 ### **Assets**
 - `assets/audio/` — All sound files (both original and optimized)
-- `assets/images/projects/` — All project images, GIFs, and their WebP versions
+- `assets/images/projects/` — Project images organized in separate folders:
+  - Each project has its own folder (e.g., `pickle-former/`, `one-minute-drift/`)
+  - Each folder contains: JPG images, WebP versions, screenshots, and demo GIFs
 - `assets/models/` — 3D models for the animated background (desktop only)
 
 ### **Documentation**
@@ -214,22 +225,41 @@ You can also deploy this site to [GitHub Pages](https://pages.github.com/) or an
 ## How to Add or Change Content
 
 ### **Add a New Project**
-1. Add your images (JPG/PNG and WebP) and a GIF to `assets/images/projects/`.
-2. In `js/script.js`, find the `projectData` object. Add a new entry for your project:
+1. Create a new folder in `assets/images/projects/` with your project name (use kebab-case, e.g., `my-new-project/`).
+2. Add your images to that folder:
+   - Gallery images: `my_new_project_gallery1.jpg` and `my_new_project_gallery1.webp`
+   - Screenshots: `my_new_project_screenshot1.jpg`, `my_new_project_screenshot1.webp`, etc.
+   - Demo GIF: `my_new_project_demo.gif`
+3. In `js/script.js`, find the `projectData` object. Add a new entry for your project:
    ```js
    'my-new-project': {
      title: 'My New Project',
      description: 'A detailed description here...',
      images: [
-       './assets/images/projects/my_new_project_gallery1.jpg',
-       './assets/images/projects/my_new_project_screenshot1.jpg',
+       basePath + 'assets/images/projects/my-new-project/my_new_project_gallery1.jpg',
+       basePath + 'assets/images/projects/my-new-project/my_new_project_screenshot1.jpg',
      ],
-     gifUrl: './assets/images/projects/my_new_project_demo.gif',
+     gifUrl: basePath + 'assets/images/projects/my-new-project/my_new_project_demo.gif',
      videoUrl: 'https://www.youtube.com/embed/your_video_id',
      youtubeUrl: 'https://youtu.be/your_video_id'
    }
    ```
-3. Add a new project card in `index.html` (copy an existing one and update the `data-project-id` and image paths).
+   **Note:** The `basePath` variable is automatically set for GitHub Pages compatibility. It will be `/` for local development and `/your-repo-name/` on GitHub Pages.
+4. Add a new project card in `index.html` (copy an existing one and update the `data-project-id` and image paths):
+   ```html
+   <div class="project-card" data-project-id="my-new-project">
+     <div class="project-thumb">
+       <picture>
+         <source srcset="assets/images/projects/my-new-project/my_new_project_gallery1.webp" type="image/webp">
+         <img src="assets/images/projects/my-new-project/my_new_project_gallery1.jpg" alt="My New Project Thumbnail" loading="lazy">
+       </picture>
+     </div>
+     <div class="project-content">
+       <h3>My New Project</h3>
+       <p>Project description here.</p>
+     </div>
+   </div>
+   ```
 
 ### **Add a New Skill**
 1. In `js/script.js`, find the `skillData` object. Add a new entry:
@@ -259,6 +289,7 @@ You can also deploy this site to [GitHub Pages](https://pages.github.com/) or an
 - Push all your files to your GitHub repository.
 - Enable GitHub Pages in your repo settings (set the source to the root or `/docs` folder).
 - Your site will be live at `https://yourusername.github.io/your-repo/`.
+- **Important:** The code automatically detects GitHub Pages and adjusts asset paths accordingly. All project images use dynamic base paths (`basePath` variable) that work both locally and on GitHub Pages without any manual configuration.
 
 ---
 
