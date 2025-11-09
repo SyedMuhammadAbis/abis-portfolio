@@ -21,13 +21,21 @@ const state = {
 
     // --- Audio Handling ---
     function playAudio(soundName, volume = 0.5) {
-        if (!audioCache[soundName]) {
-            const audio = new Audio(`./assets/audio/${soundName}.mp3`);
-        audio.volume = volume;
-            audioCache[soundName] = audio;
+        // Try to use HTML audio element first, fallback to creating new Audio
+        let audio = document.getElementById(soundName + 'Sound');
+        if (!audio) {
+            if (!audioCache[soundName]) {
+                audio = new Audio(`./assets/audio/${soundName}.mp3`);
+                audio.volume = volume;
+                audioCache[soundName] = audio;
+            } else {
+                audio = audioCache[soundName];
+            }
+        } else {
+            audio.volume = volume;
         }
-        audioCache[soundName].currentTime = 0;
-        audioCache[soundName].play().catch(err => {
+        audio.currentTime = 0;
+        audio.play().catch(err => {
             console.error(`Could not play audio "${soundName}":`, err);
         });
     }
@@ -40,7 +48,7 @@ const state = {
     // 1. Audio Consent Overlay
     const audioOverlay = document.getElementById('audio-consent-overlay');
     const enterButton = document.getElementById('enter-site-btn');
-    const bgMusic = new Audio('./assets/audio/bg_music.mp3');
+    const bgMusic = document.getElementById('bgMusic') || new Audio('./assets/audio/bg_music.mp3');
     bgMusic.loop = true;
     bgMusic.volume = 0.3; // Start with a lower volume
 
@@ -160,16 +168,57 @@ const state = {
         });
     }
 
-    // 6. Game Showcase Logic
+    // 6. Background Canvas Procedural Animation
+    function initBackgroundCanvas() {
+        const canvas = document.getElementById('bgCanvas');
+        if (!canvas) return;
+        
+        const ctx = canvas.getContext('2d');
+        let animationId;
+        
+        const resizeCanvas = () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        };
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+        
+        // Create animated gradient background
+        let time = 0;
+        function animate() {
+            time += 0.01;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Create animated gradient
+            const gradient = ctx.createRadialGradient(
+                canvas.width / 2 + Math.sin(time) * 100,
+                canvas.height / 2 + Math.cos(time) * 100,
+                0,
+                canvas.width / 2,
+                canvas.height / 2,
+                Math.max(canvas.width, canvas.height) * 0.8
+            );
+            
+            gradient.addColorStop(0, 'rgba(139, 92, 246, 0.1)');
+            gradient.addColorStop(0.5, 'rgba(59, 130, 246, 0.05)');
+            gradient.addColorStop(1, 'rgba(16, 185, 129, 0.05)');
+            
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            animationId = requestAnimationFrame(animate);
+        }
+        animate();
+    }
+
+    // 7. Game Showcase Logic
     const modelViewerCanvas = document.getElementById('modelViewer');
     if (modelViewerCanvas) {
-        // Basic placeholder logic. For a full implementation, a 3D library like Three.js is needed.
         const modelControls = document.querySelectorAll('.model-control-btn');
         modelControls.forEach(btn => {
             btn.addEventListener('click', () => {
                 const modelName = btn.dataset.model;
                 console.log(`Switching to model: ${modelName}`);
-                // Add your 3D model switching logic here
                 modelControls.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
             });
@@ -189,7 +238,75 @@ const state = {
         });
     }
 
-    // 7. Text Scramble Effect
+    // 8. Gallery Modal Implementation
+    function initializeGalleryModal() {
+        const galleryModal = document.getElementById('galleryModal');
+        const closeModal = document.getElementById('closeModal');
+        const galleryImage = document.getElementById('galleryImage');
+        const prevImage = document.getElementById('prevImage');
+        const nextImage = document.getElementById('nextImage');
+        
+        if (!galleryModal || !galleryImage) return;
+        
+        let currentGalleryImages = [];
+        let currentGalleryIndex = 0;
+        
+        function openGalleryModal(images, startIndex = 0) {
+            currentGalleryImages = images;
+            currentGalleryIndex = startIndex;
+            if (images.length > 0) {
+                galleryImage.src = images[startIndex];
+                galleryModal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+        
+        function updateGalleryImage() {
+            if (currentGalleryImages.length > 0) {
+                galleryImage.src = currentGalleryImages[currentGalleryIndex];
+            }
+        }
+        
+        if (prevImage) {
+            prevImage.addEventListener('click', () => {
+                if (currentGalleryImages.length > 0) {
+                    currentGalleryIndex = (currentGalleryIndex - 1 + currentGalleryImages.length) % currentGalleryImages.length;
+                    updateGalleryImage();
+                    playAudio('button_click');
+                }
+            });
+        }
+        
+        if (nextImage) {
+            nextImage.addEventListener('click', () => {
+                if (currentGalleryImages.length > 0) {
+                    currentGalleryIndex = (currentGalleryIndex + 1) % currentGalleryImages.length;
+                    updateGalleryImage();
+                    playAudio('button_click');
+                }
+            });
+        }
+        
+        if (closeModal) {
+            closeModal.addEventListener('click', () => {
+                galleryModal.classList.add('hidden');
+                document.body.style.overflow = '';
+                playAudio('button_click');
+            });
+        }
+        
+        galleryModal.addEventListener('click', (e) => {
+            if (e.target === galleryModal) {
+                galleryModal.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+        });
+        
+        // Expose function to open gallery from project modal
+        window.openGalleryModal = openGalleryModal;
+    }
+
+    // 9. Text Scramble Effect
     class TextScramble {
         constructor(el) {
             this.el = el;
@@ -631,8 +748,19 @@ const state = {
                 if (projectId) {
                     openProjectModal(projectId);
                 }
+            });
         });
-    });
+        
+        // Add double-click on project modal images to open gallery modal
+        if (modalImg) {
+            modalImg.addEventListener('dblclick', () => {
+                const data = projectData[currentProject];
+                if (data && data.images && window.openGalleryModal) {
+                    window.openGalleryModal(data.images, currentImgIndex);
+                    playAudio('button_click');
+                }
+            });
+        }
 
         if (closeModalBtn) closeModalBtn.addEventListener('click', () => {
             playAudio('button_click');
@@ -758,6 +886,12 @@ const state = {
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
         camera.position.set(0, 0, 8);
+        
+        // Add OrbitControls for interactive camera (optional, can be enabled for debugging)
+        // Uncomment to enable mouse controls for 3D scene
+        // const controls = new THREE.OrbitControls(camera, canvas);
+        // controls.enableDamping = true;
+        // controls.dampingFactor = 0.05;
 
         // Lighting
         const ambient = new THREE.AmbientLight(0xffffff, 0.7);
@@ -841,6 +975,10 @@ const state = {
                     model.rotation.y += model.userData.rotSpeed || 0.002;
                     model.rotation.x += (model.userData.rotSpeed || 0.002) * 0.5;
                 });
+                
+                // Update OrbitControls if enabled
+                // if (controls) controls.update();
+                
                 renderer.render(scene, camera);
             }
             animate(0);
@@ -855,6 +993,7 @@ const state = {
         initCardTiltEffect();
         initThreeBackground();
         initParticleAnimation(150); // Full particle count for desktop
+        initBackgroundCanvas(); // Procedural background animation
     } else {
         // On mobile, only run lightweight particle animation
         initParticleAnimation(50); // Reduced particle count for mobile
@@ -863,6 +1002,7 @@ const state = {
     // These initializations are fine for all devices
     initializeModals();
     initializeSkillPopups();
+    initializeGalleryModal(); // Gallery modal functionality
 
     // Easter Egg: Theme change on typing 'vapour' or 'retro'
     const easterEggPopup = document.getElementById('easterEggPopup');

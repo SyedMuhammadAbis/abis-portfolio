@@ -1248,3 +1248,9 @@ body::-webkit-scrollbar-thumb:hover, .modal-content::-webkit-scrollbar-thumb:hov
 body::-webkit-scrollbar-corner, .modal-content::-webkit-scrollbar-corner, #music-volume-slider::-webkit-scrollbar-corner {
   background: transparent;
 }
+
+/* Gallery Modal - Highest z-index to appear above all modals */
+#galleryModal {
+    z-index: 30000 !important;
+    position: fixed !important;
+}
