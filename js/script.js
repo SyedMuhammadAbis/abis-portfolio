@@ -508,6 +508,19 @@ const state = {
             preloadProjectImages(projectId);
             modalTitle.textContent = data.title;
             modalDesc.innerHTML = data.description;
+            
+            // Ensure modalImg is available
+            if (!modalImg) {
+                console.error('modalImg element not found!');
+                return;
+            }
+            
+            // Reset image state
+            modalImg.src = '';
+            modalImg.style.display = 'block';
+            modalImg.style.visibility = 'visible';
+            modalImg.style.opacity = '1';
+            
             showModalImg(0);
             // Show GIF if present
             if (data.gifUrl) {
@@ -537,18 +550,51 @@ const state = {
 
         function showModalImg(index) {
             const data = projectData[currentProject];
-            if (!data || !data.images) return;
+            if (!data || !data.images || !modalImg) {
+                console.error('showModalImg: Missing data, images, or modalImg element');
+                return;
+            }
             currentImgIndex = (index + data.images.length) % data.images.length;
             let imgSrc = data.images[currentImgIndex];
+            
+            if (!imgSrc) {
+                console.error('showModalImg: No image source found at index', currentImgIndex);
+                return;
+            }
+            
+            // Set image attributes
+            modalImg.style.display = 'block';
+            modalImg.style.visibility = 'visible';
+            modalImg.style.opacity = '1';
+            
+            // Set a default/fallback immediately (JPG/PNG)
+            console.log('Loading image:', imgSrc);
+            modalImg.src = imgSrc;
+            modalImg.onerror = function() {
+                console.error('Failed to load image:', imgSrc);
+                console.error('Image element:', this);
+                this.style.display = 'none';
+            };
+            modalImg.onload = function() {
+                console.log('Image loaded successfully:', imgSrc);
+                this.style.display = 'block';
+            };
+            
             // Try to use .webp if available
             const webpSrc = imgSrc.replace(/\.(jpg|jpeg|png)$/i, '.webp');
             // Check if .webp exists by preloading
             const testImg = new Image();
             testImg.onload = function() {
-                modalImg.src = webpSrc;
+                if (modalImg) {
+                    modalImg.src = webpSrc;
+                    modalImg.onload = function() {
+                        this.style.display = 'block';
+                    };
+                }
             };
             testImg.onerror = function() {
-                modalImg.src = imgSrc;
+                // WebP not available, keep using JPG/PNG (already set above)
+                console.log('WebP not available, using fallback:', imgSrc);
             };
             testImg.src = webpSrc;
         }

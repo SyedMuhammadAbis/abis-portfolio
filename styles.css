@@ -838,9 +838,15 @@ footer {
 .modal-gallery img {
     max-width: 300px;
     max-height: 200px;
+    width: auto;
+    height: auto;
+    display: block;
+    visibility: visible;
+    opacity: 1;
     border-radius: 0.5rem;
     box-shadow: 0 2px 10px rgba(0,0,0,0.2);
     background: #222;
+    object-fit: contain;
 }
 .modal-nav {
     background: var(--accent);
