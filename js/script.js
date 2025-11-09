@@ -396,17 +396,30 @@ const state = {
 
     // --- Modal & Popup Initializers ---
     function initializeModals() {
+        // --- Get base path for GitHub Pages compatibility ---
+        function getBasePath() {
+            let basePath = '/';
+            const pathParts = window.location.pathname.split('/').filter(Boolean);
+            // If the first part is not an .html file, treat it as the repo name (for GitHub Pages)
+            if (pathParts.length > 0 && !pathParts[0].endsWith('.html')) {
+                basePath = '/' + pathParts[0] + '/';
+            }
+            return basePath;
+        }
+        
+        const basePath = getBasePath();
+        
         // --- Project Modal Logic ---
         const projectData = {
             'pickle-former': {
                 title: 'Pickle Former',
                 description: `<strong>Genre:</strong> 3D Action-Platformer<br><p>Play as a mad scientist's escaped creation in this quirky adventure. <br><br><strong>Features:</strong> <ul><li>Physics-based puzzles</li><li>Unique transformation mechanics</li><li>Boss battles and secret areas</li></ul><br>Embark on a journey of self-discovery and chaos as you outsmart your creator and the world!</p>`,
                 images: [
-                    './assets/images/projects/pickle-former/pickle_former_gallery1.jpg',
-                    './assets/images/projects/pickle-former/pickle_former_screenshot1.jpg',
-                    './assets/images/projects/pickle-former/pickle_former_screenshot2.jpg',
+                    basePath + 'assets/images/projects/pickle-former/pickle_former_gallery1.jpg',
+                    basePath + 'assets/images/projects/pickle-former/pickle_former_screenshot1.jpg',
+                    basePath + 'assets/images/projects/pickle-former/pickle_former_screenshot2.jpg',
                 ],
-                gifUrl: './assets/images/projects/pickle-former/pickle_former_demo.gif',
+                gifUrl: basePath + 'assets/images/projects/pickle-former/pickle_former_demo.gif',
                 videoUrl: 'https://www.youtube.com/embed/Pbc1k6cM2aI',
                 youtubeUrl: 'https://youtu.be/Pbc1k6cM2aI?si=qIuXj4V_PXAUNi3o'
             },
@@ -414,11 +427,11 @@ const state = {
                 title: 'One Minute Drift',
                 description: `<strong>Genre:</strong> Arcade Racing<br><p>A fast-paced arcade drifting game. <br><br><strong>Features:</strong> <ul><li>One-minute time attack</li><li>Global leaderboards</li><li>Stylish low-poly visuals</li></ul><br>Master the art of drifting and climb the ranks in this addictive score-chaser!</p>`,
                 images: [
-                    './assets/images/projects/one-minute-drift/one_minute_drift_gallery1.jpg',
-                    './assets/images/projects/one-minute-drift/one_minute_drift_screenshot1.jpg',
-                    './assets/images/projects/one-minute-drift/one_minute_drift_screenshot2.jpg',
+                    basePath + 'assets/images/projects/one-minute-drift/one_minute_drift_gallery1.jpg',
+                    basePath + 'assets/images/projects/one-minute-drift/one_minute_drift_screenshot1.jpg',
+                    basePath + 'assets/images/projects/one-minute-drift/one_minute_drift_screenshot2.jpg',
                 ],
-                gifUrl: './assets/images/projects/one-minute-drift/one_minute_drift_demo.gif',
+                gifUrl: basePath + 'assets/images/projects/one-minute-drift/one_minute_drift_demo.gif',
                 videoUrl: 'https://www.youtube.com/embed/Pbc1k6cM2aI',
                 youtubeUrl: 'https://youtu.be/Pbc1k6cM2aI?si=qIuXj4V_PXAUNi3o'
             },
@@ -426,11 +439,11 @@ const state = {
                 title: 'Baqra Surfer',
                 description: `<strong>Genre:</strong> Endless Runner<br><p>Help a goat surf through a hazardous river.<br><br><strong>Features:</strong> <ul><li>Procedurally generated obstacles</li><li>Power-ups and upgrades</li><li>Chill synthwave soundtrack</li></ul><br>How far can you surf before the river claims you?</p>`,
                 images: [
-                    './assets/images/projects/baqra-surfer/baqra_surfer_gallery1.jpg',
-                    './assets/images/projects/baqra-surfer/baqra_surfer_screenshot1.jpg',
-                    './assets/images/projects/baqra-surfer/baqra_surfer_screenshot2.jpg',
+                    basePath + 'assets/images/projects/baqra-surfer/baqra_surfer_gallery1.jpg',
+                    basePath + 'assets/images/projects/baqra-surfer/baqra_surfer_screenshot1.jpg',
+                    basePath + 'assets/images/projects/baqra-surfer/baqra_surfer_screenshot2.jpg',
                 ],
-                gifUrl: './assets/images/projects/baqra-surfer/baqra_surfer_demo.gif',
+                gifUrl: basePath + 'assets/images/projects/baqra-surfer/baqra_surfer_demo.gif',
                 videoUrl: 'https://www.youtube.com/embed/Pbc1k6cM2aI',
                 youtubeUrl: 'https://youtu.be/Pbc1k6cM2aI?si=qIuXj4V_PXAUNi3o'
             },
@@ -438,11 +451,11 @@ const state = {
                 title: 'Aesthetic Cube',
                 description: `<strong>Genre:</strong> Puzzle<br><p>A relaxing puzzle game about manipulating a 3D cube to match patterns.<br><br><strong>Features:</strong> <ul><li>Minimalist visuals</li><li>Soothing sound design</li><li>Hundreds of handcrafted levels</li></ul><br>Unwind and challenge your mind with beautiful, meditative puzzles.</p>`,
                 images: [
-                    './assets/images/projects/aesthetic-cube/aesthetic_cube_gallery1.jpg',
-                    './assets/images/projects/aesthetic-cube/aesthetic_cube_screenshot1.jpg',
-                    './assets/images/projects/aesthetic-cube/aesthetic_cube_screenshot2.jpg',
+                    basePath + 'assets/images/projects/aesthetic-cube/aesthetic_cube_gallery1.jpg',
+                    basePath + 'assets/images/projects/aesthetic-cube/aesthetic_cube_screenshot1.jpg',
+                    basePath + 'assets/images/projects/aesthetic-cube/aesthetic_cube_screenshot2.jpg',
                 ],
-                gifUrl: './assets/images/projects/aesthetic-cube/aesthetic_cube_demo.gif',
+                gifUrl: basePath + 'assets/images/projects/aesthetic-cube/aesthetic_cube_demo.gif',
                 videoUrl: 'https://www.youtube.com/embed/Pbc1k6cM2aI',
                 youtubeUrl: 'https://youtu.be/Pbc1k6cM2aI?si=qIuXj4V_PXAUNi3o'
             },
@@ -450,11 +463,11 @@ const state = {
                 title: 'Cartoon Defence',
                 description: `<strong>Genre:</strong> Tower Defense<br><p>A tower defense game with a unique cartoon art style and quirky enemies.<br><br><strong>Features:</strong> <ul><li>Dozens of towers and upgrades</li><li>Challenging boss waves</li><li>Hand-drawn animations</li></ul><br>Defend your base with strategy and style!</p>`,
                 images: [
-                    './assets/images/projects/cartoon-defence/cartoon_defence_gallery1.jpg',
-                    './assets/images/projects/cartoon-defence/cartoon_defence_screenshot1.jpg',
-                    './assets/images/projects/cartoon-defence/cartoon_defence_screenshot2.jpg',
+                    basePath + 'assets/images/projects/cartoon-defence/cartoon_defence_gallery1.jpg',
+                    basePath + 'assets/images/projects/cartoon-defence/cartoon_defence_screenshot1.jpg',
+                    basePath + 'assets/images/projects/cartoon-defence/cartoon_defence_screenshot2.jpg',
                 ],
-                gifUrl: './assets/images/projects/cartoon-defence/cartoon_defence_demo.gif',
+                gifUrl: basePath + 'assets/images/projects/cartoon-defence/cartoon_defence_demo.gif',
                 videoUrl: 'https://www.youtube.com/embed/Pbc1k6cM2aI',
                 youtubeUrl: 'https://youtu.be/Pbc1k6cM2aI?si=qIuXj4V_PXAUNi3o'
             },
@@ -462,11 +475,11 @@ const state = {
                 title: 'Rainbow Rollie',
                 description: `<strong>Genre:</strong> Physics-Platformer<br><p>Roll your way through colorful levels.<br><br><strong>Features:</strong> <ul><li>Physics-based puzzles</li><li>Vibrant, dynamic environments</li><li>Hidden collectibles</li></ul><br>Test your skills and reflexes in this joyful platformer adventure!</p>`,
                 images: [
-                    './assets/images/projects/rainbow-rollie/rainbow_rollie_gallery1.jpg',
-                    './assets/images/projects/rainbow-rollie/rainbow_rollie_screenshot1.jpg',
-                    './assets/images/projects/rainbow-rollie/rainbow_rollie_screenshot2.jpg',
+                    basePath + 'assets/images/projects/rainbow-rollie/rainbow_rollie_gallery1.jpg',
+                    basePath + 'assets/images/projects/rainbow-rollie/rainbow_rollie_screenshot1.jpg',
+                    basePath + 'assets/images/projects/rainbow-rollie/rainbow_rollie_screenshot2.jpg',
                 ],
-                gifUrl: './assets/images/projects/rainbow-rollie/rainbow_rollie_demo.gif',
+                gifUrl: basePath + 'assets/images/projects/rainbow-rollie/rainbow_rollie_demo.gif',
                 videoUrl: 'https://www.youtube.com/embed/Pbc1k6cM2aI',
                 youtubeUrl: 'https://youtu.be/Pbc1k6cM2aI?si=qIuXj4V_PXAUNi3o'
             }
