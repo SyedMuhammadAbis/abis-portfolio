@@ -566,7 +566,7 @@ const state = {
             },
             'aesthetic-cube': {
                 title: 'Aesthetic Cube',
-                description: `<strong>Genre:</strong> Puzzle<br><p>A relaxing puzzle game about manipulating a 3D cube to match patterns.<br><br><strong>Features:</strong> <ul><li>Minimalist visuals</li><li>Soothing sound design</li><li>Hundreds of handcrafted levels</li></ul><br>Unwind and challenge your mind with beautiful, meditative puzzles.</p>`,
+                description: `<strong>Genre:</strong> Cozy Endless Runner<br><p>A relaxing, peaceful endless runner where you guide a cube through a beautiful minimalist world.<br><br><strong>Features:</strong> <ul><li>Smooth physics-based movement</li><li>Intuitive controls (A/D or arrow keys)</li><li>Dynamic scoring based on distance traveled</li><li>Minimalist aesthetic design</li><li>Unity Ads integration</li></ul><br>Experience the zen-like gameplay - no pressure, no stress, just you and your cube on a calming journey. Perfect for unwinding and enjoying the simple pleasure of movement.</p>`,
                 images: [
                     basePath + 'assets/images/projects/aesthetic-cube/aesthetic_cube_gallery1.jpg',
                     basePath + 'assets/images/projects/aesthetic-cube/aesthetic_cube_screenshot1.jpg',
