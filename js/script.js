@@ -7,9 +7,9 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- Global State & Initial Setup ---
-const state = {
+    const state = {
         theme: localStorage.getItem('theme') || 'dark',
-    isMusicPlaying: false,
+        isMusicPlaying: false,
         isMobile: /Mobi|Android/i.test(navigator.userAgent) || window.innerWidth < 768,
     };
 
@@ -39,12 +39,12 @@ const state = {
             console.error(`Could not play audio "${soundName}":`, err);
         });
     }
-    
+
     // --- Core Initializations ---
     setupInitialTheme();
-    
+
     // --- Event Listeners ---
-    
+
     // 1. Audio Consent Overlay
     const audioOverlay = document.getElementById('audio-consent-overlay');
     const enterButton = document.getElementById('enter-site-btn');
@@ -56,7 +56,7 @@ const state = {
         enterButton.addEventListener('click', () => {
             bgMusic.play().catch(err => console.error("Autoplay failed:", err));
             state.isMusicPlaying = true;
-            
+
             const musicToggle = document.getElementById('music-toggle');
             if (musicToggle) musicToggle.setAttribute('data-playing', 'true');
 
@@ -79,12 +79,12 @@ const state = {
     const musicToggle = document.getElementById('music-toggle');
     if (musicToggle) {
         musicToggle.addEventListener('click', () => {
-                if (state.isMusicPlaying) {
-                    bgMusic.pause();
-                } else {
+            if (state.isMusicPlaying) {
+                bgMusic.pause();
+            } else {
                 bgMusic.play().catch(err => console.error("BG music failed:", err));
             }
-                state.isMusicPlaying = !state.isMusicPlaying;
+            state.isMusicPlaying = !state.isMusicPlaying;
             musicToggle.setAttribute('data-playing', state.isMusicPlaying);
             playAudio('button_click');
         });
@@ -161,7 +161,7 @@ const state = {
         document.querySelectorAll('.animate-on-scroll').forEach(el => {
             animationObserver.observe(el);
         });
-        } else {
+    } else {
         // On mobile, just make them visible without the animation
         document.querySelectorAll('.animate-on-scroll').forEach(el => {
             el.classList.add('is-visible');
@@ -172,23 +172,23 @@ const state = {
     function initBackgroundCanvas() {
         const canvas = document.getElementById('bgCanvas');
         if (!canvas) return;
-        
+
         const ctx = canvas.getContext('2d');
         let animationId;
-        
+
         const resizeCanvas = () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         };
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
-        
+
         // Create animated gradient background
         let time = 0;
         function animate() {
             time += 0.01;
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
+
             // Create animated gradient
             const gradient = ctx.createRadialGradient(
                 canvas.width / 2 + Math.sin(time) * 100,
@@ -198,14 +198,14 @@ const state = {
                 canvas.height / 2,
                 Math.max(canvas.width, canvas.height) * 0.8
             );
-            
+
             gradient.addColorStop(0, 'rgba(139, 92, 246, 0.1)');
             gradient.addColorStop(0.5, 'rgba(59, 130, 246, 0.05)');
             gradient.addColorStop(1, 'rgba(16, 185, 129, 0.05)');
-            
+
             ctx.fillStyle = gradient;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
+
             animationId = requestAnimationFrame(animate);
         }
         animate();
@@ -233,7 +233,7 @@ const state = {
             if (demoOverlay) demoOverlay.classList.add('hidden');
             if (gameDemo) {
                 // Replace with your actual game embed URL
-                gameDemo.src = 'https://itch.io/embed-upload/your-game-id?dark=true'; 
+                gameDemo.src = 'https://itch.io/embed-upload/your-game-id?dark=true';
             }
         });
     }
@@ -245,12 +245,12 @@ const state = {
         const galleryImage = document.getElementById('galleryImage');
         const prevImage = document.getElementById('prevImage');
         const nextImage = document.getElementById('nextImage');
-        
+
         if (!galleryModal || !galleryImage) return;
-        
+
         let currentGalleryImages = [];
         let currentGalleryIndex = 0;
-        
+
         function openGalleryModal(images, startIndex = 0) {
             currentGalleryImages = images;
             currentGalleryIndex = startIndex;
@@ -260,13 +260,13 @@ const state = {
                 document.body.style.overflow = 'hidden';
             }
         }
-        
+
         function updateGalleryImage() {
             if (currentGalleryImages.length > 0) {
                 galleryImage.src = currentGalleryImages[currentGalleryIndex];
             }
         }
-        
+
         if (prevImage) {
             prevImage.addEventListener('click', () => {
                 if (currentGalleryImages.length > 0) {
@@ -276,7 +276,7 @@ const state = {
                 }
             });
         }
-        
+
         if (nextImage) {
             nextImage.addEventListener('click', () => {
                 if (currentGalleryImages.length > 0) {
@@ -286,7 +286,7 @@ const state = {
                 }
             });
         }
-        
+
         if (closeModal) {
             closeModal.addEventListener('click', () => {
                 galleryModal.classList.add('hidden');
@@ -294,14 +294,14 @@ const state = {
                 playAudio('button_click');
             });
         }
-        
+
         galleryModal.addEventListener('click', (e) => {
             if (e.target === galleryModal) {
                 galleryModal.classList.add('hidden');
                 document.body.style.overflow = '';
             }
         });
-        
+
         // Expose function to open gallery from project modal
         window.openGalleryModal = openGalleryModal;
     }
@@ -361,7 +361,7 @@ const state = {
         }
     }
 
-        const animatedName = document.getElementById('animated-name');
+    const animatedName = document.getElementById('animated-name');
     if (animatedName && !state.isMobile) {
         const fx = new TextScramble(animatedName);
         const phrases = [
@@ -384,13 +384,13 @@ const state = {
     function initCustomCursor() {
         const cursor = document.querySelector('.cursor');
         const follower = document.querySelector('.cursor-follower');
-        
+
         if (!cursor || !follower) return;
 
         let mouseX = 0, mouseY = 0;
         let posX = 0, posY = 0;
         let followerX = 0, followerY = 0;
-        
+
         document.addEventListener('mousemove', e => {
             mouseX = e.clientX;
             mouseY = e.clientY;
@@ -404,7 +404,7 @@ const state = {
 
             cursor.style.transform = `translate(${posX}px, ${posY}px)`;
             follower.style.transform = `translate(${followerX}px, ${followerY}px)`;
-            
+
             requestAnimationFrame(animate);
         };
 
@@ -437,10 +437,10 @@ const state = {
                 const centerY = rect.height / 2;
                 const deltaX = (x - centerX) / centerX;
                 const deltaY = (y - centerY) / centerY;
-                
+
                 const tiltX = deltaY * -10; // Max tilt 10 degrees
                 const tiltY = deltaX * 10;
-                
+
                 card.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(1.05, 1.05, 1.05)`;
             });
 
@@ -449,15 +449,15 @@ const state = {
             });
         });
     }
-    
+
     // 10. Background Particle Animation
     function initParticleAnimation(particleCount) {
         const canvas = document.getElementById('particle-canvas');
         if (!canvas) return;
 
-            const ctx = canvas.getContext('2d');
+        const ctx = canvas.getContext('2d');
         let particles = [];
-        
+
         const resizeCanvas = () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
@@ -484,7 +484,7 @@ const state = {
                 ctx.fillStyle = 'rgba(139, 92, 246, 0.5)';
                 ctx.strokeStyle = 'rgba(139, 92, 246, 0.8)';
                 ctx.lineWidth = 2;
-                    ctx.beginPath();
+                ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.closePath();
                 ctx.fill();
@@ -523,14 +523,14 @@ const state = {
             }
             return basePath;
         }
-        
+
         const basePath = getBasePath();
-        
+
         // --- Project Modal Logic ---
         const projectData = {
             'pickle-former': {
-                title: 'Pickle Former',
-                description: `<strong>Genre:</strong> 3D Action-Platformer<br><p>Play as a mad scientist's escaped creation in this quirky adventure. <br><br><strong>Features:</strong> <ul><li>Physics-based puzzles</li><li>Unique transformation mechanics</li><li>Boss battles and secret areas</li></ul><br>Embark on a journey of self-discovery and chaos as you outsmart your creator and the world!</p>`,
+                title: 'PickleFormer — Escape the Chef! (Unity)',
+                description: `<strong>Genre:</strong> 3D Platformer<br><p>PickleFormer is a small, stylized 3D platformer built with Unity. You play as a brave pickle escaping from the chef.<br><br>Run, jump, collect coins, avoid the chef's hazards and helpers, and advance through floating island levels under stylized skies.<br><br><strong>Quick Start (Interactive):</strong> Start Escape</p>`,
                 images: [
                     basePath + 'assets/images/projects/pickle-former/pickle_former_gallery1.jpg',
                     basePath + 'assets/images/projects/pickle-former/pickle_former_screenshot1.jpg',
@@ -538,7 +538,9 @@ const state = {
                 ],
                 gifUrl: basePath + 'assets/images/projects/pickle-former/pickle_former_demo.gif',
                 videoUrl: 'https://www.youtube.com/embed/Pbc1k6cM2aI',
-                youtubeUrl: 'https://youtu.be/Pbc1k6cM2aI?si=qIuXj4V_PXAUNi3o'
+                videoUrl: 'https://www.youtube.com/embed/Pbc1k6cM2aI',
+                youtubeUrl: 'https://youtu.be/Pbc1k6cM2aI?si=qIuXj4V_PXAUNi3o',
+                githubUrl: 'https://github.com/SyedMuhammadAbis'
             },
             'one-minute-drift': {
                 title: 'One Minute Drift',
@@ -550,7 +552,8 @@ const state = {
                 ],
                 gifUrl: basePath + 'assets/images/projects/one-minute-drift/one_minute_drift_demo.gif',
                 videoUrl: 'https://www.youtube.com/embed/Pbc1k6cM2aI',
-                youtubeUrl: 'https://youtu.be/Pbc1k6cM2aI?si=qIuXj4V_PXAUNi3o'
+                youtubeUrl: 'https://youtu.be/Pbc1k6cM2aI?si=qIuXj4V_PXAUNi3o',
+                githubUrl: 'https://github.com/SyedMuhammadAbis'
             },
             'baqra-surfer': {
                 title: 'Baqra Surfer',
@@ -562,7 +565,8 @@ const state = {
                 ],
                 gifUrl: basePath + 'assets/images/projects/baqra-surfer/baqra_surfer_demo.gif',
                 videoUrl: 'https://www.youtube.com/embed/Pbc1k6cM2aI',
-                youtubeUrl: 'https://youtu.be/Pbc1k6cM2aI?si=qIuXj4V_PXAUNi3o'
+                youtubeUrl: 'https://youtu.be/Pbc1k6cM2aI?si=qIuXj4V_PXAUNi3o',
+                githubUrl: 'https://github.com/SyedMuhammadAbis'
             },
             'aesthetic-cube': {
                 title: 'Aesthetic Cube',
@@ -574,7 +578,8 @@ const state = {
                 ],
                 gifUrl: basePath + 'assets/images/projects/aesthetic-cube/aesthetic_cube_demo.gif',
                 videoUrl: 'https://www.youtube.com/embed/Pbc1k6cM2aI',
-                youtubeUrl: 'https://youtu.be/Pbc1k6cM2aI?si=qIuXj4V_PXAUNi3o'
+                youtubeUrl: 'https://youtu.be/Pbc1k6cM2aI?si=qIuXj4V_PXAUNi3o',
+                githubUrl: 'https://github.com/SyedMuhammadAbis'
             },
             'cartoon-defence': {
                 title: 'Cartoon Defence',
@@ -586,7 +591,8 @@ const state = {
                 ],
                 gifUrl: basePath + 'assets/images/projects/cartoon-defence/cartoon_defence_demo.gif',
                 videoUrl: 'https://www.youtube.com/embed/Pbc1k6cM2aI',
-                youtubeUrl: 'https://youtu.be/Pbc1k6cM2aI?si=qIuXj4V_PXAUNi3o'
+                youtubeUrl: 'https://youtu.be/Pbc1k6cM2aI?si=qIuXj4V_PXAUNi3o',
+                githubUrl: 'https://github.com/SyedMuhammadAbis'
             },
             'rainbow-rollie': {
                 title: 'Rainbow Rollie',
@@ -598,7 +604,8 @@ const state = {
                 ],
                 gifUrl: basePath + 'assets/images/projects/rainbow-rollie/rainbow_rollie_demo.gif',
                 videoUrl: 'https://www.youtube.com/embed/Pbc1k6cM2aI',
-                youtubeUrl: 'https://youtu.be/Pbc1k6cM2aI?si=qIuXj4V_PXAUNi3o'
+                youtubeUrl: 'https://youtu.be/Pbc1k6cM2aI?si=qIuXj4V_PXAUNi3o',
+                githubUrl: 'https://github.com/SyedMuhammadAbis'
             },
             'deadly-virus-unity': {
                 title: 'Deadly Virus In UnityEngine',
@@ -610,7 +617,8 @@ const state = {
                 ],
                 gifUrl: basePath + 'assets/images/projects/deadly-virus-unity/deadly_virus_unity_demo.gif',
                 videoUrl: 'https://www.youtube.com/embed/Pbc1k6cM2aI',
-                youtubeUrl: 'https://youtu.be/Pbc1k6cM2aI?si=qIuXj4V_PXAUNi3o'
+                youtubeUrl: 'https://youtu.be/Pbc1k6cM2aI?si=qIuXj4V_PXAUNi3o',
+                githubUrl: 'https://github.com/SyedMuhammadAbis'
             }
         };
 
@@ -623,6 +631,7 @@ const state = {
         const modalNext = document.getElementById('modal-next-img');
         const modalVideo = document.getElementById('modal-project-video');
         const modalYTLink = document.getElementById('modal-project-ytlink');
+        const modalGHLink = document.getElementById('modal-project-ghlink');
         const modalGif = document.getElementById('modal-project-gif');
 
         let currentProject = null;
@@ -650,19 +659,19 @@ const state = {
             preloadProjectImages(projectId);
             modalTitle.textContent = data.title;
             modalDesc.innerHTML = data.description;
-            
+
             // Ensure modalImg is available
             if (!modalImg) {
                 console.error('modalImg element not found!');
                 return;
             }
-            
+
             // Reset image state
             modalImg.src = '';
             modalImg.style.display = 'block';
             modalImg.style.visibility = 'visible';
             modalImg.style.opacity = '1';
-            
+
             showModalImg(0);
             // Show GIF if present
             if (data.gifUrl) {
@@ -678,6 +687,13 @@ const state = {
             } else {
                 modalVideo.innerHTML = '';
                 modalYTLink.style.display = 'none';
+            }
+            // GitHub Link
+            if (data.githubUrl && modalGHLink) {
+                modalGHLink.href = data.githubUrl;
+                modalGHLink.style.display = 'block';
+            } else if (modalGHLink) {
+                modalGHLink.style.display = 'none';
             }
             modal.classList.remove('hidden');
             // Prevent background scroll
@@ -698,47 +714,29 @@ const state = {
             }
             currentImgIndex = (index + data.images.length) % data.images.length;
             let imgSrc = data.images[currentImgIndex];
-            
+
             if (!imgSrc) {
                 console.error('showModalImg: No image source found at index', currentImgIndex);
                 return;
             }
-            
+
             // Set image attributes
             modalImg.style.display = 'block';
             modalImg.style.visibility = 'visible';
             modalImg.style.opacity = '1';
-            
+
             // Set a default/fallback immediately (JPG/PNG)
             console.log('Loading image:', imgSrc);
             modalImg.src = imgSrc;
-            modalImg.onerror = function() {
-                console.error('Failed to load image:', imgSrc);
-                console.error('Image element:', this);
-                this.style.display = 'none';
-            };
-            modalImg.onload = function() {
+            modalImg.onload = function () {
                 console.log('Image loaded successfully:', imgSrc);
                 this.style.display = 'block';
             };
-            
-            // Try to use .webp if available
-            const webpSrc = imgSrc.replace(/\.(jpg|jpeg|png)$/i, '.webp');
-            // Check if .webp exists by preloading
-            const testImg = new Image();
-            testImg.onload = function() {
-                if (modalImg) {
-                    modalImg.src = webpSrc;
-                    modalImg.onload = function() {
-                        this.style.display = 'block';
-                    };
-                }
+            modalImg.onerror = function () {
+                console.error('Failed to load image:', imgSrc);
+                this.style.display = 'none';
             };
-            testImg.onerror = function() {
-                // WebP not available, keep using JPG/PNG (already set above)
-                console.log('WebP not available, using fallback:', imgSrc);
-            };
-            testImg.src = webpSrc;
+
         }
 
         document.querySelectorAll('.project-card').forEach(card => {
@@ -750,7 +748,7 @@ const state = {
                 }
             });
         });
-        
+
         // Add double-click on project modal images to open gallery modal
         if (modalImg) {
             modalImg.addEventListener('dblclick', () => {
@@ -886,7 +884,7 @@ const state = {
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
         camera.position.set(0, 0, 8);
-        
+
         // Add OrbitControls for interactive camera (optional, can be enabled for debugging)
         // Uncomment to enable mouse controls for 3D scene
         // const controls = new THREE.OrbitControls(camera, canvas);
@@ -920,7 +918,7 @@ const state = {
 
         modelConfigs.forEach((cfg, idx) => {
             loader.load(
-                cfg.file, 
+                cfg.file,
                 gltf => {
                     const model = gltf.scene;
                     model.position.set(...cfg.position);
@@ -950,38 +948,38 @@ const state = {
         });
 
         // Responsive
-            window.addEventListener('resize', () => {
+        window.addEventListener('resize', () => {
             renderer.setSize(window.innerWidth, window.innerHeight);
             camera.aspect = window.innerWidth / window.innerHeight;
-                camera.updateProjectionMatrix();
+            camera.updateProjectionMatrix();
+        });
+
+        // Animation loop with FPS limiting (30 FPS to reduce CPU/GPU stress)
+        let lastFrameTime = 0;
+        const targetFPS = 30;
+        const frameInterval = 1000 / targetFPS; // milliseconds per frame
+
+        function animate(currentTime) {
+            requestAnimationFrame(animate);
+
+            // Limit to target FPS
+            const elapsed = currentTime - lastFrameTime;
+            if (elapsed < frameInterval) {
+                return;
+            }
+            lastFrameTime = currentTime - (elapsed % frameInterval);
+
+            loadedModels.forEach(model => {
+                model.rotation.y += model.userData.rotSpeed || 0.002;
+                model.rotation.x += (model.userData.rotSpeed || 0.002) * 0.5;
             });
 
-            // Animation loop with FPS limiting (30 FPS to reduce CPU/GPU stress)
-            let lastFrameTime = 0;
-            const targetFPS = 30;
-            const frameInterval = 1000 / targetFPS; // milliseconds per frame
-            
-            function animate(currentTime) {
-                requestAnimationFrame(animate);
-                
-                // Limit to target FPS
-                const elapsed = currentTime - lastFrameTime;
-                if (elapsed < frameInterval) {
-                    return;
-                }
-                lastFrameTime = currentTime - (elapsed % frameInterval);
-                
-                loadedModels.forEach(model => {
-                    model.rotation.y += model.userData.rotSpeed || 0.002;
-                    model.rotation.x += (model.userData.rotSpeed || 0.002) * 0.5;
-                });
-                
-                // Update OrbitControls if enabled
-                // if (controls) controls.update();
-                
-                renderer.render(scene, camera);
-            }
-            animate(0);
+            // Update OrbitControls if enabled
+            // if (controls) controls.update();
+
+            renderer.render(scene, camera);
+        }
+        animate(0);
     }
 
     // --- Final Initializations ---
@@ -998,7 +996,7 @@ const state = {
         // On mobile, only run lightweight particle animation
         initParticleAnimation(50); // Reduced particle count for mobile
     }
-    
+
     // These initializations are fine for all devices
     initializeModals();
     initializeSkillPopups();

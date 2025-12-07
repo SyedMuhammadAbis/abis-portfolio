@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Syed Muhammad Abis - Game Developer Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
     <!-- <link rel="stylesheet" href="./styles.css"> -->
     <link rel="stylesheet" href="./styles.css">
     <!-- Three.js for 3D rendering -->
@@ -15,6 +18,7 @@
     <!-- Main JavaScript file -->
     <script src="./js/script.js" defer></script>
 </head>
+
 <body data-theme="dark">
     <!-- Audio Consent Overlay -->
     <div id="audio-consent-overlay">
@@ -70,17 +74,22 @@
                 <a href="#blog" class="nav-link">Blog</a>
                 <a href="#contact" class="nav-link">Contact</a>
                 <button id="theme-toggle" class="nav-toggle" aria-label="Toggle theme">
-                        <svg id="theme-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    <svg id="theme-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                </button>
+                <div class="music-control-wrapper">
+                    <button id="music-toggle" class="nav-toggle" aria-label="Toggle music" data-playing="false">
+                        <svg id="music-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3">
+                            </path>
                         </svg>
                     </button>
-                <div class="music-control-wrapper">
-                  <button id="music-toggle" class="nav-toggle" aria-label="Toggle music" data-playing="false">
-                        <svg id="music-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path>
-                        </svg>
-                  </button>
-                  <input type="range" id="music-volume-slider" min="0" max="1" step="0.01" value="0.3" />
+                    <input type="range" id="music-volume-slider" min="0" max="1" step="0.01" value="0.3" />
                 </div>
             </div>
         </div>
@@ -105,10 +114,10 @@
                     <span class="tag">Game Design</span>
                     <span class="tag">VR/AR</span>
                 </div>
-                </div>
             </div>
-            <div class="background-effects">
-                <div class="gradient-sphere"></div>
+        </div>
+        <div class="background-effects">
+            <div class="gradient-sphere"></div>
         </div>
     </section>
 
@@ -117,11 +126,27 @@
         <div class="container text-center">
             <h2 id="about-animated-title" class="section-header animate-on-scroll" data-animate="fade-up">About Me</h2>
             <p class="max-w-3xl mx-auto mb-6" style="font-size:1.15rem; line-height:1.9;">
-                Hey there! I'm <span style="color:var(--accent); font-weight:bold; font-size:1.2em;">Syed Muhammad Abis</span>, a <strong>passionate</strong> and <strong>self-driven Game Developer</strong> based in Rawalpindi, Pakistan 🇵🇰.<br><br>
-                With <strong>4+ years</strong> of hands-on experience in game development and <strong>45+ completed projects</strong>, I specialize in crafting <span style="color:var(--accent); font-weight:bold;">fun, addictive, and visually striking games</span> — from hyper-casual mobile hits to 3D platformers and tower defense titles.<br><br>
-                I started game development during my <strong>school days</strong> and haven't stopped since. Today, I work across <span style="color:var(--accent); font-weight:bold;">Unity (C#)</span> and <span style="color:var(--accent); font-weight:bold;">C++</span>, using tools like <strong>Visual Studio</strong>, <strong>Git</strong>, <strong>Blender</strong>, and <strong>Photoshop</strong> to bring game worlds to life. Whether I'm working solo or leading a team, I believe in <strong>clean and reusable code</strong>, <strong>smart design</strong>, and making sure <span style="color:var(--accent); font-weight:bold;">gameplay always comes first</span>.<br><br>
-                I'm also active in the dev community as an <strong>admin</strong> of a Pakistani Game Developers group, and I enjoy <strong>mentoring others</strong>, <strong>solving problems</strong>, and <strong>sharing what I've learned</strong> over the years.<br><br>
-                I'm always open to <span style="color:var(--accent); font-weight:bold;">new projects</span>, <span style="color:var(--accent); font-weight:bold;">collaborations</span>, or just <span style="color:var(--accent); font-weight:bold;">geeking out over game ideas</span>. <span style="font-size:1.2em;">🎮</span> Hit me up!
+                Hey there! I'm <span style="color:var(--accent); font-weight:bold; font-size:1.2em;">Syed Muhammad
+                    Abis</span>, a <strong>passionate</strong> and <strong>self-driven Game Developer</strong> based in
+                Rawalpindi, Pakistan 🇵🇰.<br><br>
+                With <strong>4+ years</strong> of hands-on experience in game development and <strong>45+ completed
+                    projects</strong>, I specialize in crafting <span
+                    style="color:var(--accent); font-weight:bold;">fun, addictive, and visually striking games</span> —
+                from hyper-casual mobile hits to 3D platformers and tower defense titles.<br><br>
+                I started game development during my <strong>school days</strong> and haven't stopped since. Today, I
+                work across <span style="color:var(--accent); font-weight:bold;">Unity (C#)</span> and <span
+                    style="color:var(--accent); font-weight:bold;">C++</span>, using tools like <strong>Visual
+                    Studio</strong>, <strong>Git</strong>, <strong>Blender</strong>, and <strong>Photoshop</strong> to
+                bring game worlds to life. Whether I'm working solo or leading a team, I believe in <strong>clean and
+                    reusable code</strong>, <strong>smart design</strong>, and making sure <span
+                    style="color:var(--accent); font-weight:bold;">gameplay always comes first</span>.<br><br>
+                I'm also active in the dev community as an <strong>admin</strong> of a Pakistani Game Developers group,
+                and I enjoy <strong>mentoring others</strong>, <strong>solving problems</strong>, and <strong>sharing
+                    what I've learned</strong> over the years.<br><br>
+                I'm always open to <span style="color:var(--accent); font-weight:bold;">new projects</span>, <span
+                    style="color:var(--accent); font-weight:bold;">collaborations</span>, or just <span
+                    style="color:var(--accent); font-weight:bold;">geeking out over game ideas</span>. <span
+                    style="font-size:1.2em;">🎮</span> Hit me up!
             </p>
             <a href="#contact" class="modern-btn">Get in Touch</a>
         </div>
@@ -136,21 +161,24 @@
                 <div class="project-card animate-on-scroll" data-animate="fade-up" data-project-id="pickle-former">
                     <div class="project-thumb">
                         <picture>
-                            <source srcset="assets/images/projects/pickle-former/pickle_former_gallery1.webp" type="image/webp">
-                            <img src="assets/images/projects/pickle-former/pickle_former_gallery1.jpg" alt="Pickle Former Thumbnail" loading="lazy">
+
+                            <img src="assets/images/projects/pickle-former/pickle_former_gallery1.jpg"
+                                alt="Pickle Former Thumbnail" loading="lazy">
                         </picture>
                     </div>
                     <div class="project-content">
-                        <h3>Pickle Former</h3>
-                        <p>A 3D Action-platformer where you play as a mad scientist's escaped creation.</p>
+                        <h3>PickleFormer — Escape the Chef!</h3>
+                        <p>PickleFormer is a small, stylized 3D platformer built with Unity. You play as a brave pickle
+                            escaping from the chef.</p>
                     </div>
                 </div>
 
                 <div class="project-card animate-on-scroll" data-animate="fade-up" data-project-id="one-minute-drift">
-                     <div class="project-thumb">
+                    <div class="project-thumb">
                         <picture>
-                            <source srcset="assets/images/projects/one-minute-drift/one_minute_drift_gallery1.webp" type="image/webp">
-                            <img src="assets/images/projects/one-minute-drift/one_minute_drift_gallery1.jpg" alt="One Minute Drift Thumbnail" loading="lazy">
+
+                            <img src="assets/images/projects/one-minute-drift/one_minute_drift_gallery1.jpg"
+                                alt="One Minute Drift Thumbnail" loading="lazy">
                         </picture>
                     </div>
                     <div class="project-content">
@@ -160,10 +188,11 @@
                 </div>
 
                 <div class="project-card animate-on-scroll" data-animate="fade-up" data-project-id="baqra-surfer">
-                     <div class="project-thumb">
+                    <div class="project-thumb">
                         <picture>
-                            <source srcset="assets/images/projects/baqra-surfer/baqra_surfer_gallery1.webp" type="image/webp">
-                            <img src="assets/images/projects/baqra-surfer/baqra_surfer_gallery1.jpg" alt="Baqra Surfer Thumbnail" loading="lazy">
+
+                            <img src="assets/images/projects/baqra-surfer/baqra_surfer_gallery1.jpg"
+                                alt="Baqra Surfer Thumbnail" loading="lazy">
                         </picture>
                     </div>
                     <div class="project-content">
@@ -173,23 +202,26 @@
                 </div>
 
                 <div class="project-card animate-on-scroll" data-animate="fade-up" data-project-id="aesthetic-cube">
-                     <div class="project-thumb">
+                    <div class="project-thumb">
                         <picture>
-                            <source srcset="assets/images/projects/aesthetic-cube/aesthetic_cube_gallery1.webp" type="image/webp">
-                            <img src="assets/images/projects/aesthetic-cube/aesthetic_cube_gallery1.jpg" alt="Aesthetic Cube Thumbnail" loading="lazy">
+
+                            <img src="assets/images/projects/aesthetic-cube/aesthetic_cube_gallery1.jpg"
+                                alt="Aesthetic Cube Thumbnail" loading="lazy">
                         </picture>
                     </div>
                     <div class="project-content">
                         <h3>Aesthetic Cube</h3>
-                        <p>A cozy, relaxing endless runner where you guide a cube through a beautiful minimalist world.</p>
+                        <p>A cozy, relaxing endless runner where you guide a cube through a beautiful minimalist world.
+                        </p>
                     </div>
                 </div>
-                
+
                 <div class="project-card animate-on-scroll" data-animate="fade-up" data-project-id="cartoon-defence">
-                     <div class="project-thumb">
+                    <div class="project-thumb">
                         <picture>
-                            <source srcset="assets/images/projects/cartoon-defence/cartoon_defence_gallery1.webp" type="image/webp">
-                            <img src="assets/images/projects/cartoon-defence/cartoon_defence_gallery1.jpg" alt="Cartoon Defence Thumbnail" loading="lazy">
+
+                            <img src="assets/images/projects/cartoon-defence/cartoon_defence_gallery1.jpg"
+                                alt="Cartoon Defence Thumbnail" loading="lazy">
                         </picture>
                     </div>
                     <div class="project-content">
@@ -201,8 +233,9 @@
                 <div class="project-card animate-on-scroll" data-animate="fade-up" data-project-id="rainbow-rollie">
                     <div class="project-thumb">
                         <picture>
-                            <source srcset="assets/images/projects/rainbow-rollie/rainbow_rollie_gallery1.webp" type="image/webp">
-                            <img src="assets/images/projects/rainbow-rollie/rainbow_rollie_gallery1.jpg" alt="Rainbow Rollie Thumbnail" loading="lazy">
+
+                            <img src="assets/images/projects/rainbow-rollie/rainbow_rollie_gallery1.jpg"
+                                alt="Rainbow Rollie Thumbnail" loading="lazy">
                         </picture>
                     </div>
                     <div class="project-content">
@@ -214,13 +247,15 @@
                 <div class="project-card animate-on-scroll" data-animate="fade-up" data-project-id="deadly-virus-unity">
                     <div class="project-thumb">
                         <picture>
-                            <source srcset="assets/images/projects/deadly-virus-unity/deadly_virus_unity_gallery1.webp" type="image/webp">
-                            <img src="assets/images/projects/deadly-virus-unity/deadly_virus_unity_gallery1.jpg" alt="Deadly Virus In UnityEngine Thumbnail" loading="lazy">
+
+                            <img src="assets/images/projects/deadly-virus-unity/deadly_virus_unity_gallery1.jpg"
+                                alt="Deadly Virus In UnityEngine Thumbnail" loading="lazy">
                         </picture>
                     </div>
                     <div class="project-content">
                         <h3>Deadly Virus In UnityEngine</h3>
-                        <p>A Unity security research project demonstrating file system overload attack vectors for educational purposes.</p>
+                        <p>A Unity security research project demonstrating file system overload attack vectors for
+                            educational purposes.</p>
                     </div>
                 </div>
 
@@ -252,51 +287,63 @@
         <div class="container">
             <h2 class="section-header animate-on-scroll" data-animate="fade-up">My Skills</h2>
             <div class="grid grid-cols-2 grid-cols-md-3 grid-cols-lg-4">
-                <div class="info-card skill-item animate-on-scroll" data-animate="fade-up" data-skill-id="unity3d" style="--i:0;">
+                <div class="info-card skill-item animate-on-scroll" data-animate="fade-up" data-skill-id="unity3d"
+                    style="--i:0;">
                     <div class="skill-model">🎮</div>
                     <h4>Unity 3D</h4>
                 </div>
-                <div class="info-card skill-item animate-on-scroll" data-animate="fade-up" data-skill-id="csharp" style="--i:1;">
+                <div class="info-card skill-item animate-on-scroll" data-animate="fade-up" data-skill-id="csharp"
+                    style="--i:1;">
                     <div class="skill-model">💻</div>
                     <h4>C#</h4>
                 </div>
-                <div class="info-card skill-item animate-on-scroll" data-animate="fade-up" data-skill-id="cplusplus" style="--i:2;">
+                <div class="info-card skill-item animate-on-scroll" data-animate="fade-up" data-skill-id="cplusplus"
+                    style="--i:2;">
                     <div class="skill-model">⚙️</div>
                     <h4>C++</h4>
                 </div>
-                <div class="info-card skill-item animate-on-scroll" data-animate="fade-up" data-skill-id="modeling" style="--i:3;">
+                <div class="info-card skill-item animate-on-scroll" data-animate="fade-up" data-skill-id="modeling"
+                    style="--i:3;">
                     <div class="skill-model">🧊</div>
                     <h4>3D Modeling</h4>
                 </div>
-                <div class="info-card skill-item animate-on-scroll" data-animate="fade-up" data-skill-id="gamedesign" style="--i:4;">
+                <div class="info-card skill-item animate-on-scroll" data-animate="fade-up" data-skill-id="gamedesign"
+                    style="--i:4;">
                     <div class="skill-model">🕹️</div>
                     <h4>Game Design</h4>
                 </div>
-                <div class="info-card skill-item animate-on-scroll" data-animate="fade-up" data-skill-id="vrar" style="--i:5;">
+                <div class="info-card skill-item animate-on-scroll" data-animate="fade-up" data-skill-id="vrar"
+                    style="--i:5;">
                     <div class="skill-model">🕶️</div>
                     <h4>VR/AR Development</h4>
                 </div>
-                <div class="info-card skill-item animate-on-scroll" data-animate="fade-up" data-skill-id="uiux" style="--i:6;">
+                <div class="info-card skill-item animate-on-scroll" data-animate="fade-up" data-skill-id="uiux"
+                    style="--i:6;">
                     <div class="skill-model">🎨</div>
                     <h4>UI/UX Design</h4>
                 </div>
-                <div class="info-card skill-item animate-on-scroll" data-animate="fade-up" data-skill-id="git" style="--i:7;">
+                <div class="info-card skill-item animate-on-scroll" data-animate="fade-up" data-skill-id="git"
+                    style="--i:7;">
                     <div class="skill-model">🔗</div>
                     <h4>Git</h4>
                 </div>
-                <div class="info-card skill-item animate-on-scroll" data-animate="fade-up" data-skill-id="shader" style="--i:8;">
+                <div class="info-card skill-item animate-on-scroll" data-animate="fade-up" data-skill-id="shader"
+                    style="--i:8;">
                     <div class="skill-model">💡</div>
                     <h4>Shader Programming</h4>
                 </div>
-                <div class="info-card skill-item animate-on-scroll" data-animate="fade-up" data-skill-id="ai" style="--i:9;">
+                <div class="info-card skill-item animate-on-scroll" data-animate="fade-up" data-skill-id="ai"
+                    style="--i:9;">
                     <div class="skill-model">🤖</div>
                     <h4>Game AI</h4>
                 </div>
-                <div class="info-card skill-item animate-on-scroll" data-animate="fade-up" data-skill-id="optimization" style="--i:10;">
+                <div class="info-card skill-item animate-on-scroll" data-animate="fade-up" data-skill-id="optimization"
+                    style="--i:10;">
                     <div class="skill-model">🚀</div>
                     <h4>Optimization</h4>
                 </div>
-                <div class="info-card skill-item animate-on-scroll" data-animate="fade-up" data-skill-id="agile" style="--i:11;">
+                <div class="info-card skill-item animate-on-scroll" data-animate="fade-up" data-skill-id="agile"
+                    style="--i:11;">
                     <div class="skill-model">📈</div>
                     <h4>Agile/Scrum</h4>
                 </div>
@@ -307,26 +354,39 @@
     <!-- Experience Section -->
     <section id="experience" class="py-20 bg-section relative z-10 section-animate">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-heading font-bold text-primary text-center mb-12 animate-pulse animate-on-scroll" data-animate="fade-up">Experience & Education</h2>
+            <h2 class="text-3xl font-heading font-bold text-primary text-center mb-12 animate-pulse animate-on-scroll"
+                data-animate="fade-up">Experience & Education</h2>
             <div class="space-y-8">
                 <div>
-                    <h3 class="text-2xl font-heading font-semibold text-primary mb-4 animate-on-scroll" data-animate="slide-in-right">Work Experience</h3>
-                    <div class="bg-card p-6 rounded-lg backdrop-blur-md shadow-glow card-animate animate-on-scroll" data-animate="slide-in-right">
-                        <h4 class="text-xl font-heading font-medium text-primary animate-on-scroll" data-animate="fade-up">Freelance Game Developer, Fiverr</h4>
+                    <h3 class="text-2xl font-heading font-semibold text-primary mb-4 animate-on-scroll"
+                        data-animate="slide-in-right">Work Experience</h3>
+                    <div class="bg-card p-6 rounded-lg backdrop-blur-md shadow-glow card-animate animate-on-scroll"
+                        data-animate="slide-in-right">
+                        <h4 class="text-xl font-heading font-medium text-primary animate-on-scroll"
+                            data-animate="fade-up">Freelance Game Developer, Fiverr</h4>
                         <p class="text-secondary animate-on-scroll" data-animate="fade-up">2022 - Present (3 years)</p>
-                        <p class="text-secondary mt-2 animate-on-scroll" data-animate="fade-up">Delivering high-quality game development services to clients worldwide, specializing in Unity and C# projects.</p>
+                        <p class="text-secondary mt-2 animate-on-scroll" data-animate="fade-up">Delivering high-quality
+                            game development services to clients worldwide, specializing in Unity and C# projects.</p>
                     </div>
-                    <div class="bg-card p-6 rounded-lg backdrop-blur-md shadow-glow mt-4 card-animate animate-on-scroll" data-animate="slide-in-right">
-                        <h4 class="text-xl font-heading font-medium text-primary animate-on-scroll" data-animate="fade-up">Indie Game Developer</h4>
+                    <div class="bg-card p-6 rounded-lg backdrop-blur-md shadow-glow mt-4 card-animate animate-on-scroll"
+                        data-animate="slide-in-right">
+                        <h4 class="text-xl font-heading font-medium text-primary animate-on-scroll"
+                            data-animate="fade-up">Indie Game Developer</h4>
                         <p class="text-secondary animate-on-scroll" data-animate="fade-up">2020 - Present (5 years)</p>
-                        <p class="text-secondary mt-2 animate-on-scroll" data-animate="fade-up">Creating innovative and engaging indie games, participating in game jams, and publishing on platforms like Itch.io.</p>
+                        <p class="text-secondary mt-2 animate-on-scroll" data-animate="fade-up">Creating innovative and
+                            engaging indie games, participating in game jams, and publishing on platforms like Itch.io.
+                        </p>
                     </div>
                 </div>
                 <div>
-                    <h3 class="text-2xl font-heading font-semibold text-primary mb-4 animate-on-scroll" data-animate="slide-in-right">Certifications</h3>
-                    <div class="bg-card p-6 rounded-lg backdrop-blur-md shadow-glow card-animate animate-on-scroll" data-animate="slide-in-right">
-                        <p class="text-lg font-heading font-medium text-primary animate-on-scroll" data-animate="fade-up">Udemy: 30 Games in 30 Days Challenge by Charger Game Creator</p>
-                        <p class="text-secondary animate-on-scroll" data-animate="fade-up">Completed 3 Udemy certificates in game development, focusing on rapid prototyping and Unity development.</p>
+                    <h3 class="text-2xl font-heading font-semibold text-primary mb-4 animate-on-scroll"
+                        data-animate="slide-in-right">Certifications</h3>
+                    <div class="bg-card p-6 rounded-lg backdrop-blur-md shadow-glow card-animate animate-on-scroll"
+                        data-animate="slide-in-right">
+                        <p class="text-lg font-heading font-medium text-primary animate-on-scroll"
+                            data-animate="fade-up">Udemy: 30 Games in 30 Days Challenge by Charger Game Creator</p>
+                        <p class="text-secondary animate-on-scroll" data-animate="fade-up">Completed 3 Udemy
+                            certificates in game development, focusing on rapid prototyping and Unity development.</p>
                     </div>
                 </div>
             </div>
@@ -336,27 +396,41 @@
     <!-- Blog Section -->
     <section id="blog" class="py-20 bg-section relative z-10 section-animate">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-heading font-bold text-primary text-center mb-12 animate-pulse animate-on-scroll" data-animate="fade-up">Blog</h2>
+            <h2 class="text-3xl font-heading font-bold text-primary text-center mb-12 animate-pulse animate-on-scroll"
+                data-animate="fade-up">Blog</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-card rounded-lg backdrop-blur-md shadow-glow hover:shadow-glow-lg transition-transform transform hover:scale-105 card-animate animate-on-scroll" data-animate="scale-in">
+                <div class="bg-card rounded-lg backdrop-blur-md shadow-glow hover:shadow-glow-lg transition-transform transform hover:scale-105 card-animate animate-on-scroll"
+                    data-animate="scale-in">
                     <div class="p-6">
-                        <h3 class="text-xl font-heading font-semibold text-primary mb-2 animate-on-scroll" data-animate="fade-up">Game Jam Tips for Beginners</h3>
-                        <p class="text-secondary mb-4 animate-on-scroll" data-animate="fade-up">Sharing my experience from creating "One Minute Drift" in a game jam, with tips on time management and prototyping.</p>
-                        <a href="#" class="text-accent font-medium hover:underline animate-on-scroll" data-animate="scale-in">Read More</a>
+                        <h3 class="text-xl font-heading font-semibold text-primary mb-2 animate-on-scroll"
+                            data-animate="fade-up">Game Jam Tips for Beginners</h3>
+                        <p class="text-secondary mb-4 animate-on-scroll" data-animate="fade-up">Sharing my experience
+                            from creating "One Minute Drift" in a game jam, with tips on time management and
+                            prototyping.</p>
+                        <a href="#" class="text-accent font-medium hover:underline animate-on-scroll"
+                            data-animate="scale-in">Read More</a>
                     </div>
                 </div>
-                <div class="bg-card rounded-lg backdrop-blur-md shadow-glow hover:shadow-glow-lg transition-transform transform hover:scale-105 card-animate animate-on-scroll" data-animate="scale-in">
+                <div class="bg-card rounded-lg backdrop-blur-md shadow-glow hover:shadow-glow-lg transition-transform transform hover:scale-105 card-animate animate-on-scroll"
+                    data-animate="scale-in">
                     <div class="p-6">
-                        <h3 class="text-xl font-heading font-semibold text-primary mb-2 animate-on-scroll" data-animate="fade-up">Designing Cozy Game Environments</h3>
-                        <p class="text-secondary mb-4 animate-on-scroll" data-animate="fade-up">How I created the satisfying and cozy environment for "Aesthetic Cube" using Unity.</p>
-                        <a href="#" class="text-accent font-medium hover:underline animate-on-scroll" data-animate="scale-in">Read More</a>
+                        <h3 class="text-xl font-heading font-semibold text-primary mb-2 animate-on-scroll"
+                            data-animate="fade-up">Designing Cozy Game Environments</h3>
+                        <p class="text-secondary mb-4 animate-on-scroll" data-animate="fade-up">How I created the
+                            satisfying and cozy environment for "Aesthetic Cube" using Unity.</p>
+                        <a href="#" class="text-accent font-medium hover:underline animate-on-scroll"
+                            data-animate="scale-in">Read More</a>
                     </div>
                 </div>
-                <div class="bg-card rounded-lg backdrop-blur-md shadow-glow hover:shadow-glow-lg transition-transform transform hover:scale-105 card-animate animate-on-scroll" data-animate="scale-in">
+                <div class="bg-card rounded-lg backdrop-blur-md shadow-glow hover:shadow-glow-lg transition-transform transform hover:scale-105 card-animate animate-on-scroll"
+                    data-animate="scale-in">
                     <div class="p-6">
-                        <h3 class="text-xl font-heading font-semibold text-primary mb-2 animate-on-scroll" data-animate="fade-up">Balancing Gameplay in Platformers</h3>
-                        <p class="text-secondary mb-4 animate-on-scroll" data-animate="fade-up">Lessons learned from developing "Rainbow Rollie" and designing engaging puzzles.</p>
-                        <a href="#" class="text-accent font-medium hover:underline animate-on-scroll" data-animate="scale-in">Read More</a>
+                        <h3 class="text-xl font-heading font-semibold text-primary mb-2 animate-on-scroll"
+                            data-animate="fade-up">Balancing Gameplay in Platformers</h3>
+                        <p class="text-secondary mb-4 animate-on-scroll" data-animate="fade-up">Lessons learned from
+                            developing "Rainbow Rollie" and designing engaging puzzles.</p>
+                        <a href="#" class="text-accent font-medium hover:underline animate-on-scroll"
+                            data-animate="scale-in">Read More</a>
                     </div>
                 </div>
             </div>
@@ -370,8 +444,10 @@
             <div class="social-links animate-on-scroll" data-animate="fade-up">
                 <a href="mailto:blacknwhite482@gmail.com" class="social-link">Email</a>
                 <a href="https://github.com/SyedMuhammadAbis" target="_blank" class="social-link">GitHub</a>
-                <a href="https://www.fiverr.com/users/blacknwhite918/seller_dashboard" target="_blank" class="social-link">Fiverr</a>
-                <a href="https://www.linkedin.com/in/syed-muhammad-abis-2a989b31a/" target="_blank" class="social-link">LinkedIn</a>
+                <a href="https://www.fiverr.com/users/blacknwhite918/seller_dashboard" target="_blank"
+                    class="social-link">Fiverr</a>
+                <a href="https://www.linkedin.com/in/syed-muhammad-abis-2a989b31a/" target="_blank"
+                    class="social-link">LinkedIn</a>
                 <a href="https://www.youtube.com/@blacknwhitedev" target="_blank" class="social-link">YouTube</a>
                 <a href="https://linktr.ee/SyedMuhammadAbisDev" target="_blank" class="social-link">LinkTree</a>
             </div>
@@ -390,7 +466,8 @@
     <div class="cursor-follower"></div>
 
     <!-- Gallery Modal -->
-    <div id="galleryModal" class="fixed inset-0 bg-black bg-opacity-75 hidden flex items-center justify-center" style="z-index: 30000;">
+    <div id="galleryModal" class="fixed inset-0 bg-black bg-opacity-75 hidden flex items-center justify-center"
+        style="z-index: 30000;">
         <div class="bg-card p-6 rounded-lg max-w-4xl w-full relative">
             <button id="closeModal" class="absolute top-4 right-4 text-primary hover:text-accent text-2xl">×</button>
             <img id="galleryImage" src="" alt="Project Image" class="w-full h-auto rounded-lg">
@@ -414,7 +491,13 @@
             </div>
             <div id="modal-project-gif" style="margin:1.5rem 0 0 0;text-align:center;"></div>
             <div id="modal-project-video" class="modal-video" style="margin-top:1.5rem;"></div>
-            <a id="modal-project-ytlink" class="modern-btn" href="#" target="_blank" style="display:block;margin:1rem auto 0 auto;max-width:220px;text-align:center;">Watch on YouTube</a>
+            <div
+                style="display: flex; gap: 1rem; justify-content: center; align-items: center; margin: 1rem auto 0 auto;">
+                <a id="modal-project-ytlink" class="modern-btn" href="#" target="_blank"
+                    style="display:block; max-width:220px; text-align:center;">Watch on YouTube</a>
+                <a id="modal-project-ghlink" class="modern-btn" href="#" target="_blank"
+                    style="display:none; max-width:220px; text-align:center;">GitHub Repo</a>
+            </div>
         </div>
     </div>
 
@@ -430,4 +513,5 @@
     <!-- Easter Egg Popup -->
     <div id="easterEggPopup" class="easter-egg-popup">You unlocked an easter egg!</div>
 </body>
+
 </html>
