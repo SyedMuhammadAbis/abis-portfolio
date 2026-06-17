@@ -4,6 +4,86 @@
     Date: 2024-07-08
 */
 
+/* ============================================================
+   BACKGROUND ASSET PRELOADER
+   Runs immediately (IIFE) — does NOT wait for DOMContentLoaded.
+   Silently fetches all project images & audio into browser cache
+   so there's zero loading latency when the user opens a project.
+   ============================================================ */
+(function backgroundPreload() {
+    // Determine base path for GitHub Pages compatibility
+    const pathParts = window.location.pathname.split('/').filter(Boolean);
+    const base = (pathParts.length > 0 && !pathParts[0].endsWith('.html'))
+        ? '/' + pathParts[0] + '/'
+        : '/';
+
+    const projectIds = [
+        'deadly-virus-unity',
+        'cartoon-defence',
+        'aesthetic-cube',
+        'pickle-former',
+        'one-minute-drift',
+        'rainbow-rollie'
+    ];
+
+    const fileSuffixes = {
+        'deadly-virus-unity':   'deadly_virus_unity',
+        'cartoon-defence':      'cartoon_defence',
+        'aesthetic-cube':       'aesthetic_cube',
+        'pickle-former':        'pickle_former',
+        'one-minute-drift':     'one_minute_drift',
+        'rainbow-rollie':       'rainbow_rollie'
+    };
+
+    // Build a flat list of all image URLs to prefetch
+    const imageUrls = [];
+    projectIds.forEach(id => {
+        const s = fileSuffixes[id];
+        const dir = base + 'assets/images/projects/' + id + '/';
+        // gallery1 is already preloaded via <link rel="preload"> in <head>
+        // prefetch the remaining screenshots and GIF
+        imageUrls.push(dir + s + '_screenshot1.jpg');
+        imageUrls.push(dir + s + '_screenshot2.jpg');
+        imageUrls.push(dir + s + '_demo.gif');
+    });
+
+    // Audio files to prefetch via Fetch API (Image() doesn't work for audio)
+    const audioUrls = [
+        base + 'assets/audio/bg_music.mp3',
+        base + 'assets/audio/button_click.mp3',
+        base + 'assets/audio/nav_hover.mp3',
+        base + 'assets/audio/section_hum.mp3',
+        base + 'assets/audio/glitch.mp3',
+        base + 'assets/audio/crt_on.mp3'
+    ];
+
+    // Use requestIdleCallback when available, otherwise a short setTimeout
+    // so preloading starts only after the browser has handled critical work
+    function schedulePreload(fn) {
+        if (typeof requestIdleCallback !== 'undefined') {
+            requestIdleCallback(fn, { timeout: 3000 });
+        } else {
+            setTimeout(fn, 1500);
+        }
+    }
+
+    schedulePreload(function () {
+        // Prefetch images using Image() objects (gets cached by the browser)
+        imageUrls.forEach(url => {
+            const img = new Image();
+            img.decoding = 'async';
+            img.src = url;
+        });
+
+        // Prefetch audio using Fetch with 'no-store' avoided — just a GET to warm the cache
+        if (typeof fetch !== 'undefined') {
+            audioUrls.forEach(url => {
+                fetch(url, { priority: 'low' }).catch(() => { /* silence network errors */ });
+            });
+        }
+    });
+})();
+
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- Global State & Initial Setup ---

@@ -9,7 +9,6 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono:wght@400;500&display=swap"
         rel="stylesheet">
-    <!-- <link rel="stylesheet" href="./styles.css"> -->
     <link rel="stylesheet" href="./styles.css">
     <!-- Three.js for 3D rendering -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
@@ -17,6 +16,47 @@
     <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/controls/OrbitControls.js"></script>
     <!-- Main JavaScript file -->
     <script src="./js/script.js" defer></script>
+
+    <!-- ===== PRELOAD: Project Thumbnails (prevents latency on first view) ===== -->
+    <link rel="preload" as="image" href="assets/images/projects/pickle-former/pickle_former_gallery1.jpg">
+    <link rel="preload" as="image" href="assets/images/projects/one-minute-drift/one_minute_drift_gallery1.jpg">
+    <link rel="preload" as="image" href="assets/images/projects/aesthetic-cube/aesthetic_cube_gallery1.jpg">
+    <link rel="preload" as="image" href="assets/images/projects/cartoon-defence/cartoon_defence_gallery1.jpg">
+    <link rel="preload" as="image" href="assets/images/projects/rainbow-rollie/rainbow_rollie_gallery1.jpg">
+    <link rel="preload" as="image" href="assets/images/projects/deadly-virus-unity/deadly_virus_unity_gallery1.jpg">
+
+    <!-- ===== PREFETCH: Gallery / screenshot images (loaded in background after page is interactive) ===== -->
+    <link rel="prefetch" as="image" href="assets/images/projects/pickle-former/pickle_former_screenshot1.jpg">
+    <link rel="prefetch" as="image" href="assets/images/projects/pickle-former/pickle_former_screenshot2.jpg">
+    <link rel="prefetch" as="image" href="assets/images/projects/one-minute-drift/one_minute_drift_screenshot1.jpg">
+    <link rel="prefetch" as="image" href="assets/images/projects/one-minute-drift/one_minute_drift_screenshot2.jpg">
+    <link rel="prefetch" as="image" href="assets/images/projects/aesthetic-cube/aesthetic_cube_screenshot1.jpg">
+    <link rel="prefetch" as="image" href="assets/images/projects/aesthetic-cube/aesthetic_cube_screenshot2.jpg">
+    <link rel="prefetch" as="image" href="assets/images/projects/cartoon-defence/cartoon_defence_screenshot1.jpg">
+    <link rel="prefetch" as="image" href="assets/images/projects/cartoon-defence/cartoon_defence_screenshot2.jpg">
+    <link rel="prefetch" as="image" href="assets/images/projects/rainbow-rollie/rainbow_rollie_screenshot1.jpg">
+    <link rel="prefetch" as="image" href="assets/images/projects/rainbow-rollie/rainbow_rollie_screenshot2.jpg">
+    <link rel="prefetch" as="image" href="assets/images/projects/deadly-virus-unity/deadly_virus_unity_screenshot1.jpg">
+    <link rel="prefetch" as="image" href="assets/images/projects/deadly-virus-unity/deadly_virus_unity_screenshot2.jpg">
+
+    <!-- ===== PREFETCH: GIF demos ===== -->
+    <link rel="prefetch" as="image" href="assets/images/projects/pickle-former/pickle_former_demo.gif">
+    <link rel="prefetch" as="image" href="assets/images/projects/one-minute-drift/one_minute_drift_demo.gif">
+    <link rel="prefetch" as="image" href="assets/images/projects/aesthetic-cube/aesthetic_cube_demo.gif">
+    <link rel="prefetch" as="image" href="assets/images/projects/cartoon-defence/cartoon_defence_demo.gif">
+    <link rel="prefetch" as="image" href="assets/images/projects/rainbow-rollie/rainbow_rollie_demo.gif">
+    <link rel="prefetch" as="image" href="assets/images/projects/deadly-virus-unity/deadly_virus_unity_demo.gif">
+
+    <!-- ===== PREFETCH: Audio files ===== -->
+    <link rel="prefetch" as="audio" href="assets/audio/bg_music.mp3">
+    <link rel="prefetch" as="audio" href="assets/audio/button_click.mp3">
+    <link rel="prefetch" as="audio" href="assets/audio/nav_hover.mp3">
+
+    <!-- ===== DNS-PREFETCH: External services ===== -->
+    <link rel="dns-prefetch" href="https://www.youtube.com">
+    <link rel="dns-prefetch" href="https://github.com">
+    <link rel="dns-prefetch" href="https://www.fiverr.com">
+    <link rel="dns-prefetch" href="https://www.linkedin.com">
 </head>
 
 <body data-theme="dark">
@@ -158,12 +198,56 @@
             <h2 class="section-header animate-on-scroll" data-animate="fade-down">My Projects</h2>
             <div class="grid projects-grid">
 
+                <div class="project-card animate-on-scroll" data-animate="fade-up" data-project-id="deadly-virus-unity">
+                    <div class="project-thumb">
+                        <picture>
+
+                            <img src="assets/images/projects/deadly-virus-unity/deadly_virus_unity_gallery1.jpg"
+                                alt="Deadly Virus In UnityEngine Thumbnail" loading="eager">
+                        </picture>
+                    </div>
+                    <div class="project-content">
+                        <h3>Deadly Virus In UnityEngine</h3>
+                        <p>A Unity security research project demonstrating file system overload attack vectors for
+                            educational purposes.</p>
+                    </div>
+                </div>
+
+                <div class="project-card animate-on-scroll" data-animate="fade-up" data-project-id="cartoon-defence">
+                    <div class="project-thumb">
+                        <picture>
+
+                            <img src="assets/images/projects/cartoon-defence/cartoon_defence_gallery1.jpg"
+                                alt="Cartoon Defence Thumbnail" loading="eager">
+                        </picture>
+                    </div>
+                    <div class="project-content">
+                        <h3>Cartoon Defence</h3>
+                        <p>A tower defense game with a unique cartoon art style and quirky enemies.</p>
+                    </div>
+                </div>
+
+                <div class="project-card animate-on-scroll" data-animate="fade-up" data-project-id="aesthetic-cube">
+                    <div class="project-thumb">
+                        <picture>
+
+                            <img src="assets/images/projects/aesthetic-cube/aesthetic_cube_gallery1.jpg"
+                                alt="Aesthetic Cube Thumbnail" loading="eager">
+                        </picture>
+                    </div>
+                    <div class="project-content">
+                        <h3>Aesthetic Cube</h3>
+                        <p>A cozy, relaxing endless runner where you guide a cube through a beautiful minimalist world.
+                        </p>
+                    </div>
+                </div>
+
                 <div class="project-card animate-on-scroll" data-animate="fade-up" data-project-id="pickle-former">
                     <div class="project-thumb">
                         <picture>
 
                             <img src="assets/images/projects/pickle-former/pickle_former_gallery1.jpg"
-                                alt="Pickle Former Thumbnail" loading="lazy">
+                                alt="Pickle Former Thumbnail" loading="eager">
                         </picture>
                     </div>
                     <div class="project-content">
@@ -178,7 +262,7 @@
                         <picture>
 
                             <img src="assets/images/projects/one-minute-drift/one_minute_drift_gallery1.jpg"
-                                alt="One Minute Drift Thumbnail" loading="lazy">
+                                alt="One Minute Drift Thumbnail" loading="eager">
                         </picture>
                     </div>
                     <div class="project-content">
@@ -187,75 +271,17 @@
                     </div>
                 </div>
 
-                <div class="project-card animate-on-scroll" data-animate="fade-up" data-project-id="baqra-surfer">
-                    <div class="project-thumb">
-                        <picture>
-
-                            <img src="assets/images/projects/baqra-surfer/baqra_surfer_gallery1.jpg"
-                                alt="Baqra Surfer Thumbnail" loading="lazy">
-                        </picture>
-                    </div>
-                    <div class="project-content">
-                        <h3>Baqra Surfer</h3>
-                        <p>An endless runner where you help a goat surf through a hazardous river.</p>
-                    </div>
-                </div>
-
-                <div class="project-card animate-on-scroll" data-animate="fade-up" data-project-id="aesthetic-cube">
-                    <div class="project-thumb">
-                        <picture>
-
-                            <img src="assets/images/projects/aesthetic-cube/aesthetic_cube_gallery1.jpg"
-                                alt="Aesthetic Cube Thumbnail" loading="lazy">
-                        </picture>
-                    </div>
-                    <div class="project-content">
-                        <h3>Aesthetic Cube</h3>
-                        <p>A cozy, relaxing endless runner where you guide a cube through a beautiful minimalist world.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="project-card animate-on-scroll" data-animate="fade-up" data-project-id="cartoon-defence">
-                    <div class="project-thumb">
-                        <picture>
-
-                            <img src="assets/images/projects/cartoon-defence/cartoon_defence_gallery1.jpg"
-                                alt="Cartoon Defence Thumbnail" loading="lazy">
-                        </picture>
-                    </div>
-                    <div class="project-content">
-                        <h3>Cartoon Defence</h3>
-                        <p>A tower defense game with a unique cartoon art style and quirky enemies.</p>
-                    </div>
-                </div>
-
                 <div class="project-card animate-on-scroll" data-animate="fade-up" data-project-id="rainbow-rollie">
                     <div class="project-thumb">
                         <picture>
 
                             <img src="assets/images/projects/rainbow-rollie/rainbow_rollie_gallery1.jpg"
-                                alt="Rainbow Rollie Thumbnail" loading="lazy">
+                                alt="Rainbow Rollie Thumbnail" loading="eager">
                         </picture>
                     </div>
                     <div class="project-content">
                         <h3>Rainbow Rollie</h3>
                         <p>A physics-based puzzle-platformer. Roll your way through colorful levels.</p>
-                    </div>
-                </div>
-
-                <div class="project-card animate-on-scroll" data-animate="fade-up" data-project-id="deadly-virus-unity">
-                    <div class="project-thumb">
-                        <picture>
-
-                            <img src="assets/images/projects/deadly-virus-unity/deadly_virus_unity_gallery1.jpg"
-                                alt="Deadly Virus In UnityEngine Thumbnail" loading="lazy">
-                        </picture>
-                    </div>
-                    <div class="project-content">
-                        <h3>Deadly Virus In UnityEngine</h3>
-                        <p>A Unity security research project demonstrating file system overload attack vectors for
-                            educational purposes.</p>
                     </div>
                 </div>
 
