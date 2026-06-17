@@ -343,6 +343,31 @@ nav {
     box-shadow: 0 2px 10px rgba(0,0,0,0.2);
 }
 
+/* Hamburger button — hidden on desktop, shown on mobile */
+.nav-hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0.4rem;
+    z-index: 60;
+}
+.nav-hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--primary-text);
+    border-radius: 2px;
+    transition: transform 0.25s, opacity 0.25s;
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
 nav .container {
     display: flex;
     justify-content: space-between;
@@ -556,6 +581,14 @@ nav .container {
     padding: 1.2rem 1.2rem 1.5rem 1.2rem;
     box-shadow: 0 2px 10px rgba(0,0,0,0.10);
     overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 32px rgba(139, 92, 246, 0.30), 0 4px 12px rgba(0,0,0,0.2);
+    border-color: rgba(139, 92, 246, 0.45);
 }
 
 .project-card .project-model {
@@ -584,6 +617,15 @@ nav .container {
     margin-bottom: 0.7rem;
     flex-shrink: 0;
     box-shadow: 0 2px 8px rgba(139,92,246,0.08);
+    overflow: hidden;
+}
+
+.project-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0.75rem;
+    transition: transform 0.3s ease;
 }
 
 .project-card .project-content {
@@ -598,8 +640,11 @@ nav .container {
     gap: 0.3rem; /* Small gap between title and description */
 }
 
+.project-card:hover .project-thumb img {
+    transform: scale(1.07);
+}
+
 .project-card:hover .project-thumb {
-    transform: scale(1.05) rotate(-2deg);
     box-shadow: 0 6px 24px rgba(139,92,246,0.18);
 }
 
@@ -785,6 +830,14 @@ footer {
 }
 
 /* --- Project Modal --- */
+/* Tailwind utility fallbacks (for Experience & Blog sections) */
+.bg-card { background: var(--card-bg); }
+.text-primary { color: var(--primary-text); }
+.text-secondary { color: var(--secondary-text); }
+.font-heading { font-family: var(--font-heading); }
+.shadow-glow { box-shadow: 0 0 20px rgba(139, 92, 246, 0.15); }
+.shadow-glow-lg { box-shadow: 0 0 40px rgba(139, 92, 246, 0.3); }
+
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -859,9 +912,30 @@ footer {
     font-size: 1.5rem;
     cursor: pointer;
     transition: background 0.2s;
+    flex-shrink: 0;
 }
 .modal-nav:hover {
     background: var(--accent-hover);
+}
+
+/* Modal description text */
+#modal-project-description {
+    text-align: left;
+    padding: 0 0.25rem;
+    line-height: 1.7;
+}
+
+/* Responsive modal video */
+.modal-video {
+    width: 100%;
+}
+.modal-video iframe {
+    width: 100%;
+    border-radius: 0.5rem;
+    aspect-ratio: 16 / 9;
+    height: auto;
+    min-height: 220px;
+    display: block;
 }
 
 #three-bg {
